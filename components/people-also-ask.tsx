@@ -42,27 +42,27 @@ export function PeopleAlsoAsk() {
       <h2 className="text-xl mb-4 flex items-center">
         People also ask
         <button className="ml-2">
-          <MoreVertical className="h-5 w-5 text-gray-400" />
+          <MoreVertical className="h-5 w-5 text-gray-500" />
         </button>
       </h2>
 
       <div className="space-y-1">
         {questions.map((item, index) => (
-          <div key={index} className="border border-gray-700 rounded-lg overflow-hidden">
+          <div key={index} className="border border-gray-200 rounded-lg overflow-hidden shadow-sm">
             <button
-              className="w-full text-left p-4 flex items-center justify-between hover:bg-[#303134]"
+              className="w-full text-left p-4 flex items-center justify-between hover:bg-gray-50"
               onClick={() => toggleQuestion(index)}
             >
               <span>{item.question}</span>
               {openIndex === index ? (
-                <ChevronUp className="h-5 w-5 text-gray-400" />
+                <ChevronUp className="h-5 w-5 text-gray-500" />
               ) : (
-                <ChevronDown className="h-5 w-5 text-gray-400" />
+                <ChevronDown className="h-5 w-5 text-gray-500" />
               )}
             </button>
 
             {openIndex === index && (
-              <div className="p-4 pt-0 text-sm text-[#bdc1c6] border-t border-gray-700">{item.answer}</div>
+              <div className="p-4 pt-0 text-sm text-gray-700 border-t border-gray-200">{item.answer}</div>
             )}
           </div>
         ))}

@@ -49,22 +49,22 @@ export function SearchResults({ results }: SearchResultsProps) {
               />
             )}
             <div>
-              <div className="text-sm text-gray-400">
+              <div className="text-sm text-gray-600">
                 {result.displayed_link}
                 <button className="ml-2">
                   <MoreVertical className="h-4 w-4 inline" />
                 </button>
               </div>
               <h3 className="text-xl">
-                <Link href={result.link} className="text-[#8ab4f8] hover:underline">
+                <Link href={result.link} className="text-blue-800 hover:underline">
                   {result.title}
                 </Link>
               </h3>
-              {result.date && <div className="text-sm text-gray-400 mt-1">{result.date}</div>}
-              <p className="text-sm text-[#bdc1c6] mt-1">
+              {result.date && <div className="text-sm text-gray-600 mt-1">{result.date}</div>}
+              <p className="text-sm text-gray-700 mt-1">
                 {result.snippet.split(new RegExp(`(${result.snippet_highlighted_words?.join("|")})`)).map((part, i) =>
                   result.snippet_highlighted_words?.includes(part) ? (
-                    <span key={i} className="text-[#8ab4f8]">
+                    <span key={i} className="text-blue-800 font-medium">
                       {part}
                     </span>
                   ) : (
@@ -76,7 +76,7 @@ export function SearchResults({ results }: SearchResultsProps) {
               {result.sitelinks?.inline && (
                 <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2">
                   {result.sitelinks.inline.map((sitelink, index) => (
-                    <Link key={index} href={sitelink.link} className="text-[#8ab4f8] text-sm hover:underline">
+                    <Link key={index} href={sitelink.link} className="text-blue-800 text-sm hover:underline">
                       {sitelink.title}
                     </Link>
                   ))}
@@ -84,7 +84,7 @@ export function SearchResults({ results }: SearchResultsProps) {
               )}
 
               {(result.rich_snippet?.bottom?.extensions || result.rich_snippet?.top?.extensions) && (
-                <div className="text-sm text-gray-400 mt-1">
+                <div className="text-sm text-gray-600 mt-1">
                   {result.rich_snippet.bottom?.extensions?.join(" · ") ||
                     result.rich_snippet.top?.extensions?.join(" · ")}
                 </div>
