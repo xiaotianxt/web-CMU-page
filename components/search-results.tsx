@@ -1,6 +1,5 @@
-import Link from "next/link"
-import Image from "next/image"
 import { MoreVertical } from "lucide-react"
+import { TrackedLink } from "@/components/tracked-link"
 
 interface SearchResult {
   position: number
@@ -39,15 +38,15 @@ export function SearchResults({ results }: SearchResultsProps) {
       {results.map((result) => (
         <div key={result.position} className="max-w-2xl">
           <div className="flex items-start">
-            {result.favicon && (
-              <Image
-                src={result.favicon || "/placeholder.svg"}
-                alt={result.source || "Website icon"}
-                width={16}
-                height={16}
-                className="mr-2 mt-1"
-              />
-            )}
+            <div className="w-4 h-4 mr-2 mt-1 flex-shrink-0">
+              {result.source ? (
+                <div className="w-4 h-4 bg-gray-200 rounded-full flex items-center justify-center text-xs text-gray-700">
+                  {result.source.charAt(0)}
+                </div>
+              ) : (
+                <div className="w-4 h-4 bg-gray-200 rounded-full"></div>
+              )}
+            </div>
             <div>
               <div className="text-sm text-gray-600">
                 {result.displayed_link}
@@ -56,15 +55,20 @@ export function SearchResults({ results }: SearchResultsProps) {
                 </button>
               </div>
               <h3 className="text-xl">
-                <Link href={result.link} className="text-blue-800 hover:underline">
+                <TrackedLink
+                  href={result.link}
+                  componentName="SearchResults"
+                  linkIndex={result.position}
+                  className="text-blue-800 hover:underline"
+                >
                   {result.title}
-                </Link>
+                </TrackedLink>
               </h3>
               {result.date && <div className="text-sm text-gray-600 mt-1">{result.date}</div>}
               <p className="text-sm text-gray-700 mt-1">
                 {result.snippet.split(new RegExp(`(${result.snippet_highlighted_words?.join("|")})`)).map((part, i) =>
                   result.snippet_highlighted_words?.includes(part) ? (
-                    <span key={i} className="text-blue-800 font-medium">
+                    <span key={i} className="font-bold">
                       {part}
                     </span>
                   ) : (
@@ -76,9 +80,15 @@ export function SearchResults({ results }: SearchResultsProps) {
               {result.sitelinks?.inline && (
                 <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2">
                   {result.sitelinks.inline.map((sitelink, index) => (
-                    <Link key={index} href={sitelink.link} className="text-blue-800 text-sm hover:underline">
+                    <TrackedLink
+                      key={index}
+                      href={sitelink.link}
+                      componentName="SearchResults-Sitelinks"
+                      linkIndex={index}
+                      className="text-blue-800 text-sm hover:underline"
+                    >
                       {sitelink.title}
-                    </Link>
+                    </TrackedLink>
                   ))}
                 </div>
               )}

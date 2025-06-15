@@ -79,9 +79,6 @@ export default function Home() {
 
           <SearchResults results={beforePeopleAlsoAsk} />
 
-          {/* People Also Ask */}
-          <PeopleAlsoAsk />
-
           <SearchResults results={beforeVideos} />
 
           {/* Videos Section */}
@@ -93,9 +90,6 @@ export default function Home() {
 
           {/* Discussions and forum */}
           <DiscussionsForums/>
-
-          {/* What People Are Saying */}
-          <WhatPeopleSaying />
 
           <SearchResults results={bottomResults} />
 
