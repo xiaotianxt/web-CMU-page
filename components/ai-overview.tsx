@@ -4,6 +4,8 @@ import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
 import { MoreVertical, ChevronDown, LinkIcon, X } from "lucide-react"
 import Link from "next/link"
+import { WebsiteFavicon } from "@/components/website-favicon"
+import { getWebsiteName } from "@/lib/favicon-service"
 import aiOverviewData from "@/data/ai_overview.json"
 
 interface TextBlock {
@@ -103,6 +105,10 @@ export function AiOverview() {
         <LinkIcon className="h-4 w-4" />
       </button>
     )
+  }
+
+  const getImageForReference = (referenceIndex: number) => {
+    return `/images/${referenceIndex+1}.jpeg`
   }
 
   const displayedReferences = getDisplayedReferences()
@@ -389,14 +395,12 @@ export function AiOverview() {
                           </h3>
                           <p className="text-sm text-gray-700 mt-1 line-clamp-2">{ref.snippet}</p>
                           <div className="flex items-center mt-2">
-                            <Image
-                              src="/placeholder.svg?height=24&width=24"
-                              alt={ref.source}
-                              width={24}
-                              height={24}
-                              className="rounded-full"
+                            <WebsiteFavicon
+                              url={ref.link}
+                              size={20}
+                              fallbackText={getWebsiteName(ref.link).charAt(0)}
                             />
-                            <span className="ml-2 text-sm text-gray-600">{ref.source}</span>
+                            <span className="ml-2 text-sm text-gray-600">{getWebsiteName(ref.link)}</span>
                             <button className="ml-auto">
                               <MoreVertical className="h-5 w-5 text-gray-500" />
                             </button>
@@ -404,7 +408,7 @@ export function AiOverview() {
                         </div>
                         <div className="w-32 h-auto">
                           <Image
-                            src="/placeholder.svg?height=100&width=120"
+                            src={getImageForReference(ref.index)}
                             alt="Article thumbnail"
                             width={120}
                             height={100}
@@ -451,14 +455,12 @@ export function AiOverview() {
                                 </h3>
                                 <p className="text-sm text-gray-700 mt-1 line-clamp-2">{ref.snippet}</p>
                                 <div className="flex items-center mt-2">
-                                  <Image
-                                    src="/placeholder.svg?height=24&width=24"
-                                    alt={ref.source}
-                                    width={24}
-                                    height={24}
-                                    className="rounded-full"
+                                  <WebsiteFavicon
+                                    url={ref.link}
+                                    size={20}
+                                    fallbackText={getWebsiteName(ref.link).charAt(0)}
                                   />
-                                  <span className="ml-2 text-sm text-gray-600">{ref.source}</span>
+                                  <span className="ml-2 text-sm text-gray-600">{getWebsiteName(ref.link)}</span>
                                   <button className="ml-auto">
                                     <MoreVertical className="h-5 w-5 text-gray-500" />
                                   </button>
@@ -466,7 +468,7 @@ export function AiOverview() {
                               </div>
                               <div className="w-32 h-auto">
                                 <Image
-                                  src="/placeholder.svg?height=100&width=120"
+                                  src={getImageForReference(ref.index)}
                                   alt="Article thumbnail"
                                   width={120}
                                   height={100}

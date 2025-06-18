@@ -3,6 +3,8 @@ import { SearchTabs } from "@/components/search-tabs"
 import { Mic, MoreVertical, Clock, Edit } from "lucide-react"
 import aiOverviewData from "@/data/ai_overview.json"
 import { TrackedLink } from "@/components/tracked-link"
+import { WebsiteFavicon } from "@/components/website-favicon"
+import { getWebsiteName } from "@/lib/favicon-service"
 
 interface TextBlock {
   type: string
@@ -44,6 +46,10 @@ interface AIOverviewData {
 
 export default function AiModePage() {
   const data = aiOverviewData as AIOverviewData
+
+  const getImageForReference = (referenceIndex: number) => {
+    return `/data/images/${referenceIndex}.jpeg`
+  }
 
   return (
     <div className="min-h-screen bg-white text-gray-800">
@@ -199,15 +205,15 @@ export default function AiModePage() {
             {/* Sites indicator */}
             <div className="flex items-center mb-6">
               <div className="flex -space-x-1 mr-3">
-                <div className="w-6 h-6 rounded-full bg-red-500 flex items-center justify-center text-white text-xs font-bold border-2 border-white">
-                  P
-                </div>
-                <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-bold border-2 border-white">
-                  W
-                </div>
-                <div className="w-6 h-6 rounded-full bg-orange-500 flex items-center justify-center text-white text-xs font-bold border-2 border-white">
-                  R
-                </div>
+                {data.references.slice(0, 3).map((ref, index) => (
+                  <WebsiteFavicon
+                    key={index}
+                    url={ref.link}
+                    size={24}
+                    className="border-2 border-white"
+                    fallbackText={getWebsiteName(ref.link).charAt(0)}
+                  />
+                ))}
               </div>
               <span className="text-sm text-gray-600">11 sites</span>
               <button className="ml-auto">
@@ -217,104 +223,40 @@ export default function AiModePage() {
 
             {/* Reference Articles */}
             <div className="space-y-4">
-              <div className="border border-gray-200 rounded-lg overflow-hidden">
-                <div className="flex">
-                  <div className="flex-1 p-4">
-                    <h3 className="text-blue-700 hover:underline text-sm font-medium leading-tight mb-2">
-                      <TrackedLink href="#" componentName="AiMode-Sidebar" linkIndex={0}>
-                        Best laptops: Our experts pick the top 12 models - PCWorld
-                      </TrackedLink>
-                    </h3>
-                    <p className="text-xs text-gray-600 mb-2">
-                      May 27, 2025 — Table_title: At a glance Table_content: header: | Best...
-                    </p>
-                    <div className="flex items-center">
-                      <div className="w-4 h-4 rounded-full bg-red-500 mr-2 flex items-center justify-center text-white text-xs font-bold">
-                        P
+              {data.references.slice(0, 3).map((ref, index) => (
+                <div key={index} className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="flex">
+                    <div className="flex-1 p-4">
+                      <h3 className="text-blue-700 hover:underline text-sm font-medium leading-tight mb-2">
+                        <TrackedLink href={ref.link} componentName="AiMode-Sidebar" linkIndex={index}>
+                          {ref.title}
+                        </TrackedLink>
+                      </h3>
+                      <p className="text-xs text-gray-600 mb-2">May 27, 2025 — {ref.snippet.substring(0, 60)}...</p>
+                      <div className="flex items-center">
+                        <WebsiteFavicon url={ref.link} size={16} fallbackText={getWebsiteName(ref.link).charAt(0)} />
+                        <span className="text-xs text-gray-600 ml-2">{getWebsiteName(ref.link)}</span>
+                        <button className="ml-auto">
+                          <MoreVertical className="h-4 w-4 text-gray-500" />
+                        </button>
                       </div>
-                      <span className="text-xs text-gray-600">PCWorld</span>
-                      <button className="ml-auto">
-                        <MoreVertical className="h-4 w-4 text-gray-500" />
-                      </button>
+                    </div>
+                    <div className="w-20 h-20 m-3">
+                      <Image
+                        src={getImageForReference(ref.index) || "/placeholder.svg"}
+                        alt="Article thumbnail"
+                        width={80}
+                        height={80}
+                        className="w-full h-full object-cover rounded"
+                        onError={(e) => {
+                          // Fallback to placeholder if image doesn't exist
+                          e.currentTarget.src = "/placeholder.svg?height=80&width=80"
+                        }}
+                      />
                     </div>
                   </div>
-                  <div className="w-20 h-20 m-3">
-                    <Image
-                      src="/placeholder.svg?height=80&width=80"
-                      alt="Article thumbnail"
-                      width={80}
-                      height={80}
-                      className="w-full h-full object-cover rounded"
-                    />
-                  </div>
                 </div>
-              </div>
-
-              <div className="border border-gray-200 rounded-lg overflow-hidden">
-                <div className="flex">
-                  <div className="flex-1 p-4">
-                    <h3 className="text-blue-700 hover:underline text-sm font-medium leading-tight mb-2">
-                      <TrackedLink href="#" componentName="AiMode-Sidebar" linkIndex={1}>
-                        The 8 Best Laptops of 2025 - RTINGS.com
-                      </TrackedLink>
-                    </h3>
-                    <p className="text-xs text-gray-600 mb-2">
-                      May 9, 2025 — Quick Look * Best Laptop: Apple MacBook Pro 14 (2024)...
-                    </p>
-                    <div className="flex items-center">
-                      <div className="w-4 h-4 rounded-full bg-orange-500 mr-2 flex items-center justify-center text-white text-xs font-bold">
-                        R
-                      </div>
-                      <span className="text-xs text-gray-600">RTINGS.com</span>
-                      <button className="ml-auto">
-                        <MoreVertical className="h-4 w-4 text-gray-500" />
-                      </button>
-                    </div>
-                  </div>
-                  <div className="w-20 h-20 m-3">
-                    <Image
-                      src="/placeholder.svg?height=80&width=80"
-                      alt="Article thumbnail"
-                      width={80}
-                      height={80}
-                      className="w-full h-full object-cover rounded"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="border border-gray-200 rounded-lg overflow-hidden">
-                <div className="flex">
-                  <div className="flex-1 p-4">
-                    <h3 className="text-blue-700 hover:underline text-sm font-medium leading-tight mb-2">
-                      <TrackedLink href="#" componentName="AiMode-Sidebar" linkIndex={2}>
-                        The Best Laptops We've Tested (June 2025) | PCMag
-                      </TrackedLink>
-                    </h3>
-                    <p className="text-xs text-gray-600 mb-2">
-                      Here at PCMag, we've tested thousands of laptops since our lab's...
-                    </p>
-                    <div className="flex items-center">
-                      <div className="w-4 h-4 rounded-full bg-blue-500 mr-2 flex items-center justify-center text-white text-xs font-bold">
-                        P
-                      </div>
-                      <span className="text-xs text-gray-600">PCMag</span>
-                      <button className="ml-auto">
-                        <MoreVertical className="h-4 w-4 text-gray-500" />
-                      </button>
-                    </div>
-                  </div>
-                  <div className="w-20 h-20 m-3">
-                    <Image
-                      src="/placeholder.svg?height=80&width=80"
-                      alt="Article thumbnail"
-                      width={80}
-                      height={80}
-                      className="w-full h-full object-cover rounded"
-                    />
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
 
             {/* Show all button */}

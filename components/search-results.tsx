@@ -1,5 +1,7 @@
 import { MoreVertical } from "lucide-react"
 import { TrackedLink } from "@/components/tracked-link"
+import { WebsiteFavicon } from "@/components/website-favicon"
+import { getWebsiteName } from "@/lib/favicon-service"
 
 interface SearchResult {
   position: number
@@ -38,23 +40,23 @@ export function SearchResults({ results }: SearchResultsProps) {
       {results.map((result) => (
         <div key={result.position} className="max-w-2xl">
           <div className="flex items-start">
-            <div className="w-4 h-4 mr-2 mt-1 flex-shrink-0">
-              {result.source ? (
-                <div className="w-4 h-4 bg-gray-200 rounded-full flex items-center justify-center text-xs text-gray-700">
-                  {result.source.charAt(0)}
-                </div>
-              ) : (
-                <div className="w-4 h-4 bg-gray-200 rounded-full"></div>
-              )}
+            <div className="w-6 h-6 mr-3 mt-1 flex-shrink-0">
+              <WebsiteFavicon
+                url={result.link}
+                size={24}
+                fallbackText={result.source?.charAt(0) || getWebsiteName(result.link).charAt(0)}
+              />
             </div>
-            <div>
-              <div className="text-sm text-gray-600">
-                {result.displayed_link}
+            <div className="flex-1">
+              <div className="flex items-center text-sm text-gray-600 mb-1">
+                <span className="mr-2">{getWebsiteName(result.link)}</span>
+                <span className="text-gray-400">›</span>
+                <span className="ml-2 text-gray-500">{result.displayed_link}</span>
                 <button className="ml-2">
-                  <MoreVertical className="h-4 w-4 inline" />
+                  <MoreVertical className="h-4 w-4" />
                 </button>
               </div>
-              <h3 className="text-xl">
+              <h3 className="text-xl mb-1">
                 <TrackedLink
                   href={result.link}
                   componentName="SearchResults"
@@ -64,8 +66,8 @@ export function SearchResults({ results }: SearchResultsProps) {
                   {result.title}
                 </TrackedLink>
               </h3>
-              {result.date && <div className="text-sm text-gray-600 mt-1">{result.date}</div>}
-              <p className="text-sm text-gray-700 mt-1">
+              {result.date && <div className="text-sm text-gray-600 mb-2">{result.date}</div>}
+              <p className="text-sm text-gray-700 mb-2">
                 {result.snippet.split(new RegExp(`(${result.snippet_highlighted_words?.join("|")})`)).map((part, i) =>
                   result.snippet_highlighted_words?.includes(part) ? (
                     <span key={i} className="font-bold">
