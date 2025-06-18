@@ -11,7 +11,7 @@ import { SearchTabs } from "@/components/search-tabs"
 import { PeopleAlsoSearch } from "@/components/people-also-search"
 import { DiscussionsForums } from "@/components/discussion-forums"
 
-import searchData from "@/data/1.json"
+import searchData from "@/data/2.json"
 
 export default function Home() {
   const beforePeopleAlsoAsk = searchData.slice(0, 1)
@@ -73,29 +73,11 @@ export default function Home() {
         </div>
       </header>
 
-      {/* AI Overview Section */}
-      <div className="px-42">
-        <AiOverview />
-      </div>
       <main className="container mx-auto px-15 py-4">
         <div className="max-w-2xl">
 
-          <SearchResults results={beforePeopleAlsoAsk} />
+          <SearchResults results={searchData.slice(0)}/>
 
-          <SearchResults results={beforeVideos} />
-
-          {/* Videos Section */}
-          <VideosSection />
-
-          <SearchResults results={beforePeopleAlsoSearchFor} />
-          {/* People Also Search for */}
-          <PeopleAlsoSearch />
-
-
-
-          <SearchResults results={bottomResults} />
-
-          {/* Pagination */}
           <Pagination />
         </div>
       </main>

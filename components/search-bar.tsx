@@ -11,10 +11,10 @@ export function SearchBar({ defaultValue = "" }: SearchBarProps) {
   const [query, setQuery] = useState(defaultValue)
 
   return (
-    <div className="flex-1 max-w-xl">
+    <div className="flex-1 max-w-3xl">
       <div className="relative">
-        <div className="flex items-center bg-gray-100 rounded-full px-4 py-2 border border-gray-200 focus-within:border-blue-500 focus-within:shadow-sm hover:shadow-sm">
-          <Search className="h-5 w-20 text-gray-500 mr-2" />
+        <div className="flex items-center bg-white rounded-full px-4 py-2 border border-gray-300 shadow-md focus-within:border-blue-500 focus-within:shadow-lg hover:shadow-lg">
+          <Search className="h-5 w-5 text-gray-500 mr-2" />
           <input
             type="text"
             value={query}

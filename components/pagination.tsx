@@ -11,13 +11,13 @@ export function Pagination() {
         </Link>
 
         <div className="flex space-x-2">
-          <Link href="/app" className="flex items-center justify-center w-8 h-8 text-blue-600 hover:underline">
+          <Link href="/" className="flex items-center justify-center w-8 h-8 bg-blue-600 text-white rounded-full">
             1
           </Link>
           <Link href="#" className="flex items-center justify-center w-8 h-8 text-blue-600 hover:underline">
             2
           </Link>
-          <Link href="#" className="flex items-center justify-center w-8 h-8 bg-blue-600 text-white rounded-full">
+          <Link href="#" className="flex items-center justify-center w-8 h-8 text-blue-600 hover:underline">
             3
           </Link>
           <Link href="#" className="flex items-center justify-center w-8 h-8 text-blue-600 hover:underline">
