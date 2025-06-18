@@ -1,32 +1,9 @@
 import Image from "next/image"
 import Link from "next/link"
 import { MoreVertical } from "lucide-react"
+import videoData from "@/data/video.json" // 导入视频数据
 
 export function VideosSection() {
-  const videos = [
-    {
-      title: "Best Home Printers 2025 - (Which One Is The Best?)",
-      channel: "YouTube · Consumer Pick",
-      date: "Nov 11, 2024",
-      duration: "8:59",
-      thumbnail: "/placeholder.svg?height=180&width=320",
-    },
-    {
-      title: "Best Home Printer 2025 – Which One Should You Buy?",
-      channel: "YouTube · The Printer Hub",
-      date: "1 month ago",
-      duration: "9:09",
-      thumbnail: "/placeholder.svg?height=180&width=320",
-    },
-    {
-      title: "Best Home Printers - Top 5 Best Printers for Home Reviewed ...",
-      channel: "YouTube · Grip Things",
-      date: "Jan 26, 2025",
-      duration: "8:50",
-      thumbnail: "/placeholder.svg?height=180&width=320",
-    },
-  ]
-
   return (
     <div className="mb-8">
       <div className="flex items-center mb-4">
@@ -37,11 +14,11 @@ export function VideosSection() {
       </div>
 
       <div className="space-y-6">
-        {videos.map((video, index) => (
+        {videoData.map((video, index) => (
           <div key={index} className="flex items-start gap-4 border-b border-gray-200 pb-6">
             <div className="relative flex-shrink-0">
               <Image
-                src={video.thumbnail || "/placeholder.svg"}
+                src={`/video-thumbnails/${index+1}.jpeg`} // 使用动态缩略图路径
                 alt={video.title}
                 width={180}
                 height={100}
@@ -68,7 +45,7 @@ export function VideosSection() {
 
             <div>
               <h3 className="text-xl text-blue-800 hover:underline">
-                <Link href="#">{video.title}</Link>
+                <Link href={video.url}>{video.title}</Link> {/* 使用动态链接 */}
               </h3>
               <div className="text-sm text-gray-600 mt-1">{video.channel}</div>
               <div className="text-sm text-gray-600">{video.date}</div>

@@ -108,7 +108,7 @@ export function AiOverview() {
   }
 
   const getImageForReference = (referenceIndex: number) => {
-    return `/images/${referenceIndex+1}.jpeg`
+    return `/images/${referenceIndex + 1}.jpeg`
   }
 
   const displayedReferences = getDisplayedReferences()
@@ -385,39 +385,52 @@ export function AiOverview() {
             <div className="bg-gray-50 rounded-lg p-4">
               {!showMore ? (
                 /* Before "Show more" - Simple container with 3 cards */
-                <div className="space-y-4">
-                  {displayedReferences.slice(0, 3).map((ref, index) => (
-                    <div key={index} className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-                      <div className="flex">
-                        <div className="flex-1 p-4">
-                          <h3 className="text-blue-700 hover:underline text-lg font-medium">
-                            <Link href={ref.link}>{ref.title}</Link>
-                          </h3>
-                          <p className="text-sm text-gray-700 mt-1 line-clamp-2">{ref.snippet}</p>
-                          <div className="flex items-center mt-2">
-                            <WebsiteFavicon
-                              url={ref.link}
-                              size={20}
-                              fallbackText={getWebsiteName(ref.link).charAt(0)}
+                <div className="relative">
+                  {/* Reference cards container */}
+                  <div
+                    className={`space-y-4 overflow-hidden relative`}
+                    style={{
+                      maxHeight: "300px", // 限制高度
+                    }}
+                  >
+                    {displayedReferences.slice(0, 3).map((ref, index) => (
+                      <div key={index} className="bg-white border border-gray-200 rounded-md overflow-hidden shadow-sm">
+                        <div className="flex">
+                          <div className="flex-1 p-2">
+                            <h3 className="text-blue-700 hover:underline text-lg font-medium">
+                              <Link href={ref.link}>{ref.title}</Link>
+                            </h3>
+                            <p className="text-sm text-gray-700 mt-1 line-clamp-2">{ref.snippet}</p>
+                            <div className="flex items-center mt-1">
+                              <WebsiteFavicon
+                                url={ref.link}
+                                size={16}
+                                fallbackText={getWebsiteName(ref.link).charAt(0)}
+                              />
+                              <span className="ml-2 text-sm text-gray-600">{getWebsiteName(ref.link)}</span>
+                              <button className="ml-auto">
+                                <MoreVertical className="h-5 w-5 text-gray-500" />
+                              </button>
+                            </div>
+                          </div>
+                          <div className="w-24 h-16">
+                            <Image
+                              src={getImageForReference(ref.index)}
+                              alt="Article thumbnail"
+                              width={96}
+                              height={64}
+                              className="w-full h-full object-cover"
                             />
-                            <span className="ml-2 text-sm text-gray-600">{getWebsiteName(ref.link)}</span>
-                            <button className="ml-auto">
-                              <MoreVertical className="h-5 w-5 text-gray-500" />
-                            </button>
                           </div>
                         </div>
-                        <div className="w-32 h-auto">
-                          <Image
-                            src={getImageForReference(ref.index)}
-                            alt="Article thumbnail"
-                            width={120}
-                            height={100}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
+
+                  {/* Gray shadow effect */}
+                  <div
+                    className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-gray-100 to-transparent pointer-events-none"
+                  ></div>
                 </div>
               ) : (
                 /* After "Show more" - Scrollable container with height matching text content */
@@ -441,37 +454,36 @@ export function AiOverview() {
                   {/* Scrollable content container */}
                   <div className="h-full overflow-y-auto pr-2">
                     <div className="space-y-4">
-                      {/* Reference cards */}
                       {(showAllReferences || filteredReferenceIndexes ? displayedReferences : displayedReferences).map(
                         (ref, index) => (
                           <div
                             key={index}
-                            className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm"
+                            className="bg-white border border-gray-200 rounded-md overflow-hidden shadow-sm"
                           >
                             <div className="flex">
-                              <div className="flex-1 p-4">
-                                <h3 className="text-blue-700 hover:underline text-lg font-medium">
+                              <div className="flex-1 p-2">
+                                <h3 className="text-blue-700 hover:underline text-base font-medium">
                                   <Link href={ref.link}>{ref.title}</Link>
                                 </h3>
-                                <p className="text-sm text-gray-700 mt-1 line-clamp-2">{ref.snippet}</p>
-                                <div className="flex items-center mt-2">
+                                <p className="text-xs text-gray-700 mt-1 line-clamp-2">{ref.snippet}</p>
+                                <div className="flex items-center mt-1">
                                   <WebsiteFavicon
                                     url={ref.link}
-                                    size={20}
+                                    size={16}
                                     fallbackText={getWebsiteName(ref.link).charAt(0)}
                                   />
-                                  <span className="ml-2 text-sm text-gray-600">{getWebsiteName(ref.link)}</span>
+                                  <span className="ml-2 text-xs text-gray-600">{getWebsiteName(ref.link)}</span>
                                   <button className="ml-auto">
-                                    <MoreVertical className="h-5 w-5 text-gray-500" />
+                                    <MoreVertical className="h-4 w-4 text-gray-500" />
                                   </button>
                                 </div>
                               </div>
-                              <div className="w-32 h-auto">
+                              <div className="w-24 h-16">
                                 <Image
                                   src={getImageForReference(ref.index)}
                                   alt="Article thumbnail"
-                                  width={120}
-                                  height={100}
+                                  width={96}
+                                  height={64}
                                   className="w-full h-full object-cover"
                                 />
                               </div>
