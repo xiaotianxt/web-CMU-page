@@ -14,7 +14,7 @@ export function Pagination() {
           <Link href="/" className="flex items-center justify-center w-8 h-8 bg-blue-600 text-white rounded-full">
             1
           </Link>
-          <Link href="#" className="flex items-center justify-center w-8 h-8 text-blue-600 hover:underline">
+          <Link href="/2" className="flex items-center justify-center w-8 h-8 text-blue-600 hover:underline">
             2
           </Link>
           <Link href="#" className="flex items-center justify-center w-8 h-8 text-blue-600 hover:underline">
