@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image"
 import { SearchTabs } from "@/components/search-tabs"
 import { Mic, MoreVertical, Clock, Edit } from "lucide-react"
