@@ -1,17 +1,17 @@
 import { MoreVertical } from "lucide-react"
-import { TrackedLink } from "@/components/tracked-link"
-import { WebsiteFavicon } from "@/components/website-favicon"
+import { TrackedLink } from "@/app/Laptop/components/tracked-link"
+import { WebsiteFavicon } from "@/app/Laptop/components/website-favicon"
 import { getWebsiteName } from "@/lib/favicon-service"
 
 interface SearchResult {
   position: number
   title: string
   link: string
-  redirect_link: string
+  redirect_link?: string
   displayed_link: string
   favicon?: string
   date?: string
-  snippet: string
+  snippet?: string
   snippet_highlighted_words?: string[]
   sitelinks?: {
     inline?: {
@@ -68,7 +68,12 @@ export function SearchResults({ results }: SearchResultsProps) {
               </h3>
               {result.date && <div className="text-sm text-gray-600 mb-2">{result.date}</div>}
               <p className="text-sm text-gray-700 mb-2">
-                {result.snippet.split(new RegExp(`(${result.snippet_highlighted_words?.join("|")})`)).map((part, i) =>
+                {result.snippet &&
+result.snippet.split(
+  new RegExp(
+    `(${result.snippet_highlighted_words?.map(word => word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join("|")})`
+  )
+).map((part, i) =>
                   result.snippet_highlighted_words?.includes(part) ? (
                     <span key={i} className="font-bold">
                       {part}

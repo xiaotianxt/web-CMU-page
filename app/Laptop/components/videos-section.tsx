@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { MoreVertical } from "lucide-react"
-import videoData from "@/data/video.json" // 导入视频数据
+import videoData from "@/data/Laptop/video.json" // 导入视频数据
 
 export function VideosSection() {
   return (
@@ -18,7 +18,7 @@ export function VideosSection() {
           <div key={index} className="flex items-start gap-4 border-b border-gray-200 pb-6">
             <div className="relative flex-shrink-0">
               <Image
-                src={`/video-thumbnails/${index+1}.jpeg`} // 使用动态缩略图路径
+                src={`/Laptop/video-thumbnails/${index+1}.jpeg`}
                 alt={video.title}
                 width={180}
                 height={100}
