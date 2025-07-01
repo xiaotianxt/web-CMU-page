@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
-import path from "path";
 
 const nextConfig: NextConfig = {
+  /* config options here */
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -11,11 +11,7 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
     domains: ['serpapi.com'],
-  },
-  webpack: (config) => {
-    config.resolve.alias['@'] = path.resolve(__dirname);
-    return config;
-  },
+  }
 };
 
 export default nextConfig;
