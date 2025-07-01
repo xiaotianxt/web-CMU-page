@@ -3,7 +3,7 @@ import { SearchResults } from "@/app/Laptop/components/search-results"
 import { AiOverview } from "@/app/Laptop/components/ai-overview"
 import { VideosSection } from "@/app/Laptop/components/videos-section"
 import { Pagination } from "@/components/pagination"
-import { SearchTabs } from "@/components/search-tabs"
+import { SearchTabs } from "@/components/search-tabs-no-ai-mode"
 import { PeopleAlsoSearch } from "@/app/Laptop/components/people-also-search"
 
 import searchData from "@/app/Laptop/data/1.json"
@@ -25,10 +25,6 @@ export default function Home() {
         </div>
       </header>
 
-      {/* AI Overview Section */}
-      <div className="px-42">
-        <AiOverview />
-      </div>
       <main className="container mx-auto px-15 py-4">
         <div className="max-w-2xl">
 
@@ -38,6 +34,11 @@ export default function Home() {
 
           {/* Videos Section */}
           <VideosSection />
+
+          {/* AI Overview Section */}
+          <div className="px-42">
+            <AiOverview />
+          </div>
 
           <SearchResults results={beforePeopleAlsoSearchFor} />
           {/* People Also Search for */}

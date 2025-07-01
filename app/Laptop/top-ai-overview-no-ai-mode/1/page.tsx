@@ -3,7 +3,7 @@ import { SearchResults } from "@/app/Laptop/components/search-results"
 import { AiOverview } from "@/app/Laptop/components/ai-overview"
 import { VideosSection } from "@/app/Laptop/components/videos-section"
 import { Pagination } from "@/components/pagination"
-import { SearchTabs } from "@/components/search-tabs"
+import { SearchTabs } from "@/components/search-tabs-no-ai-mode"
 import { PeopleAlsoSearch } from "@/app/Laptop/components/people-also-search"
 
 import searchData from "@/app/Laptop/data/1.json"

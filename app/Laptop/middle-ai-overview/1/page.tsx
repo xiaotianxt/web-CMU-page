@@ -25,10 +25,6 @@ export default function Home() {
         </div>
       </header>
 
-      {/* AI Overview Section */}
-      <div className="px-42">
-        <AiOverview />
-      </div>
       <main className="container mx-auto px-15 py-4">
         <div className="max-w-2xl">
 
@@ -38,6 +34,11 @@ export default function Home() {
 
           {/* Videos Section */}
           <VideosSection />
+
+          {/* AI Overview Section */}
+          <div className="px-42">
+            <AiOverview />
+          </div>
 
           <SearchResults results={beforePeopleAlsoSearchFor} />
           {/* People Also Search for */}
