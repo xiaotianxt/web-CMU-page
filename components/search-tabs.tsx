@@ -1,12 +1,17 @@
-import { TrackedLink } from "@/app/Laptop/components/tracked-link"
-
+'use client'
+import { TrackedLink } from "@/components/tracked-link"
+import { usePathname } from "next/navigation"
 interface SearchTabsProps {
   currentPage?: string
 }
 
 export function SearchTabs({ currentPage = "all" }: SearchTabsProps) {
+  const pathname = usePathname()
+  const match = pathname.match(/^(.*?)(\/\d+)?\/?$/)
+  //example: /Laptop/middle-ai-overview/1, only need /Laptop
+  const basePath =
   const tabs = [
-    { name: "AI Mode", key: "ai-mode", href: "/ai-mode" },
+    { name: "AI Mode", key: "ai-mode", href: `${basePath}/ai-mode` },
     { name: "All", key: "all", href: "/" },
     { name: "Images", key: "images", href: "#" },
     { name: "Short videos", key: "videos", href: "#" },

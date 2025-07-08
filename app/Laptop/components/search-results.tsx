@@ -1,6 +1,6 @@
 import { MoreVertical } from "lucide-react"
-import { TrackedLink } from "@/app/Laptop/components/tracked-link"
-import { WebsiteFavicon } from "@/app/Laptop/components/website-favicon"
+import { TrackedLink } from "@/components/tracked-link"
+import { WebsiteFavicon } from "@/components/website-favicon"
 import { getWebsiteName } from "@/lib/favicon-service"
 
 interface SearchResult {

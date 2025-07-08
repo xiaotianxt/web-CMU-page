@@ -3,8 +3,8 @@ import Image from "next/image"
 import { SearchTabs } from "@/components/search-tabs"
 import { Mic, MoreVertical, Clock, Edit } from "lucide-react"
 import aiOverviewData from "@/data/Laptop/ai_overview.json"
-import { TrackedLink } from "@/app/Laptop/components/tracked-link"
-import { WebsiteFavicon } from "@/app/Laptop/components/website-favicon"
+import { TrackedLink } from "@/components/tracked-link"
+import { WebsiteFavicon } from "@/components/website-favicon"
 import { getWebsiteName } from "@/lib/favicon-service"
 
 interface TextBlock {

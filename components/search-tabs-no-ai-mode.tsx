@@ -1,4 +1,4 @@
-import { TrackedLink } from "@/app/Laptop/components/tracked-link"
+import { TrackedLink } from "@/components/tracked-link"
 
 interface SearchTabsProps {
   currentPage?: string
