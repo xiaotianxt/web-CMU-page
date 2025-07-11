@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image"
 import Link from "next/link"
-import { SearchBar } from "@/app/Laptop/components/search-bar"
+import { SearchBar } from "@/components/search-bar"
 
 export default function HeadSection() {
 

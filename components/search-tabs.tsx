@@ -8,8 +8,8 @@ interface SearchTabsProps {
 export function SearchTabs({ currentPage = "all" }: SearchTabsProps) {
   const pathname = usePathname()
   const match = pathname.match(/^(.*?)(\/\d+)?\/?$/)
-  //example: /Laptop/middle-ai-overview/1, only need /Laptop
-  const basePath =
+  // Extract only the first segment of the path, e.g., /Laptop
+  const basePath = match ? match[1].split('/')[1] ? `/${match[1].split('/')[1]}` : "" : "";
   const tabs = [
     { name: "AI Mode", key: "ai-mode", href: `${basePath}/ai-mode` },
     { name: "All", key: "all", href: "/" },

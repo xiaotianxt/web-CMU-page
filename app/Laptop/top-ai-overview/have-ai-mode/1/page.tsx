@@ -1,13 +1,13 @@
 "use client"
-import { SearchResults } from "@/app/Laptop/components/search-results"
-import { AiOverview } from "@/app/Laptop/components/ai-overview"
-import { VideosSection } from "@/app/Laptop/components/videos-section"
+import { SearchResults } from "@/components/search-results"
+import { AiOverview } from "@/components/ai-overview"
+import { VideosSection } from "@/components/videos-section"
 import { Pagination } from "@/components/pagination"
 import { SearchTabs } from "@/components/search-tabs"
-import { PeopleAlsoSearch } from "@/app/Laptop/components/people-also-search"
+import { PeopleAlsoSearch } from "@/components/people-also-search"
 
 import searchData from "@/app/Laptop/data/1.json"
-import HeadSection from "@/app/Laptop/components/head-section"
+import HeadSection from "@/components/head-section"
 
 export default function Home() {
   const beforePeopleAlsoAsk = searchData.slice(0, 1)

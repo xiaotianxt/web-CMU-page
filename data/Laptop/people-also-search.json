@@ -1,20 +1,51 @@
 [
     {
-        "name": "CENT"
+        "name": "Is there any popular recommendation for..."
     },
     {
-        "name": "Dell Technologies"
+        "name": "Best laptop for students",
+        "highlight": [
+            "Best",
+            "students"
+        ]
     },
     {
-        "name": "Microsoft"
+        "name": "Top 10 laptop brands",
+        "highlight": [
+            "Top 10",
+            "brands"
+        ]
     },
     {
-        "name": "Paypall Honey"
+        "name": "Best laptop brands",
+        "highlight": [
+            "Best",
+            "brands"
+        ]
     },
     {
-        "name": "Yahoo!"
+        "name": "Best laptops",
+        "highlight": [
+            "Best laptops"
+        ]
     },
     {
-        "name": "Rakuten Rewards"
+        "name": "Best budget laptop",
+        "highlight": [
+            "Best budget"
+        ]
+    },
+    {
+        "name": "Best laptop 2025",
+        "highlight": [
+            "Best",
+            "2025"
+        ]
+    },
+    {
+        "name": "Best Buy laptops",
+        "highlight": [
+            "Best Buy laptops"
+        ]
     }
 ]

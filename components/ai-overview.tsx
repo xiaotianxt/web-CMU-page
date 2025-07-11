@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
@@ -6,7 +6,7 @@ import { MoreVertical, ChevronDown, LinkIcon, X } from "lucide-react"
 import Link from "next/link"
 import { WebsiteFavicon } from "@/components/website-favicon"
 import { getWebsiteName } from "@/lib/favicon-service"
-import aiOverviewData from "@/data/Laptop/ai_overview.json"
+import { usePathname } from "next/navigation"
 
 interface TextBlock {
   type: string
@@ -47,6 +47,9 @@ interface AIOverviewData {
 }
 
 export function AiOverview() {
+  const pathname = usePathname();
+  const pageName = pathname.split("/").slice(1, 2).join("-");
+  const aiOverviewData = require(`@/data/${pageName}/ai_overview.json`);
   const [showMore, setShowMore] = useState(false)
   const [showAllReferences, setShowAllReferences] = useState(false)
   const [filteredReferenceIndexes, setFilteredReferenceIndexes] = useState<number[] | null>(null)
@@ -108,8 +111,9 @@ export function AiOverview() {
   }
 
   const getImageForReference = (referenceIndex: number) => {
-    return `/Laptop/images/${referenceIndex + 1}.jpeg`
+    return `/${pageName}/images/${referenceIndex + 1}.jpeg`
   }
+
 
   const displayedReferences = getDisplayedReferences()
 

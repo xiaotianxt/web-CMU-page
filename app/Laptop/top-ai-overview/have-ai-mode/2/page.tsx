@@ -1,11 +1,11 @@
 "use client"
-import { SearchResults } from "@/app/Laptop/components/search-results"
+import { SearchResults } from "@/components/search-results"
 import { Pagination } from "@/components/pagination"
 import { SearchTabs } from "@/components/search-tabs"
 
 
 import searchData from "@/data/Laptop/2.json"
-import HeadSection from "@/app/Laptop/components/head-section"
+import HeadSection from "@/components/head-section"
 
 export default function Home() {
 

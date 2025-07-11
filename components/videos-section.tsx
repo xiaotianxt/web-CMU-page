@@ -1,9 +1,14 @@
+'use client'
+
 import Image from "next/image"
 import Link from "next/link"
 import { MoreVertical } from "lucide-react"
-import videoData from "@/data/Laptop/video.json" // 导入视频数据
+import {usePathname} from "next/navigation"
 
 export function VideosSection() {
+   const pathname = usePathname();
+    const pageName = pathname.split("/").slice(1, 2).join("-");
+    const videoData = require(`@/data/${pageName}/video.json`);
   return (
     <div className="mb-8">
       <div className="flex items-center mb-4">
