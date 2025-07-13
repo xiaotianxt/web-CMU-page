@@ -5,6 +5,7 @@ import { VideosSection } from "@/components/videos-section"
 import { Pagination } from "@/components/pagination"
 import { SearchTabs } from "@/components/search-tabs"
 import { PeopleAlsoSearch } from "@/components/people-also-search"
+import {DiscussionsAndForums} from "@/components/discussions-and-forums"
 
 import HeadSection from "@/components/head-section"
 import { usePathname } from "next/navigation"
@@ -18,6 +19,7 @@ export default function Home() {
   const beforePeopleAlsoSearchFor = searchData.slice(2, 3)
   const bottomResults = searchData.slice(3)
 
+
   return (
     <div className="min-h-screen bg-white text-gray-800">
       {/* Header with search bar */}
@@ -28,7 +30,11 @@ export default function Home() {
         </div>
       </header>
 
-      <div className="container mx-auto px-15 py-4">
+      {/* AI Overview Section */}
+      <div className="px-42">
+        <AiOverview />
+      </div>
+      <main className="container mx-auto px-15 py-4">
         <div className="max-w-2xl">
 
           <SearchResults results={beforePeopleAlsoAsk} />
@@ -38,26 +44,17 @@ export default function Home() {
           {/* Videos Section */}
           <VideosSection />
 
-        </div>
-      </div>
-      {/* AI Overview Section */}
-      <div className="px-42">
-        <AiOverview />
-      </div>
-      <div className="container mx-auto px-15 py-4">
-        <div className="max-w-2xl">
-
           <SearchResults results={beforePeopleAlsoSearchFor} />
           {/* People Also Search for */}
-          <PeopleAlsoSearch />
-
 
           <SearchResults results={bottomResults} />
+
+          <PeopleAlsoSearch/>
 
           {/* Pagination */}
           <Pagination />
         </div>
-      </div>
-    </div >
+      </main>
+    </div>
   )
 }
