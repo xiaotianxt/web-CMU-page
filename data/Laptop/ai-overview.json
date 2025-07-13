@@ -6,13 +6,15 @@
             "snippet_highlighted_words": [
                 "MacBook Air M4"
             ],
-            "reference_indexes":[
-                0,1,3,4,5,2,6
+            "reference_indexes": [
+                0,
+                1,
+                3,
+                4,
+                5,
+                2,
+                6
             ]
-        },
-        {
-            "type": "paragraph",
-            "title": "Here's a more detailed breakdown of popular recommendations:"
         },
         {
             "type": "list",
@@ -21,18 +23,28 @@
                     "title": "MacBook Air M4:",
                     "snippets": {
                         "Overall": "Highly regarded for its performance, portability, and battery life. ",
-                        "Target Audience": "General users, students, and creatives who value a good balance of power and portability." 
+                        "Target Audience": "General users, students, and creatives who value a good balance of power and portability."
                     },
-                    "reference_indexes":[0,1,7,8,9,10]
+                    "reference_indexes": [
+                        0,
+                        1,
+                        7,
+                        8,
+                        9,
+                        10
+                    ]
                 },
                 {
                     "title": "Asus Zenbook S14: ",
                     "snippets": {
                         "Ultra-portable": "Known for its lightweight and slim design. ",
-                        "Target Audience": "Those who prioritize portability and a sleek design, often professionals or students who need to work on the go. " 
+                        "Target Audience": "Those who prioritize portability and a sleek design, often professionals or students who need to work on the go. "
                     },
                     "reference_indexes": [
-                        0,1,11,12
+                        0,
+                        1,
+                        11,
+                        12
                     ]
                 },
                 {
@@ -42,7 +54,10 @@
                         "Target Audience": "Users who are looking for a reliable and versatile laptop without breaking the bank. "
                     },
                     "reference_indexes": [
-                        1,2,13,14
+                        1,
+                        2,
+                        13,
+                        14
                     ]
                 },
                 {
@@ -52,7 +67,10 @@
                         "Target Audience": "Those who need a laptop that can run for extended periods without needing to be plugged in, such as commuters or students. "
                     },
                     "reference_indexes": [
-                        0,1,15,16
+                        0,
+                        1,
+                        15,
+                        16
                     ]
                 },
                 {
@@ -64,7 +82,9 @@
                                 "Asus Zenbook 14 OLED": "A great option for students, known for its vibrant OLED display. "
                             },
                             "reference_indexes": [
-                                0,18,19
+                                0,
+                                18,
+                                19
                             ]
                         },
                         {
@@ -72,7 +92,9 @@
                                 "Acer Swift Go 14": "A budget-friendly option that still offers good performance. "
                             },
                             "reference_indexes": [
-                                0,20,21
+                                0,
+                                20,
+                                21
                             ]
                         },
                         {
@@ -88,7 +110,10 @@
                                 "HP Chromebook Plus 15.6": "A good choice for users who prefer Chrome OS and its simplicity. "
                             },
                             "reference_indexes": [
-                                0,2,22,23
+                                0,
+                                2,
+                                22,
+                                23
                             ]
                         }
                     ]
@@ -168,99 +193,99 @@
             "index": 9
         },
         {
-            "title":"Our Picks for the Top Business Laptops of 2025",
-            "link":"https://www.revnet.ca/blog/our-picks-for-the-best-business-laptops/#:~:text=Its%20(%20Dell%20XPS%2013%20)%20real,XPS%2013%20)%20is%20a%20top%20contender.",
-            "snippet":"10 Jan 2025 \u2014 Its (Dell XPS 13) real standout, though, os the exceptional batte...",
-            "source":"Revolution Networks",
-            "index":10
+            "title": "Our Picks for the Top Business Laptops of 2025",
+            "link": "https://www.revnet.ca/blog/our-picks-for-the-best-business-laptops/#:~:text=Its%20(%20Dell%20XPS%2013%20)%20real,XPS%2013%20)%20is%20a%20top%20contender.",
+            "snippet": "10 Jan 2025 \u2014 Its (Dell XPS 13) real standout, though, os the exceptional batte...",
+            "source": "Revolution Networks",
+            "index": 10
         },
         {
-            "title":"The Best Laptops for Auhors in 2025",
-            "link":"https://getfreewrite.com/blogs/articles/best-laptop-for-authors#:~:text=This%20device%20elivers%20seamless%20multitasking%20and%20efficient,writers%20seeking%20a%20portable%20and%20efficient%20device.",
-            "snippet":"22 Apr 2025 \u2014 This device elivers seamless multitasking and efficient...",
-            "source":"Freewrite", 
+            "title": "The Best Laptops for Auhors in 2025",
+            "link": "https://getfreewrite.com/blogs/articles/best-laptop-for-authors#:~:text=This%20device%20elivers%20seamless%20multitasking%20and%20efficient,writers%20seeking%20a%20portable%20and%20efficient%20device.",
+            "snippet": "22 Apr 2025 \u2014 This device elivers seamless multitasking and efficient...",
+            "source": "Freewrite",
             "index": 11
         },
         {
-            "title":"5 best Dell laptops to buy in 2024",
-            "link":"http://www.croma.com/unboxed/best-dell-laptops",
+            "title": "5 best Dell laptops to buy in 2024",
+            "link": "http://www.croma.com/unboxed/best-dell-laptops",
             "snippet": "18 Aug 2024 \u2014 The 512GB SSD provides ample storage space, while the 13.4-inch...",
             "source": "Croma",
             "index": 12
         },
         {
-            "title":"Best Budget Laptops for Students | Top Picks",
-            "link":"https://www.bestbuy.com/site/shop/best-budget-laptop-for-students#:~:text=Looking%20for%20a%20reliable%20and%20affordable%20laptop,versatile%20device%20to%20tackle%20their%20academic%20tasks.",
+            "title": "Best Budget Laptops for Students | Top Picks",
+            "link": "https://www.bestbuy.com/site/shop/best-budget-laptop-for-students#:~:text=Looking%20for%20a%20reliable%20and%20affordable%20laptop,versatile%20device%20to%20tackle%20their%20academic%20tasks.",
             "snippet": "Looking for a reliable and affordable laptop that won't break the bank? Look no furth...",
             "source": "Best Buy",
             "index": 13
         },
         {
-            "title":"Best laptops 2025: Premium, budget and gaming, 2-in-1, and more",
-            "link":"https://www.pcworld.com/article/436674/best-pc-laptops.html#:~:text=This%20laptop%20nails%20the%20essentials%20with%20style%2C,)%20perfect%20for%20either%20work%20or%20play.",
+            "title": "Best laptops 2025: Premium, budget and gaming, 2-in-1, and more",
+            "link": "https://www.pcworld.com/article/436674/best-pc-laptops.html#:~:text=This%20laptop%20nails%20the%20essentials%20with%20style%2C,)%20perfect%20for%20either%20work%20or%20play.",
             "snippet": "4 days ago \u2014 This laptop nails the essentials with style, speed, and stamina...",
             "source": "PCWorld",
             "index": 14
         },
         {
-            "title":"Tablet vs Laptops for Mobile Needs: San Marcos IT Consultants Weigh In",
-            "link":"https://mytekrescue.com/tablet-vs-laptop-which-is-best-for-your-mobile-it/#:~:text=Dell%20XPS%2013:%20Known%20for%20its%20sleek,it%20perfect%20for%20professionals%20on%20the%20go.",
+            "title": "Tablet vs Laptops for Mobile Needs: San Marcos IT Consultants Weigh In",
+            "link": "https://mytekrescue.com/tablet-vs-laptop-which-is-best-for-your-mobile-it/#:~:text=Dell%20XPS%2013:%20Known%20for%20its%20sleek,it%20perfect%20for%20professionals%20on%20the%20go.",
             "snippet": "11 Oct 2024 \u2014 Dell XPS 13: Known for its sleek design and long battery life, makin...",
             "source": "tekRESCUE",
             "index": 15
         },
         {
-            "title":"The Best Laptops You Can Buy Right Now For Every Budget",
-            "link":"https://time.com/4459614/best-laptops-every-budget-2016/#:~:text=This%2C%20combined%20with%20the%20notebook's%20sturdy%20keyboard%2C,Dell%20XPS%2013%20)%20a%20top%20pick.",
+            "title": "The Best Laptops You Can Buy Right Now For Every Budget",
+            "link": "https://time.com/4459614/best-laptops-every-budget-2016/#:~:text=This%2C%20combined%20with%20the%20notebook's%20sturdy%20keyboard%2C,Dell%20XPS%2013%20)%20a%20top%20pick.",
             "snippet": "20 Aug 2016 \u2014 This, combined with the notebook's sturdy keyboard, long battery life, and attractive design, make i...",
             "source": "Time Magazine",
             "index": 16
         },
         {
-            "title":"Laptop For Students",
-            "link":"https://bridgeit.com.au/blog/laptops-for-students-for/#:~:text=One%20of%20the%20essential%20features%20to%20consider,least%208%20hours%20is%20ideal%20for%20students.",
+            "title": "Laptop For Students",
+            "link": "https://bridgeit.com.au/blog/laptops-for-students-for/#:~:text=One%20of%20the%20essential%20features%20to%20consider,least%208%20hours%20is%20ideal%20for%20students.",
             "snippet": "One of the essential features to consider when choosing a laptop for students is th...",
             "source": "bridgeit.com.au",
             "index": 17
         },
         {
-            "title":"Best premium laptops in 2024: Top 8 models for reliable computing and...",
-            "link":"https://www.livemint.com/technology/gadgets/best-premium-laptops-in-2024-top-8-powerful-laptops-perfect-for-tech-enthusiasts-and-gamers-alike-11718788834249.html#:~:text=It%20(%20ASUS%20Zenbook%2014%20OLED%20),for%20students%20or%20professionals%20on%20the%20go.",
+            "title": "Best premium laptops in 2024: Top 8 models for reliable computing and...",
+            "link": "https://www.livemint.com/technology/gadgets/best-premium-laptops-in-2024-top-8-powerful-laptops-perfect-for-tech-enthusiasts-and-gamers-alike-11718788834249.html#:~:text=It%20(%20ASUS%20Zenbook%2014%20OLED%20),for%20students%20or%20professionals%20on%20the%20go.",
             "snippet": "16 Aug 2024 \u2014 It (ASUS Zenbook 14 OLED)'s fast and powerful with an Intel...",
             "source": "Mint",
             "index": 18
         },
         {
-            "title":"The 10 Best Laptops of 2024, According to a Tech Expert",
-            "link":"https://www.bestproducts.com/tech/electronics/a14512117/reviews-best-laptops/#:~:text=If%20that%20weren't%20enough%2C%20it%20(%20Zenbook,battery%20should%20last%20up%20to%2015%20hours.",
+            "title": "The 10 Best Laptops of 2024, According to a Tech Expert",
+            "link": "https://www.bestproducts.com/tech/electronics/a14512117/reviews-best-laptops/#:~:text=If%20that%20weren't%20enough%2C%20it%20(%20Zenbook,battery%20should%20last%20up%20to%2015%20hours.",
             "snippet": "23 May 2024 \u2014 If that weren't enough, it (Zenbook 14) also offers a truly impressiv...",
             "source": "Best Products",
             "index": 19
         },
         {
-            "title":"The 5 Best Windows Laptops of 2025",
-            "link":"https://www.rtings.com/laptop/reviews/best/windows#:~:text=If%20you%20don't%20want%20to%20spend%20too,standout%20features%20of%20this%20laptop%20is%20performance.",
+            "title": "The 5 Best Windows Laptops of 2025",
+            "link": "https://www.rtings.com/laptop/reviews/best/windows#:~:text=If%20you%20don't%20want%20to%20spend%20too,standout%20features%20of%20this%20laptop%20is%20performance.",
             "snippet": "4 Apr 2025 \u2014 If you don't want to spend too much on a premium model like the...",
             "source": "RTINGS.com",
             "index": 20
         },
         {
-            "title":"8 Best Laptops Under 80000 in India: Enjoy Top Preformance!",
-            "link":"https://cashkaro.com/blog/best-laptops-under-80000/237787#:~:text=This%20laptop%20offers%20a%20perfect%20blend%20of,want%20high%2Dend%20features%20without%20breaking%20the%20bank.",
+            "title": "8 Best Laptops Under 80000 in India: Enjoy Top Preformance!",
+            "link": "https://cashkaro.com/blog/best-laptops-under-80000/237787#:~:text=This%20laptop%20offers%20a%20perfect%20blend%20of,want%20high%2Dend%20features%20without%20breaking%20the%20bank.",
             "snippet": "This Laptop offers a perfect blend of performance, portability, and price, makin...",
             "source": "CashKaro",
             "index": 21
         },
         {
-            "title":"Chromebook vs Windos Laptop: Key Differences Explained (2024)",
-            "link":"https://www.hp.com/us-en/shop/tech-takes/chromebook-vs-windows-laptop#:~:text=Chromebook:%20Chrome%20OS%20is%20designed%20for%20simplicity,the%20Chrome%20(%20Google%20Chrome%20)%20browser.",
+            "title": "Chromebook vs Windos Laptop: Key Differences Explained (2024)",
+            "link": "https://www.hp.com/us-en/shop/tech-takes/chromebook-vs-windows-laptop#:~:text=Chromebook:%20Chrome%20OS%20is%20designed%20for%20simplicity,the%20Chrome%20(%20Google%20Chrome%20)%20browser.",
             "snippet": "22 Aug 2024 \u2014 Chromebook: Chrome OS is designed for simplicity and speed,...",
             "source": "HP.com",
             "index": 22
         },
         {
-            "title":"What kind of laptop do you need for college work, really?",
-            "link":"https://www.techradar.com/news/what-kind-of-laptop-do-you-need-for-college-really",
+            "title": "What kind of laptop do you need for college work, really?",
+            "link": "https://www.techradar.com/news/what-kind-of-laptop-do-you-need-for-college-really",
             "snippet": "26 Jul 2023 \u2014 This basic budget HP Chromebook 15 is down to a terrific low...",
             "source": "TechRadar",
             "index": 23

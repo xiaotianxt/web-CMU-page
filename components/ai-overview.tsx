@@ -49,7 +49,7 @@ interface AIOverviewData {
 export function AiOverview() {
   const pathname = usePathname();
   const pageName = pathname.split("/").slice(1, 2).join("-");
-  const aiOverviewData = require(`@/data/${pageName}/ai_overview.json`);
+  const aiOverviewData = require(`@/data/${pageName}/ai-overview.json`);
   const [showMore, setShowMore] = useState(false)
   const [showAllReferences, setShowAllReferences] = useState(false)
   const [filteredReferenceIndexes, setFilteredReferenceIndexes] = useState<number[] | null>(null)
@@ -168,22 +168,20 @@ export function AiOverview() {
               </p>
             )}
 
-            {/* Always show second paragraph (title) */}
-            {data.text_blocks[1] && <p className="text-gray-800 font-medium mb-4">{data.text_blocks[1].title}</p>}
-
+        
             {/* Show bullet points */}
-            {data.text_blocks[2]?.list && (
+            {data.text_blocks[1]?.list && (
               <div className="mb-4">
                 {/* Always show first item */}
-                {data.text_blocks[2].list[0] && (
+                {data.text_blocks[1].list[0] && (
                   <div className="mb-3">
                     <div className="font-bold text-gray-800 text-base mb-2">
-                      {data.text_blocks[2].list[0].title}
-                      {renderReferenceLink(data.text_blocks[2].list[0].reference_indexes)}
+                      {data.text_blocks[1].list[0].title}
+                      {renderReferenceLink(data.text_blocks[1].list[0].reference_indexes)}
                     </div>
-                    {data.text_blocks[2].list[0].snippets && (
+                    {data.text_blocks[1].list[0].snippets && (
                       <ul className="list-disc list-inside ml-4 space-y-1">
-                        {Object.entries(data.text_blocks[2].list[0].snippets).map(([key, value]) => (
+                        {Object.entries(data.text_blocks[1].list[0].snippets).map(([key, value]) => (
                           <li key={key}>
                             <span className="font-bold text-sm">{key}:</span>
                             <span className="ml-1 text-sm">{value}</span>
@@ -195,12 +193,12 @@ export function AiOverview() {
                 )}
 
                 {/* Show second item in gray when collapsed */}
-                {!showMore && data.text_blocks[2].list[1] && (
+                {!showMore && data.text_blocks[1].list[1] && (
                   <div className="mb-3 text-gray-400">
-                    <div className="font-bold text-base mb-2">{data.text_blocks[2].list[1].title}</div>
-                    {data.text_blocks[2].list[1].snippets && (
+                    <div className="font-bold text-base mb-2">{data.text_blocks[1].list[1].title}</div>
+                    {data.text_blocks[1].list[1].snippets && (
                       <ul className="list-disc list-inside ml-4 space-y-1">
-                        {Object.entries(data.text_blocks[2].list[1].snippets).map(([key, value]) => (
+                        {Object.entries(data.text_blocks[1].list[1].snippets).map(([key, value]) => (
                           <li key={key}>
                             <span className="font-bold text-sm">{key}:</span>
                             <span className="ml-1 text-sm">{value}</span>
@@ -213,7 +211,7 @@ export function AiOverview() {
 
                 {/* Show all items when expanded */}
                 {showMore &&
-                  data.text_blocks[2].list.slice(1).map((item, index) => (
+                  data.text_blocks[1].list.slice(1).map((item, index) => (
                     <div key={index + 1} className="mb-3">
                       <div className="font-bold text-gray-800 text-base mb-2">
                         {item.title}

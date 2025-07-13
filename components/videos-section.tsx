@@ -23,7 +23,7 @@ export function VideosSection() {
           <div key={index} className="flex items-start gap-4 border-b border-gray-200 pb-6">
             <div className="relative flex-shrink-0">
               <Image
-                src={`/Laptop/video-thumbnails/${index+1}.jpeg`}
+                src={`/${pageName}/video-thumbnails/${index+1}.jpeg`}
                 alt={video.title}
                 width={180}
                 height={100}

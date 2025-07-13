@@ -11,10 +11,6 @@
             ]
         },
         {
-            "type": "paragraph",
-            "title": "Here's a more detailed breakdown of popular recommendations:"
-        },
-        {
             "type": "list",
             "list": [
                 {

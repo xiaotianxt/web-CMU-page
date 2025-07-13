@@ -6,10 +6,14 @@ import { Pagination } from "@/components/pagination"
 import { SearchTabs } from "@/components/search-tabs"
 import { PeopleAlsoSearch } from "@/components/people-also-search"
 
-import searchData from "@/app/Laptop/data/1.json"
 import HeadSection from "@/components/head-section"
+import { usePathname } from "next/navigation"
+import { DiscussionsAndForums } from "@/components/discussions-and-forums"
 
 export default function Home() {
+  const pathname = usePathname();
+  const pageName = pathname.split("/").slice(1, 2).join("-");
+  const searchData = require(`@/data/${pageName}/1.json`);
   const beforePeopleAlsoAsk = searchData.slice(0, 1)
   const beforeVideos = searchData.slice(1, 2)
   const beforePeopleAlsoSearchFor = searchData.slice(2, 3)
@@ -48,6 +52,7 @@ export default function Home() {
           {/* People Also Search for */}
           <PeopleAlsoSearch />
 
+          <DiscussionsAndForums/>
 
 
           <SearchResults results={bottomResults} />
