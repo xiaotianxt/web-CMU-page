@@ -3,7 +3,7 @@ import Image from "next/image"
 import { SearchTabs } from "@/components/search-tabs"
 import { Mic, MoreVertical, Clock, Edit } from "lucide-react"
 import aiOverviewData from "@/data/Phone/ai-overview.json"
-import { TrackedLink } from "@/components/research-tracked-link"
+import { TrackedLink } from "@/components/tracked-link"
 import { WebsiteFavicon } from "@/components/website-favicon"
 import { getWebsiteName } from "@/lib/favicon-service"
 
@@ -49,7 +49,103 @@ export default function AiModePage() {
   const data = aiOverviewData as AIOverviewData
 
   const getImageForReference = (referenceIndex: number) => {
-    return `/Laptop/images/${referenceIndex+1}.jpeg`
+    return `/Phone/images/${referenceIndex+1}.jpeg`
+  }
+
+  const renderHighlightedText = (text: string, highlightedWords: string[] = []) => {
+    if (!highlightedWords.length) return text
+
+    const regex = new RegExp(`(${highlightedWords.join("|")})`, "gi")
+    const parts = text.split(regex)
+
+    return parts.map((part, index) => {
+      if (highlightedWords.some((word) => word.toLowerCase() === part.toLowerCase())) {
+        return (
+          <span key={index} className="font-semibold text-blue-700">
+            {part}
+          </span>
+        )
+      }
+      return part
+    })
+  }
+
+  const renderTextBlock = (block: TextBlock, index: number) => {
+    switch (block.type) {
+      case "paragraph":
+        if (block.title) {
+          return (
+            <h2 key={index} className="text-xl font-medium text-gray-900 mb-4">
+              {block.title}
+            </h2>
+          )
+        }
+        if (block.snippet) {
+          return (
+            <p key={index} className="text-gray-700 mb-6 text-base leading-relaxed">
+              {renderHighlightedText(block.snippet, block.snippet_highlighted_words)}
+            </p>
+          )
+        }
+        break
+
+      case "list":
+        if (block.list) {
+          return (
+            <div key={index} className="mb-8">
+              {block.list.map((item, itemIndex) => {
+                if (item.type === "list" && item.list) {
+                  // Handle nested list (Other Notable Recommendations)
+                  return (
+                    <div key={itemIndex} className="mb-6">
+                      <h3 className="text-lg font-medium text-gray-900 mb-4">{item.title}</h3>
+                      <ul className="space-y-3 ml-4">
+                        {item.list.map((subItem, subIndex) => (
+                          <li key={subIndex} className="flex">
+                            <span className="w-2 h-2 bg-gray-900 rounded-full mt-2 mr-4 flex-shrink-0"></span>
+                            <div>
+                              {Object.entries(subItem.snippet).map(([key, value]) => (
+                                <div key={key}>
+                                  <span className="font-semibold">{key}:</span>
+                                  <span className="ml-1">{value}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )
+                }
+
+                // Handle regular list items
+                return (
+                  <div key={itemIndex} className="mb-6">
+                    <h3 className="text-lg font-medium text-gray-900 mb-4">{item.title}</h3>
+                    {item.snippets && (
+                      <ul className="space-y-3 ml-4">
+                        {Object.entries(item.snippets).map(([key, value]) => (
+                          <li key={key} className="flex">
+                            <span className="w-2 h-2 bg-gray-900 rounded-full mt-2 mr-4 flex-shrink-0"></span>
+                            <div>
+                              <span className="font-semibold">{key}:</span>
+                              <span className="ml-1">{value}</span>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+          )
+        }
+        break
+
+      default:
+        return null
+    }
   }
 
   return (
@@ -126,65 +222,13 @@ export default function AiModePage() {
         <div className="flex-1 flex">
           {/* Content Area */}
           <div className="flex-1 px-8 py-8 max-w-4xl">
-            {/* Main Title */}
-            <h1 className="text-3xl font-normal text-gray-900 mb-6">
-              Is there any popular recommendation for laptop choice
-            </h1>
+            {/* Main Title - Dynamic based on topic */}
+            <h1 className="text-3xl font-normal text-gray-900 mb-6">Is there any popular recommendation for phone choice?</h1>
 
-            {/* Introduction */}
-            <p className="text-gray-700 mb-6 text-base leading-relaxed">
-              Based on recent reviews and expert recommendations, here are some popular laptop choices in 2025:
-            </p>
-
-            {/* For Overall Excellence and Value */}
-            <h2 className="text-lg font-normal text-gray-900 mb-4">For Overall Excellence and Value:</h2>
-            <ul className="space-y-4 mb-8 ml-4">
-              <li className="flex">
-                <span className="w-2 h-2 bg-gray-900 rounded-full mt-2 mr-4 flex-shrink-0"></span>
-                <div>
-                  <span className="font-semibold">Dell Inspiron 14 Plus (2024):</span>
-                  <span className="ml-1">
-                    Considered the best overall laptop by PCWorld. It offers strong performance, exceptional battery
-                    life (up to 17 hours), and a great user experience with a comfortable keyboard and bright display.
-                  </span>
-                </div>
-              </li>
-              <li className="flex">
-                <span className="w-2 h-2 bg-gray-900 rounded-full mt-2 mr-4 flex-shrink-0"></span>
-                <div>
-                  <span className="font-semibold">Asus Zenbook 14 OLED Touch (UM3406):</span>
-                  <span className="ml-1">
-                    PCMag names this the best laptop for most people. It provides great value for its price with a
-                    vibrant OLED display, long battery life, and decent performance for everyday tasks.
-                  </span>
-                </div>
-              </li>
-            </ul>
-
-            {/* For Apple Users */}
-            <h2 className="text-lg font-normal text-gray-900 mb-4">For Apple Users:</h2>
-            <ul className="space-y-4 mb-8 ml-4">
-              <li className="flex">
-                <span className="w-2 h-2 bg-gray-900 rounded-full mt-2 mr-4 flex-shrink-0"></span>
-                <div>
-                  <span className="font-semibold">Apple MacBook Air 13-inch (M4, 2025):</span>
-                  <span className="ml-1">
-                    This is a top contender for the best overall laptop, especially for those in the Apple ecosystem. It
-                    offers a lightweight design, excellent performance with the M4 chip, and long battery life.
-                  </span>
-                </div>
-              </li>
-              <li className="flex">
-                <span className="w-2 h-2 bg-gray-900 rounded-full mt-2 mr-4 flex-shrink-0"></span>
-                <div>
-                  <span className="font-semibold">Apple MacBook Pro 14 (2024):</span>
-                  <span className="ml-1 text-gray-600">
-                    Ideal for users who need a powerful workstation with a premium build, excellent display, and strong
-                    performance for demanding tasks.
-                  </span>
-                </div>
-              </li>
-            </ul>
+            {/* Render content from JSON data */}
+            <div className="prose prose-lg max-w-none">
+              {data.text_blocks.map((block, index) => renderTextBlock(block, index))}
+            </div>
 
             {/* Ask Anything Input */}
             <div className="mt-16">
@@ -216,7 +260,7 @@ export default function AiModePage() {
                   />
                 ))}
               </div>
-              <span className="text-sm text-gray-600">11 sites</span>
+              <span className="text-sm text-gray-600">{data.references.length} sites</span>
               <button className="ml-auto">
                 <MoreVertical className="h-5 w-5 text-gray-500" />
               </button>
@@ -224,8 +268,11 @@ export default function AiModePage() {
 
             {/* Reference Articles */}
             <div className="space-y-4">
-              {data.references.slice(0, 3).map((ref, index) => (
-                <div key={index} className="border border-gray-200 rounded-lg overflow-hidden">
+              {data.references.slice(0, 6).map((ref, index) => (
+                <div
+                  key={index}
+                  className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow"
+                >
                   <div className="flex">
                     <div className="flex-1 p-4">
                       <h3 className="text-blue-700 hover:underline text-sm font-medium leading-tight mb-2">
@@ -233,7 +280,9 @@ export default function AiModePage() {
                           {ref.title}
                         </TrackedLink>
                       </h3>
-                      <p className="text-xs text-gray-600 mb-2">May 27, 2025 — {ref.snippet.substring(0, 60)}...</p>
+                      <p className="text-xs text-gray-600 mb-2 line-clamp-2">
+                        {ref.snippet.length > 80 ? `${ref.snippet.substring(0, 80)}...` : ref.snippet}
+                      </p>
                       <div className="flex items-center">
                         <WebsiteFavicon url={ref.link} size={16} fallbackText={getWebsiteName(ref.link).charAt(0)} />
                         <span className="text-xs text-gray-600 ml-2">{getWebsiteName(ref.link)}</span>
@@ -261,15 +310,31 @@ export default function AiModePage() {
             </div>
 
             {/* Show all button */}
-            <div className="mt-6 text-right">
+            <div className="mt-6 text-center">
               <TrackedLink
                 href="/analytics"
                 componentName="AiMode-Sidebar"
-                linkIndex={3}
+                linkIndex={data.references.length}
                 className="text-blue-700 hover:underline text-sm font-medium"
               >
-                Show all
+                Show all {data.references.length} sources
               </TrackedLink>
+            </div>
+
+            {/* Additional AI Mode Features */}
+            <div className="mt-8 pt-6 border-t border-gray-200">
+              <h4 className="text-sm font-medium text-gray-900 mb-3">Related Topics</h4>
+              <div className="space-y-2">
+                <button className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
+                  Best Phone 2025
+                </button>
+                <button className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
+                  Phone comparison
+                </button>
+                <button className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
+                  Phone recommendations
+                </button>
+              </div>
             </div>
           </div>
         </div>
