@@ -36,9 +36,6 @@ export default function Home() {
 
           <SearchResults results={beforeVideos} />
 
-          {/* Videos Section */}
-          <VideosSection />
-
         </div>
       </div>
       {/* AI Overview Section */}

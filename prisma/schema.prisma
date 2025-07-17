@@ -1,0 +1,35 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model TaskLog {
+  id              Int           @id @default(autoincrement())
+  participant_id  String
+  task_id         String
+  treatment_group String
+  task_topic      String
+  task_type       String
+  task_start_time DateTime
+  task_end_time   DateTime
+  click_sequence  ClickEvent[]
+}
+
+model ClickEvent {
+  id               Int      @id @default(autoincrement())
+  task_log_id      Int
+  taskLog          TaskLog  @relation(fields: [task_log_id], references: [id])
+  click_order      Int
+  page_title       String
+  page_id          String
+  is_ad            Boolean
+  position_in_serp Int
+  click_time       DateTime
+  dwell_time_sec   Float
+  from_overview    Boolean
+  from_ai_mode     Boolean
+}

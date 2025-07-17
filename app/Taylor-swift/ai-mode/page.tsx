@@ -3,7 +3,7 @@ import Image from "next/image"
 import { SearchTabs } from "@/components/search-tabs"
 import { Mic, MoreVertical, Clock, Edit } from "lucide-react"
 import aiOverviewData from "@/data/Taylor-swift/ai-overview.json"
-import { TrackedLink } from "@/components/tracked-link"
+import { TrackedLink } from "@/components/research-tracked-link"
 import { WebsiteFavicon } from "@/components/website-favicon"
 import { getWebsiteName } from "@/lib/favicon-service"
 

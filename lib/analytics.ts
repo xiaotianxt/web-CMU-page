@@ -1,318 +1,316 @@
-// Enhanced Analytics service for research tracking
+// Analytics service for tracking link clicks and visit duration
 
-// Types for the new analytics structure
+// Types for our analytics data
+export interface LinkClickEvent {
+  componentName: string // Which component contained the link (e.g., "SearchResults", "AiOverview")
+  linkIndex: number // Index of the link within the component
+  linkText: string // Text content of the link
+  linkUrl: string // URL of the link
+  timestamp: number // When the click happened
+}
+
+export interface VisitDuration {
+  linkId: string // Unique ID for the link click event
+  duration: number // Duration in milliseconds
+  returnTimestamp: number // When the user returned
+}
+
+// Types for research analytics data
 export interface ClickEvent {
-    click_order: number
-    page_title: string
-    page_id: string
-    is_ad: boolean
-    position_in_serp: number
-    click_time: string // ISO string
-    dwell_time_sec: number | null
-    from_overview: boolean
-    from_ai_mode: boolean
-    url: string // Added for reference
+  click_order: number
+  page_title: string
+  page_id: string
+  is_ad: boolean
+  position_in_serp: number
+  click_time: string // ISO string
+  dwell_time_sec: number | null
+  from_overview: boolean
+  from_ai_mode: boolean
+}
+
+export interface TaskSession {
+  participant_id: string
+  task_id: number
+  treatment_group: string // e.g., "Top_OV_AI", "No_OV", "Mid_OV", etc.
+  task_topic: string
+  task_type: "product" | "info"
+  task_start_time: string // ISO string
+  task_end_time: string | null // ISO string, null if task is ongoing
+  click_sequence: ClickEvent[]
+}
+
+// Generate a unique ID for each link click
+const generateLinkId = (event: LinkClickEvent): string => {
+  return `${event.componentName}-${event.linkIndex}-${event.timestamp}`
+}
+
+// Generate participant ID based on device/browser fingerprint
+const generateParticipantId = (): string => {
+  // Try to get existing participant ID first
+  const existingId = localStorage.getItem("participant_id")
+  if (existingId) return existingId
+
+  // Generate new participant ID using browser fingerprint
+  const canvas = document.createElement("canvas")
+  const ctx = canvas.getContext("2d")
+  ctx?.fillText("fingerprint", 10, 10)
+  const canvasFingerprint = canvas.toDataURL()
+
+  const fingerprint = [
+    navigator.userAgent,
+    navigator.language,
+    screen.width + "x" + screen.height,
+    new Date().getTimezoneOffset(),
+    canvasFingerprint.slice(-50), // Last 50 chars of canvas fingerprint
+  ].join("|")
+
+  // Create a simple hash
+  let hash = 0
+  for (let i = 0; i < fingerprint.length; i++) {
+    const char = fingerprint.charCodeAt(i)
+    hash = (hash << 5) - hash + char
+    hash = hash & hash // Convert to 32-bit integer
   }
-  
-  export interface TaskSession {
-    participant_id: string
-    task_id: string
-    treatment_group: string
-    task_topic: string
-    task_type: string
-    task_start_time: string // ISO string
-    task_end_time: string | null // ISO string, null if session is ongoing
-    click_sequence: ClickEvent[]
+
+  const participantId = `P${Math.abs(hash).toString().padStart(6, "0")}`
+  localStorage.setItem("participant_id", participantId)
+  return participantId
+}
+
+// Extract treatment group and topic from URL
+const extractUrlParams = () => {
+  if (typeof window === "undefined") return { topic: "", treatmentGroup: "" }
+
+  const path = window.location.pathname
+  const segments = path.split("/").filter(Boolean)
+
+  if (segments.length >= 3) {
+    const topic = segments[0]
+    const largeGroup = segments[1]
+    const smallGroup = segments[2]
+    const treatmentGroup = `${largeGroup}_${smallGroup}`
+
+    return { topic, treatmentGroup }
   }
-  
-  // Generate participant ID from browser fingerprint/IP simulation
-  const generateParticipantId = (): string => {
-    // In a real implementation, you might use actual IP or more sophisticated fingerprinting
-    // For now, we'll create a persistent ID based on browser characteristics
-    let participantId = localStorage.getItem("participant_id")
-  
-    if (!participantId) {
-      // Create a pseudo-unique ID based on browser characteristics
-      const canvas = document.createElement("canvas")
-      const ctx = canvas.getContext("2d")
-      ctx!.textBaseline = "top"
-      ctx!.font = "14px Arial"
-      ctx!.fillText("Browser fingerprint", 2, 2)
-  
-      const fingerprint = canvas.toDataURL()
-      const hash = fingerprint.split("").reduce((a, b) => {
-        a = (a << 5) - a + b.charCodeAt(0)
-        return a & a
-      }, 0)
-  
-      participantId = `P${Math.abs(hash).toString().substring(0, 6)}`
-      localStorage.setItem("participant_id", participantId)
-    }
-  
-    return participantId
-  }
-  
-  // Get next task ID
-  const getNextTaskId = (): string => {
-    const lastTaskId = localStorage.getItem("last_task_id")
-    const nextId = lastTaskId ? Number.parseInt(lastTaskId) + 1 : 1
-    localStorage.setItem("last_task_id", nextId.toString())
-    return `task${nextId}`
-  }
-  
-  // Initialize new task session
-  export const initializeTaskSession = (): TaskSession => {
-    const participantId = generateParticipantId()
-    const taskId = getNextTaskId()
-  
-    const session: TaskSession = {
-      participant_id: participantId,
-      task_id: taskId,
-      treatment_group: "Top_OV_AI",
-      task_topic: "Laptop",
-      task_type: "transactional",
-      task_start_time: new Date().toISOString(),
-      task_end_time: null,
-      click_sequence: [],
-    }
-  
-    localStorage.setItem("current_session", JSON.stringify(session))
-    console.log(`New task session initialized: ${taskId} for participant ${participantId}`)
-  
+
+  // Default values for current implementation
+  return { topic: "Laptop", treatmentGroup: "Top_OV_AI" }
+}
+
+// Determine task type based on topic
+const getTaskType = (topic: string): "product" | "info" => {
+  const productTopics = ["Laptop", "Phone", "Car-vehicle", "Cruise"]
+  return productTopics.includes(topic) ? "product" : "info"
+}
+
+// Get current task session
+const getCurrentTaskSession = (): TaskSession => {
+  const participantId = generateParticipantId()
+  const { topic, treatmentGroup } = extractUrlParams()
+  const taskType = getTaskType(topic)
+
+  // Try to get existing session
+  const existingSession = localStorage.getItem("current_task_session")
+  if (existingSession) {
+    const session: TaskSession = JSON.parse(existingSession)
+    // Update URL-dependent fields in case of navigation
+    session.treatment_group = treatmentGroup
+    session.task_topic = topic
+    session.task_type = taskType
     return session
   }
-  
-  // Get current session or create new one
-  export const getCurrentSession = (): TaskSession => {
-    const sessionData = localStorage.getItem("current_session")
-  
-    if (sessionData) {
-      try {
-        return JSON.parse(sessionData)
-      } catch (e) {
-        console.warn("Invalid session data, creating new session")
+
+  // Get next task ID
+  const allSessions = getAllTaskSessions()
+  const nextTaskId = allSessions.length + 1
+
+  // Create new session
+  const newSession: TaskSession = {
+    participant_id: participantId,
+    task_id: nextTaskId,
+    treatment_group: treatmentGroup,
+    task_topic: topic,
+    task_type: taskType,
+    task_start_time: new Date().toISOString(),
+    task_end_time: null,
+    click_sequence: [],
+  }
+
+  localStorage.setItem("current_task_session", JSON.stringify(newSession))
+  return newSession
+}
+
+// Store link click in localStorage
+export const trackLinkClick = (componentName: string, linkIndex: number, linkText: string, linkUrl: string): string => {
+  const session = getCurrentTaskSession()
+  const clickTime = new Date().toISOString()
+
+  // Determine page_id and other properties based on component
+  let pageId = ""
+  let isAd = false
+  const positionInSerp = linkIndex + 1
+  let fromOverview = false
+  let fromAiMode = false
+
+  // Map component names to page IDs and properties
+  switch (componentName) {
+    case "SearchResults":
+      pageId = `organic_${linkIndex + 1}`
+      isAd = false
+      break
+    case "SearchResults-Sitelinks":
+      pageId = `sitelink_${linkIndex + 1}`
+      isAd = false
+      break
+    case "AiOverview":
+    case "AiOverview-References":
+      pageId = `overview_ref_${linkIndex + 1}`
+      isAd = false
+      fromOverview = true
+      break
+    case "AiMode-Sidebar":
+      pageId = `ai_mode_ref_${linkIndex + 1}`
+      isAd = false
+      fromAiMode = true
+      break
+    case "SearchTabs":
+      pageId = `tab_${linkIndex + 1}`
+      isAd = false
+      break
+    case "PeopleAlsoSearch":
+      pageId = `related_${linkIndex + 1}`
+      isAd = false
+      break
+    default:
+      pageId = `other_${linkIndex + 1}`
+      isAd = false
+  }
+
+  const clickEvent: ClickEvent = {
+    click_order: session.click_sequence.length + 1,
+    page_title: linkText,
+    page_id: pageId,
+    is_ad: isAd,
+    position_in_serp: positionInSerp,
+    click_time: clickTime,
+    dwell_time_sec: null, // Will be updated when user returns
+    from_overview: fromOverview,
+    from_ai_mode: fromAiMode,
+  }
+
+  // Add click to session
+  session.click_sequence.push(clickEvent)
+  localStorage.setItem("current_task_session", JSON.stringify(session))
+
+  // Store click info for dwell time calculation
+  const clickId = `${session.task_id}_${clickEvent.click_order}`
+  localStorage.setItem("current_click_id", clickId)
+  localStorage.setItem("click_start_time", Date.now().toString())
+
+  console.log(`Tracked click: ${pageId} - "${linkText}"`)
+  return clickId
+}
+
+// Track when user returns from a link
+export const trackReturnFromLink = (): void => {
+  const clickId = localStorage.getItem("current_click_id")
+  const startTime = localStorage.getItem("click_start_time")
+
+  if (clickId && startTime) {
+    const dwellTimeMs = Date.now() - Number.parseInt(startTime)
+    const dwellTimeSec = Math.round((dwellTimeMs / 1000) * 10) / 10 // Round to 1 decimal
+
+    // Update the click event with dwell time
+    const session = getCurrentTaskSession()
+    const [taskId, clickOrder] = clickId.split("_")
+
+    if (session.task_id.toString() === taskId) {
+      const clickIndex = Number.parseInt(clickOrder) - 1
+      if (session.click_sequence[clickIndex]) {
+        session.click_sequence[clickIndex].dwell_time_sec = dwellTimeSec
+        localStorage.setItem("current_task_session", JSON.stringify(session))
       }
     }
-  
-    return initializeTaskSession()
+
+    // Clear tracking data
+    localStorage.removeItem("current_click_id")
+    localStorage.removeItem("click_start_time")
+
+    console.log(`Dwell time recorded: ${dwellTimeSec}s`)
   }
-  
-  // Generate page ID based on component and position
-  const generatePageId = (componentName: string, linkIndex: number, isAd = false): string => {
-    if (isAd) {
-      return `ad_${linkIndex + 1}`
-    }
-  
-    switch (componentName) {
-      case "SearchResults":
-        return `organic_${linkIndex + 1}`
-      case "AiOverview":
-      case "AiOverview-References":
-        return `overview_${linkIndex + 1}`
-      case "AiMode-Sidebar":
-        return `ai_mode_${linkIndex + 1}`
-      case "SearchResults-Sitelinks":
-        return `sitelink_${linkIndex + 1}`
-      case "PeopleAlsoAsk":
-        return `paa_${linkIndex + 1}`
-      case "VideosSection":
-        return `video_${linkIndex + 1}`
-      case "DiscussionsForums":
-        return `forum_${linkIndex + 1}`
-      case "WhatPeopleSaying":
-        return `review_${linkIndex + 1}`
-      case "PeopleAlsoSearch":
-        return `related_${linkIndex + 1}`
-      default:
-        return `other_${linkIndex + 1}`
-    }
+}
+
+// End current task session
+export const endTaskSession = (): void => {
+  const session = getCurrentTaskSession()
+  session.task_end_time = new Date().toISOString()
+
+  // Save completed session to history
+  const allSessions = getAllTaskSessions()
+  const existingIndex = allSessions.findIndex((s) => s.task_id === session.task_id)
+
+  if (existingIndex >= 0) {
+    allSessions[existingIndex] = session
+  } else {
+    allSessions.push(session)
   }
-  
-  // Determine position in SERP based on component and index
-  const getSerpPosition = (componentName: string, linkIndex: number): number => {
-    switch (componentName) {
-      case "SearchResults":
-        return linkIndex + 1 // Direct position in organic results
-      case "AiOverview":
-      case "AiOverview-References":
-        return 0 // Overview is above organic results
-      case "AiMode-Sidebar":
-        return 0 // AI mode sidebar
-      case "SearchResults-Sitelinks":
-        return linkIndex + 1 // Same as parent result
-      case "PeopleAlsoAsk":
-        return 20 + linkIndex // After organic results
-      case "VideosSection":
-        return 30 + linkIndex
-      case "DiscussionsForums":
-        return 40 + linkIndex
-      case "WhatPeopleSaying":
-        return 50 + linkIndex
-      case "PeopleAlsoSearch":
-        return 60 + linkIndex
-      default:
-        return 100 + linkIndex
-    }
-  }
-  
-  // Check if click is from overview or AI mode
-  const getClickSource = (componentName: string) => {
-    const fromOverview = componentName.includes("AiOverview") || componentName.includes("Overview")
-    const fromAiMode = componentName.includes("AiMode")
-  
-    return { fromOverview, fromAiMode }
-  }
-  
-  // Track link click with enhanced data
-  export const trackLinkClick = (
-    componentName: string,
-    linkIndex: number,
-    linkText: string,
-    linkUrl: string,
-    isAd = false,
-  ): string => {
-    const session = getCurrentSession()
-    const clickTime = new Date().toISOString()
-    const { fromOverview, fromAiMode } = getClickSource(componentName)
-  
-    const clickEvent: ClickEvent = {
-      click_order: session.click_sequence.length + 1,
-      page_title: linkText,
-      page_id: generatePageId(componentName, linkIndex, isAd),
-      is_ad: isAd,
-      position_in_serp: getSerpPosition(componentName, linkIndex),
-      click_time: clickTime,
-      dwell_time_sec: null, // Will be filled when user returns
-      from_overview: fromOverview,
-      from_ai_mode: fromAiMode,
-      url: linkUrl,
-    }
-  
-    session.click_sequence.push(clickEvent)
-    localStorage.setItem("current_session", JSON.stringify(session))
-  
-    // Store current click for dwell time tracking
-    localStorage.setItem(
-      "current_click",
-      JSON.stringify({
-        clickIndex: session.click_sequence.length - 1,
-        startTime: Date.now(),
-      }),
-    )
-  
-    console.log(`Tracked click ${clickEvent.click_order}: ${clickEvent.page_id} - "${linkText}"`)
-  
-    return `${session.task_id}_${clickEvent.click_order}`
-  }
-  
-  // Track return from link (calculate dwell time)
-  export const trackReturnFromLink = (): void => {
-    const currentClickData = localStorage.getItem("current_click")
-  
-    if (currentClickData) {
-      try {
-        const { clickIndex, startTime } = JSON.parse(currentClickData)
-        const dwellTime = (Date.now() - startTime) / 1000 // Convert to seconds
-  
-        const session = getCurrentSession()
-        if (session.click_sequence[clickIndex]) {
-          session.click_sequence[clickIndex].dwell_time_sec = Math.round(dwellTime * 10) / 10 // Round to 1 decimal
-          localStorage.setItem("current_session", JSON.stringify(session))
-  
-          console.log(`Dwell time recorded: ${dwellTime}s for click ${clickIndex + 1}`)
-        }
-  
-        localStorage.removeItem("current_click")
-      } catch (e) {
-        console.warn("Error processing return from link:", e)
+
+  localStorage.setItem("task_sessions", JSON.stringify(allSessions))
+  localStorage.removeItem("current_task_session")
+
+  console.log(`Task ${session.task_id} ended`)
+}
+
+// Get all task sessions
+export const getAllTaskSessions = (): TaskSession[] => {
+  const sessions = localStorage.getItem("task_sessions")
+  return sessions ? JSON.parse(sessions) : []
+}
+
+// Get current session (including ongoing)
+export const getCurrentSession = (): TaskSession | null => {
+  const currentSession = localStorage.getItem("current_task_session")
+  return currentSession ? JSON.parse(currentSession) : null
+}
+
+// Initialize session tracking
+export const initializeSession = (): void => {
+  // This will create a new session if none exists
+  getCurrentTaskSession()
+
+  // Set up beforeunload event to end session when user leaves
+  if (typeof window !== "undefined") {
+    window.addEventListener("beforeunload", () => {
+      endTaskSession()
+    })
+
+    // Also track page visibility changes
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") {
+        trackReturnFromLink()
       }
-    }
+    })
   }
-  
-  // End current task session
-  export const endTaskSession = (): void => {
-    const session = getCurrentSession()
-    session.task_end_time = new Date().toISOString()
-  
-    // Save completed session to history
-    const completedSessions = getCompletedSessions()
-    completedSessions.push(session)
-    localStorage.setItem("completed_sessions", JSON.stringify(completedSessions))
-  
-    // Clear current session
-    localStorage.removeItem("current_session")
-    localStorage.removeItem("current_click")
-  
-    console.log(`Task session ended: ${session.task_id}`)
+}
+
+// Clear all analytics data
+export const clearAllAnalyticsData = (): void => {
+  localStorage.removeItem("task_sessions")
+  localStorage.removeItem("current_task_session")
+  localStorage.removeItem("current_click_id")
+  localStorage.removeItem("click_start_time")
+  localStorage.removeItem("participant_id")
+}
+
+// Export data for research
+export const exportResearchData = (): TaskSession[] => {
+  const allSessions = getAllTaskSessions()
+  const currentSession = getCurrentSession()
+
+  if (currentSession) {
+    // Include current ongoing session
+    return [...allSessions, currentSession]
   }
-  
-  // Get all completed sessions
-  export const getCompletedSessions = (): TaskSession[] => {
-    const sessionsData = localStorage.getItem("completed_sessions")
-    if (sessionsData) {
-      try {
-        return JSON.parse(sessionsData)
-      } catch (e) {
-        console.warn("Error parsing completed sessions")
-      }
-    }
-    return []
-  }
-  
-  // Get all analytics data (current + completed)
-  export const getAllAnalyticsData = () => {
-    const currentSession = getCurrentSession()
-    const completedSessions = getCompletedSessions()
-  
-    return {
-      currentSession,
-      completedSessions,
-      allSessions: [...completedSessions, currentSession],
-    }
-  }
-  
-  // Clear all analytics data
-  export const clearAnalyticsData = (): void => {
-    localStorage.removeItem("current_session")
-    localStorage.removeItem("completed_sessions")
-    localStorage.removeItem("current_click")
-    localStorage.removeItem("last_task_id")
-    // Don't clear participant_id as it should persist across sessions
-  
-    console.log("Analytics data cleared")
-  }
-  
-  // Export data for research
-  export const exportAnalyticsData = (): string => {
-    const data = getAllAnalyticsData()
-    return JSON.stringify(data.allSessions, null, 2)
-  }
-  
-  // Get summary statistics
-  export const getAnalyticsSummary = () => {
-    const { allSessions } = getAllAnalyticsData()
-  
-    const totalSessions = allSessions.length
-    const totalClicks = allSessions.reduce((sum, session) => sum + session.click_sequence.length, 0)
-    const avgClicksPerSession = totalSessions > 0 ? totalClicks / totalSessions : 0
-  
-    const clicksBySource = allSessions.reduce(
-      (acc, session) => {
-        session.click_sequence.forEach((click) => {
-          if (click.from_overview) acc.overview++
-          else if (click.from_ai_mode) acc.aiMode++
-          else acc.organic++
-        })
-        return acc
-      },
-      { organic: 0, overview: 0, aiMode: 0 },
-    )
-  
-    return {
-      totalSessions,
-      totalClicks,
-      avgClicksPerSession: Math.round(avgClicksPerSession * 10) / 10,
-      clicksBySource,
-    }
-  }
-  
+
+  return allSessions
+}
