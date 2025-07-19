@@ -4,7 +4,6 @@ import { AiOverview } from "@/components/ai-overview"
 import { VideosSection } from "@/components/videos-section"
 import { Pagination } from "@/components/pagination"
 import { SearchTabs } from "@/components/search-tabs"
-import { PeopleAlsoSearch } from "@/components/people-also-search"
 
 import HeadSection from "@/components/head-section"
 import { usePathname } from "next/navigation"
@@ -49,8 +48,6 @@ export default function Home() {
         <div className="max-w-2xl">
 
           <SearchResults results={beforePeopleAlsoSearchFor} />
-          {/* People Also Search for */}
-          <PeopleAlsoSearch />
 
           <DiscussionsAndForums/>
 

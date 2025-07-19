@@ -4,7 +4,6 @@ import { AiOverview } from "@/components/ai-overview"
 import { VideosSection } from "@/components/videos-section"
 import { Pagination } from "@/components/pagination"
 import { SearchTabs } from "@/components/search-tabs"
-import { PeopleAlsoSearch } from "@/components/people-also-search"
 
 import searchData from "@/app/Laptop/data/1.json"
 import HeadSection from "@/components/head-section"
@@ -40,10 +39,6 @@ export default function Home() {
           <VideosSection />
 
           <SearchResults results={beforePeopleAlsoSearchFor} />
-          {/* People Also Search for */}
-          <PeopleAlsoSearch />
-
-
 
           <SearchResults results={bottomResults} />
 
