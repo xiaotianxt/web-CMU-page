@@ -1,18 +1,38 @@
 'use client'
+
 import { TrackedLink } from "@/components/tracked-link"
-import { usePathname } from "next/navigation"
+import { usePathname, useSearchParams } from "next/navigation"
+
 interface SearchTabsProps {
   currentPage?: string
 }
 
 export function SearchTabs({ currentPage = "all" }: SearchTabsProps) {
   const pathname = usePathname()
+  const searchParams = useSearchParams()
+
   const match = pathname.match(/^(.*?)(\/\d+)?\/?$/)
-  // Extract only the first segment of the path, e.g., /Laptop
   const basePath = match ? match[1].split('/')[1] ? `/${match[1].split('/')[1]}` : "" : "";
+
+  //  href for 'All' tab
+  let allHref = "/"
+
+  if (pathname.endsWith("/ai-mode")) {
+    // AI Mode 
+    const from = searchParams.get("from")
+    allHref = from || "/" 
+  } else {
+    // not AI mode, turn to 1
+    const parts = pathname.split("/").filter(Boolean)
+    if (parts.length >= 4) {
+      parts[parts.length - 1] = "1"
+      allHref = "/" + parts.join("/")
+    }
+  }
+
   const tabs = [
-    { name: "AI Mode", key: "ai-mode", href: `${basePath}/ai-mode` },
-    { name: "All", key: "all", href: "/" },
+    { name: "AI Mode", key: "ai-mode", href: `${basePath}/ai-mode?from=${pathname}` },
+    { name: "All", key: "all", href: allHref },
     { name: "Images", key: "images", href: "#" },
     { name: "Short videos", key: "videos", href: "#" },
     { name: "Forums", key: "forums", href: "#" },
