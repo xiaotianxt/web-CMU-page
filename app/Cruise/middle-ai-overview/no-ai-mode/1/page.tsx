@@ -27,7 +27,7 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="container mx-auto px-15 py-4">
+      <div className="container mx-auto px-15 py-4">
         <div className="max-w-2xl">
 
           <SearchResults results={beforePeopleAlsoAsk} />
@@ -38,10 +38,13 @@ export default function Home() {
           <VideosSection />
 
           {/* AI Overview Section */}
-          <div className="px-42">
-            <AiOverview />
-          </div>
-
+        </div>
+      </div>
+      <div className="px-42">
+        <AiOverview />
+      </div>
+      <div className="container mx-auto px-15 py-4">
+        <div className="max-w-2xl">
           <SearchResults results={beforePeopleAlsoSearchFor} />
 
 
@@ -50,7 +53,7 @@ export default function Home() {
           {/* Pagination */}
           <Pagination />
         </div>
-      </main>
+      </div>
     </div>
   )
 }
