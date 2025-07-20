@@ -41,9 +41,6 @@ export default function Home() {
 
           <SearchResults results={bottomResults} />
 
-          {/* People Also Search for */}
-          <PeopleAlsoSearch />
-
           {/* Pagination */}
           <Pagination />
         </div>
