@@ -35,6 +35,9 @@ export default function Home() {
 
           <SearchResults results={beforeVideos} />
 
+          {/* Videos Section */}
+          <VideosSection />
+          
           <SearchResults results={beforePeopleAlsoSearchFor} />
 
           <DiscussionsAndForums />

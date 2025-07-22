@@ -38,10 +38,12 @@ export default function Home() {
           <SearchResults results={beforePeopleAlsoAsk} />
 
           <SearchResults results={beforeVideos} />
+          {/* Videos Section */}
+          <VideosSection />
 
           <SearchResults results={beforePeopleAlsoSearchFor} />
 
-          <DiscussionsAndForums/>
+          <DiscussionsAndForums />
 
           <SearchResults results={bottomResults} />
 
