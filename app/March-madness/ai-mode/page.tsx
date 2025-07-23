@@ -1,7 +1,9 @@
 "use client"
 import Image from "next/image"
 import { SearchTabs } from "@/components/search-tabs"
-import { Mic, MoreVertical, Clock, Edit } from "lucide-react"
+import { useState } from "react"
+import Link from "next/link"
+import { Mic, MoreVertical, Clock, Edit, X } from "lucide-react"
 import aiOverviewData from "@/data/March-madness/ai-overview.json"
 import { TrackedLink } from "@/components/tracked-link"
 import { WebsiteFavicon } from "@/components/website-favicon"
@@ -45,11 +47,23 @@ interface AIOverviewData {
   references: Reference[]
 }
 
-export default function AiModePage() {
-  const data = aiOverviewData as AIOverviewData
 
+export default function AiModePage() {
+  const [textContentHeight, setTextContentHeight] = useState<number>(0)
+  const data = aiOverviewData as AIOverviewData
+  const [showAllReferences, setShowAllReferences] = useState(false)
+  const [filteredReferenceIndexes, setFilteredReferenceIndexes] = useState<number[] | null>(null)
+  const displayedReferences = (() => {
+    if (filteredReferenceIndexes) {
+      return data.references.filter((ref) => filteredReferenceIndexes.includes(ref.index))
+    }
+    if (!showAllReferences) {
+      return data.references.slice(0, 3)
+    }
+    return data.references
+  })()
   const getImageForReference = (referenceIndex: number) => {
-    return `/March-madness/images/${referenceIndex+1}.jpeg`
+    return `/March-madness/images/${referenceIndex + 1}.jpeg`
   }
 
   const renderHighlightedText = (text: string, highlightedWords: string[] = []) => {
@@ -219,19 +233,19 @@ export default function AiModePage() {
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 flex">
+        <div className="flex-1 flex min-h-0">
           {/* Content Area */}
-          <div className="flex-1 px-8 py-8 max-w-4xl">
-            {/* Main Title - Dynamic based on topic */}
-            <h1 className="text-3xl font-normal text-gray-900 mb-6">introduce march madness</h1>
-
-            {/* Render content from JSON data */}
-            <div className="prose prose-lg max-w-none">
-              {data.text_blocks.map((block, index) => renderTextBlock(block, index))}
+          <div className="flex-1 flex flex-col max-w-4xl px-8 py-8 overflow-hidden">
+            {/* Scrollable content */}
+            <div className="flex-1 overflow-y-auto pr-2 min-h-0">
+              <h1 className="text-3xl font-normal text-gray-900 mb-6">
+              Introduce march madness
+              </h1>
+              <div className="prose prose-lg max-w-none">
+                {data.text_blocks.map((block, index) => renderTextBlock(block, index))}
+              </div>
             </div>
-
-            {/* Ask Anything Input */}
-            <div className="mt-16">
+            <div className="pt-4 bg-white sticky bottom-0">
               <div className="relative max-w-2xl">
                 <input
                   type="text"
@@ -246,7 +260,7 @@ export default function AiModePage() {
           </div>
 
           {/* Right Sidebar */}
-          <div className="w-80 flex-shrink-0 px-6 py-8">
+          <div className="w-80 flex-shrink-0 flex flex-col px-6 py-8">
             {/* Sites indicator */}
             <div className="flex items-center mb-6">
               <div className="flex -space-x-1 mr-3">
@@ -265,80 +279,100 @@ export default function AiModePage() {
                 <MoreVertical className="h-5 w-5 text-gray-500" />
               </button>
             </div>
-
-            {/* Reference Articles */}
-            <div className="space-y-4">
-              {data.references.slice(0, 6).map((ref, index) => (
+            <div className="w-80 relative flex-shrink-0 max-h-[calc(100vh-100px)] overflow-y-auto">
+              <div className="bg-gray-50 rounded-lg p-4 h-full">
                 <div
-                  key={index}
-                  className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow"
+                  className="relative h-full"
+                  style={{
+                    minHeight: "400px",
+                  }}
                 >
-                  <div className="flex">
-                    <div className="flex-1 p-4">
-                      <h3 className="text-blue-700 hover:underline text-sm font-medium leading-tight mb-2">
-                        <TrackedLink href={ref.link} componentName="AiMode-Sidebar" linkIndex={index}>
-                          {ref.title}
-                        </TrackedLink>
-                      </h3>
-                      <p className="text-xs text-gray-600 mb-2 line-clamp-2">
-                        {ref.snippet.length > 80 ? `${ref.snippet.substring(0, 80)}...` : ref.snippet}
-                      </p>
-                      <div className="flex items-center">
-                        <WebsiteFavicon url={ref.link} size={16} fallbackText={getWebsiteName(ref.link).charAt(0)} />
-                        <span className="text-xs text-gray-600 ml-2">{getWebsiteName(ref.link)}</span>
-                        <button className="ml-auto">
-                          <MoreVertical className="h-4 w-4 text-gray-500" />
-                        </button>
-                      </div>
-                    </div>
-                    <div className="w-20 h-20 m-3">
-                      <Image
-                        src={getImageForReference(ref.index) || "/placeholder.svg"}
-                        alt="Article thumbnail"
-                        width={80}
-                        height={80}
-                        className="w-full h-full object-cover rounded"
-                        onError={(e) => {
-                          // Fallback to placeholder if image doesn't exist
-                          e.currentTarget.src = "/placeholder.svg?height=80&width=80"
-                        }}
-                      />
+                  {/* Close button for expanded view */}
+                  {showAllReferences && (
+                    <button
+                      onClick={() => setShowAllReferences(false)}
+                      className="absolute top-2 right-2 z-10 p-1 rounded-full hover:bg-gray-100 bg-white shadow-sm"
+                    >
+                      <X className="h-5 w-5 text-gray-500" />
+                    </button>
+                  )}
+
+                  {/* Scrollable content container */}
+                  <div className="h-full overflow-y-auto pr-2">
+                    <div className="space-y-4">
+                      {(showAllReferences || filteredReferenceIndexes ? displayedReferences : displayedReferences).map(
+                        (ref, index) => (
+                          <div
+                            key={index}
+                            className="bg-white border border-gray-200 rounded-md overflow-hidden shadow-sm"
+                          >
+                            <div className="flex">
+                              <div className="flex-1 p-2">
+                                <h3 className="text-blue-700 hover:underline text-base font-medium">
+                                  <Link href={ref.link}>{ref.title}</Link>
+                                </h3>
+                                <p className="text-xs text-gray-700 mt-1 line-clamp-2">{ref.snippet}</p>
+                                <div className="flex items-center mt-1">
+                                  <WebsiteFavicon
+                                    url={ref.link}
+                                    size={16}
+                                    fallbackText={getWebsiteName(ref.link).charAt(0)}
+                                  />
+                                  <span className="ml-2 text-xs text-gray-600">{getWebsiteName(ref.link)}</span>
+                                  <button className="ml-auto">
+                                    <MoreVertical className="h-4 w-4 text-gray-500" />
+                                  </button>
+                                </div>
+                              </div>
+                              <div className="w-24 h-16">
+                                <Image
+                                  src={getImageForReference(ref.index)}
+                                  alt="Article thumbnail"
+                                  width={96}
+                                  height={64}
+                                  className="w-full h-full object-cover"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        ),
+                      )}
+
+                      {/* Spacer to ensure button doesn't overlap content when scrolling */}
+                      <div className="h-16"></div>
                     </div>
                   </div>
+
+                  {/* Show all button - positioned at bottom */}
+                  {!showAllReferences && !filteredReferenceIndexes && (
+                    <div className="absolute bottom-0 left-0 right-0 bg-gray-50 pt-2">
+                      <button
+                        onClick={() => setShowAllReferences(true)}
+                        className="flex items-center justify-center w-full bg-blue-100 text-blue-700 py-3 rounded-full hover:bg-blue-200"
+                      >
+                        <span>Show all</span>
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Show all references button when filtered */}
+                  {filteredReferenceIndexes && (
+                    <div className="absolute bottom-0 left-0 right-0 bg-gray-50 pt-2">
+                      <button
+                        onClick={() => setFilteredReferenceIndexes(null)}
+                        className="flex items-center justify-center w-full bg-blue-100 text-blue-700 py-3 rounded-full hover:bg-blue-200"
+                      >
+                        <span>Show all references</span>
+                      </button>
+                    </div>
+                  )}
                 </div>
-              ))}
-            </div>
-
-            {/* Show all button */}
-            <div className="mt-6 text-center">
-              <TrackedLink
-                href="/analytics"
-                componentName="AiMode-Sidebar"
-                linkIndex={data.references.length}
-                className="text-blue-700 hover:underline text-sm font-medium"
-              >
-                Show all {data.references.length} sources
-              </TrackedLink>
-            </div>
-
-            {/* Additional AI Mode Features */}
-            <div className="mt-8 pt-6 border-t border-gray-200">
-              <h4 className="text-sm font-medium text-gray-900 mb-3">Related Topics</h4>
-              <div className="space-y-2">
-                <button className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
-                  March Madness 2025
-                </button>
-                <button className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
-                  March Madness reviews
-                </button>
-                <button className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
-                  March Madness 10 best teams
-                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
   )
 }

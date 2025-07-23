@@ -392,7 +392,7 @@ export function AiOverview() {
                   <div
                     className={`space-y-4 overflow-hidden relative`}
                     style={{
-                      maxHeight: "300px", // 限制高度
+                      maxHeight: "300px",
                     }}
                   >
                     {displayedReferences.slice(0, 3).map((ref, index) => (
