@@ -81,12 +81,18 @@ export default function AnalyticsPage() {
                 <span className="font-medium">Topic:</span> {currentSession.task_topic} ({currentSession.task_type})
               </div>
             </div>
-            <div className="mb-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+              <div>
               <span className="font-medium">Duration:</span>{" "}
               {formatDuration(currentSession.task_start_time, currentSession.task_end_time)}
             </div>
             <div>
               <span className="font-medium">Clicks:</span> {currentSession.click_sequence.length}
+              </div>
+              <div>
+                <span className="font-medium">Click Show More?</span>{" "}
+                {currentSession.show_more_interactions? "Yes": "No"}
+              </div>
             </div>
           </div>
         </div>

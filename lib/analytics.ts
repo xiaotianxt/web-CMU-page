@@ -28,6 +28,12 @@ export interface ClickEvent {
   from_ai_mode: boolean
 }
 
+export interface ShowMoreInteraction {
+  click_order: number,
+  if_click: boolean,
+  click_time?: String 
+}
+
 export interface TaskSession {
   participant_id: string
   task_id: number
@@ -36,8 +42,12 @@ export interface TaskSession {
   task_type: "product" | "info"
   task_start_time: string // ISO string
   task_end_time: string | null // ISO string, null if task is ongoing
-  click_sequence: ClickEvent[]
+  click_sequence: ClickEvent[],
+  show_more_interactions: boolean
 }
+
+
+
 
 // Generate a unique ID for each link click
 const generateLinkId = (event: LinkClickEvent): string => {
@@ -134,6 +144,7 @@ const getCurrentTaskSession = (): TaskSession => {
     task_start_time: new Date().toISOString(),
     task_end_time: null,
     click_sequence: [],
+    show_more_interactions: false
   }
 
   localStorage.setItem("current_task_session", JSON.stringify(newSession))
@@ -209,6 +220,20 @@ export const trackLinkClick = (componentName: string, linkIndex: number, linkTex
 
   console.log(`Tracked click: ${pageId} - "${linkText}"`)
   return clickId
+}
+
+export const trackButtonClick = (ifClick: boolean): void => {
+  const currSession = getCurrentTaskSession()
+  const clickTime = new Date().toISOString()
+
+  const showMoreInteraction: ShowMoreInteraction = {
+    click_order: currSession.click_sequence.length + 1,
+    click_time: clickTime,
+    if_click: ifClick
+  }
+
+// Add button interaction to session
+localStorage.setItem("current_task_session", JSON.stringify(showMoreInteraction))
 }
 
 // Track when user returns from a link

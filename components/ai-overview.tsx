@@ -7,6 +7,7 @@ import Link from "next/link"
 import { WebsiteFavicon } from "@/components/website-favicon"
 import { getWebsiteName } from "@/lib/favicon-service"
 import { usePathname } from "next/navigation"
+import { trackButtonClick } from "@/lib/analytics"
 
 interface TextBlock {
   type: string
@@ -95,6 +96,12 @@ export function AiOverview() {
       }
       return part
     })
+  }
+
+  const handleShowMore = () => {
+    setShowMore(true)
+    // Track the "Show more" button click
+    trackButtonClick(true)
   }
 
   const renderReferenceLink = (referenceIndexes?: number[]) => {
@@ -253,7 +260,7 @@ export function AiOverview() {
 
             {!showMore ? (
               <button
-                onClick={() => setShowMore(true)}
+              onClick={handleShowMore}
                 className="flex items-center justify-center w-full bg-gray-100 text-gray-800 py-3 rounded-full hover:bg-gray-200 mt-4 border border-gray-300"
               >
                 <span>Show more</span>
