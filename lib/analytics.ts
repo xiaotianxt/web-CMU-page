@@ -36,7 +36,7 @@ export interface ShowMoreInteraction {
 
 export interface TaskSession {
   participant_id: string
-  task_id: number
+  rid: string
   treatment_group: string // e.g., "Top_OV_AI", "No_OV", "Mid_OV", etc.
   task_topic: string
   task_type: "product" | "info"
@@ -89,22 +89,25 @@ const generateParticipantId = (): string => {
 
 // Extract treatment group and topic from URL
 const extractUrlParams = () => {
-  if (typeof window === "undefined") return { topic: "", treatmentGroup: "" }
+  if (typeof window === "undefined") return { topic: "", treatmentGroup: "", rid:"00000"}
 
   const path = window.location.pathname
+  const searchParams = new URLSearchParams(window.location.search)
   const segments = path.split("/").filter(Boolean)
-
+  // Extract RID from query parameters, default to "00000" if not provided
+  const rid = searchParams.get("RID") || "00000"
+  
   if (segments.length >= 3) {
     const topic = segments[0]
     const largeGroup = segments[1]
     const smallGroup = segments[2]
     const treatmentGroup = `${largeGroup}_${smallGroup}`
 
-    return { topic, treatmentGroup }
+    return { topic, treatmentGroup, rid }
   }
 
   // Default values for current implementation
-  return { topic: "Laptop", treatmentGroup: "Top_OV_AI" }
+  return { topic: "", treatmentGroup: "", rid}
 }
 
 // Determine task type based on topic
@@ -116,7 +119,7 @@ const getTaskType = (topic: string): "product" | "info" => {
 // Get current task session
 const getCurrentTaskSession = (): TaskSession => {
   const participantId = generateParticipantId()
-  const { topic, treatmentGroup } = extractUrlParams()
+  const { topic, treatmentGroup, rid } = extractUrlParams()
   const taskType = getTaskType(topic)
 
   // Try to get existing session
@@ -127,17 +130,13 @@ const getCurrentTaskSession = (): TaskSession => {
     session.treatment_group = treatmentGroup
     session.task_topic = topic
     session.task_type = taskType
+    session.rid = rid
     return session
   }
-
-  // Get next task ID
-  const allSessions = getAllTaskSessions()
-  const nextTaskId = allSessions.length + 1
-
   // Create new session
   const newSession: TaskSession = {
     participant_id: participantId,
-    task_id: nextTaskId,
+    rid: rid,
     treatment_group: treatmentGroup,
     task_topic: topic,
     task_type: taskType,
@@ -214,7 +213,7 @@ export const trackLinkClick = (componentName: string, linkIndex: number, linkTex
   localStorage.setItem("current_task_session", JSON.stringify(session))
 
   // Store click info for dwell time calculation
-  const clickId = `${session.task_id}_${clickEvent.click_order}`
+  const clickId = `${session.rid}_${clickEvent.click_order}`
   localStorage.setItem("current_click_id", clickId)
   localStorage.setItem("click_start_time", Date.now().toString())
 
@@ -247,9 +246,9 @@ export const trackReturnFromLink = (): void => {
 
     // Update the click event with dwell time
     const session = getCurrentTaskSession()
-    const [taskId, clickOrder] = clickId.split("_")
+    const [rid, clickOrder] = clickId.split("_")
 
-    if (session.task_id.toString() === taskId) {
+    if (session.rid.toString() === rid) {
       const clickIndex = Number.parseInt(clickOrder) - 1
       if (session.click_sequence[clickIndex]) {
         session.click_sequence[clickIndex].dwell_time_sec = dwellTimeSec
@@ -272,7 +271,7 @@ export const endTaskSession = (): void => {
 
   // Save completed session to history
   const allSessions = getAllTaskSessions()
-  const existingIndex = allSessions.findIndex((s) => s.task_id === session.task_id)
+  const existingIndex = allSessions.findIndex((s) => s.rid === session.rid)
 
   if (existingIndex >= 0) {
     allSessions[existingIndex] = session
@@ -283,7 +282,7 @@ export const endTaskSession = (): void => {
   localStorage.setItem("task_sessions", JSON.stringify(allSessions))
   localStorage.removeItem("current_task_session")
 
-  console.log(`Task ${session.task_id} ended`)
+  console.log(`Task ${session.rid} ended`)
 }
 
 // Get all task sessions

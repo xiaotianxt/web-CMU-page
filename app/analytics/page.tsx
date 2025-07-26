@@ -72,7 +72,7 @@ export default function AnalyticsPage() {
                 <span className="font-medium">Participant:</span> {currentSession.participant_id}
               </div>
               <div>
-                <span className="font-medium">Task:</span> {currentSession.task_id}
+              <span className="font-medium">TaskId:</span> {currentSession.rid}
               </div>
               <div>
                 <span className="font-medium">Treatment:</span> {currentSession.treatment_group}
@@ -129,7 +129,7 @@ export default function AnalyticsPage() {
             <thead>
               <tr className="bg-gray-100">
                 <th className="px-4 py-2 border text-left">Participant</th>
-                <th className="px-4 py-2 border text-left">Task</th>
+                <th className="px-4 py-2 border text-left">RID</th>
                 <th className="px-4 py-2 border text-left">Treatment</th>
                 <th className="px-4 py-2 border text-left">Topic</th>
                 <th className="px-4 py-2 border text-left">Type</th>
@@ -142,7 +142,7 @@ export default function AnalyticsPage() {
               {sessions.map((session, index) => (
                 <tr key={index} className="hover:bg-gray-50">
                   <td className="px-4 py-2 border">{session.participant_id}</td>
-                  <td className="px-4 py-2 border">{session.task_id}</td>
+                  <td className="px-4 py-2 border">{session.rid}</td>
                   <td className="px-4 py-2 border">
                     <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm">
                       {session.treatment_group}
@@ -182,9 +182,9 @@ export default function AnalyticsPage() {
         <div className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">Recent Click Sequences</h2>
           {sessions.slice(-3).map((session) => (
-            <div key={session.task_id} className="mb-6 border rounded-lg p-4">
+            <div key={session.rid} className="mb-6 border rounded-lg p-4">
               <h3 className="text-lg font-medium mb-3">
-                Task {session.task_id} - {session.participant_id} ({session.treatment_group})
+                Task {session.rid} - {session.participant_id} ({session.treatment_group})
               </h3>
               <div className="overflow-x-auto">
                 <table className="min-w-full bg-gray-50 border">
