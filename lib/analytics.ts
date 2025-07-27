@@ -36,7 +36,7 @@ export interface ShowMoreInteraction {
 
 export interface TaskSession {
   participant_id: string
-  rid: string
+  sid: string
   treatment_group: string // e.g., "Top_OV_AI", "No_OV", "Mid_OV", etc.
   task_topic: string
   task_type: "product" | "info"
@@ -89,13 +89,14 @@ const generateParticipantId = (): string => {
 
 // Extract treatment group and topic from URL
 const extractUrlParams = () => {
-  if (typeof window === "undefined") return { topic: "", treatmentGroup: "", rid:"00000"}
+  if (typeof window === "undefined") return { topic: "", treatmentGroup: "", participantId: generateParticipantId(),sid:"00000"}
 
   const path = window.location.pathname
   const searchParams = new URLSearchParams(window.location.search)
   const segments = path.split("/").filter(Boolean)
   // Extract RID from query parameters, default to "00000" if not provided
-  const rid = searchParams.get("RID") || "00000"
+  const participant_id = searchParams.get("RID") || generateParticipantId()
+  const sid = searchParams.get("SID") || "00000"
   
   if (segments.length >= 3) {
     const topic = segments[0]
@@ -103,11 +104,11 @@ const extractUrlParams = () => {
     const smallGroup = segments[2]
     const treatmentGroup = `${largeGroup}_${smallGroup}`
 
-    return { topic, treatmentGroup, rid }
+    return { topic, treatmentGroup, participant_id, sid}
   }
 
   // Default values for current implementation
-  return { topic: "", treatmentGroup: "", rid}
+  return { topic: "", treatmentGroup: "", participant_id, sid}
 }
 
 // Determine task type based on topic
@@ -118,8 +119,7 @@ const getTaskType = (topic: string): "product" | "info" => {
 
 // Get current task session
 const getCurrentTaskSession = (): TaskSession => {
-  const participantId = generateParticipantId()
-  const { topic, treatmentGroup, rid } = extractUrlParams()
+  const { topic, treatmentGroup, participantId, sid } = extractUrlParams()
   const taskType = getTaskType(topic)
 
   // Try to get existing session
@@ -130,13 +130,14 @@ const getCurrentTaskSession = (): TaskSession => {
     session.treatment_group = treatmentGroup
     session.task_topic = topic
     session.task_type = taskType
-    session.rid = rid
+    session.participant_id = participantId || generateParticipantId()
+    session.sid=sid
     return session
   }
   // Create new session
   const newSession: TaskSession = {
-    participant_id: participantId,
-    rid: rid,
+    participant_id: participantId || generateParticipantId(),
+    sid: sid,
     treatment_group: treatmentGroup,
     task_topic: topic,
     task_type: taskType,
@@ -213,7 +214,7 @@ export const trackLinkClick = (componentName: string, linkIndex: number, linkTex
   localStorage.setItem("current_task_session", JSON.stringify(session))
 
   // Store click info for dwell time calculation
-  const clickId = `${session.rid}_${clickEvent.click_order}`
+  const clickId = `${session.sid}_${session.participant_id}_${session.task_topic}_${session.treatment_group}_${clickEvent.click_order}`
   localStorage.setItem("current_click_id", clickId)
   localStorage.setItem("click_start_time", Date.now().toString())
 
@@ -246,9 +247,9 @@ export const trackReturnFromLink = (): void => {
 
     // Update the click event with dwell time
     const session = getCurrentTaskSession()
-    const [rid, clickOrder] = clickId.split("_")
+    const [sid, participantId, taskTopic, largeGroup, smallGroup, clickOrder] = clickId.split("_")
 
-    if (session.rid.toString() === rid) {
+    if (session.sid.toString()+session.participant_id.toString()+session.task_topic.toString()+ session.treatment_group.toString()=== sid+participantId+taskTopic+largeGroup+"_"+smallGroup) {
       const clickIndex = Number.parseInt(clickOrder) - 1
       if (session.click_sequence[clickIndex]) {
         session.click_sequence[clickIndex].dwell_time_sec = dwellTimeSec
@@ -271,7 +272,7 @@ export const endTaskSession = (): void => {
 
   // Save completed session to history
   const allSessions = getAllTaskSessions()
-  const existingIndex = allSessions.findIndex((s) => s.rid === session.rid)
+  const existingIndex = allSessions.findIndex((s) => s.sid + s.participant_id+ s.task_topic+s.treatment_group=== session.sid+session.participant_id+session.task_topic+ session.treatment_group)
 
   if (existingIndex >= 0) {
     allSessions[existingIndex] = session
@@ -282,7 +283,7 @@ export const endTaskSession = (): void => {
   localStorage.setItem("task_sessions", JSON.stringify(allSessions))
   localStorage.removeItem("current_task_session")
 
-  console.log(`Task ${session.rid} ended`)
+  console.log(`Task ${session.sid+session.participant_id+session.task_topic+ session.treatment_group} ended`)
 }
 
 // Get all task sessions

@@ -72,7 +72,7 @@ export default function AnalyticsPage() {
                 <span className="font-medium">Participant:</span> {currentSession.participant_id}
               </div>
               <div>
-              <span className="font-medium">TaskId:</span> {currentSession.rid}
+              <span className="font-medium">TaskId:</span> {currentSession.sid+"_"+currentSession.participant_id+"_"+currentSession.task_topic+"_"+ currentSession.treatment_group}
               </div>
               <div>
                 <span className="font-medium">Treatment:</span> {currentSession.treatment_group}
@@ -142,7 +142,7 @@ export default function AnalyticsPage() {
               {sessions.map((session, index) => (
                 <tr key={index} className="hover:bg-gray-50">
                   <td className="px-4 py-2 border">{session.participant_id}</td>
-                  <td className="px-4 py-2 border">{session.rid}</td>
+                  <td className="px-4 py-2 border">{session.sid+"_"+session.participant_id+"_"+session.task_topic+"_"+ session.treatment_group}</td>
                   <td className="px-4 py-2 border">
                     <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm">
                       {session.treatment_group}
@@ -182,9 +182,9 @@ export default function AnalyticsPage() {
         <div className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">Recent Click Sequences</h2>
           {sessions.slice(-3).map((session) => (
-            <div key={session.rid} className="mb-6 border rounded-lg p-4">
+            <div key={session.sid+"_"+session.participant_id+"_"+session.task_topic+"_"+ session.treatment_group} className="mb-6 border rounded-lg p-4">
               <h3 className="text-lg font-medium mb-3">
-                Task {session.rid} - {session.participant_id} ({session.treatment_group})
+                Task {session.sid+"_"+session.participant_id+"_"+session.task_topic+"_"+ session.treatment_group}
               </h3>
               <div className="overflow-x-auto">
                 <table className="min-w-full bg-gray-50 border">
