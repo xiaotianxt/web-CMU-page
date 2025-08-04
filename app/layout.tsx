@@ -1,3 +1,4 @@
+'use client'
 import type React from "react"
 import "./globals.css"
 import { AnalyticsTracker } from "@/components/analytics-tracker"

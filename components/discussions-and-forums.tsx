@@ -4,6 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { ChevronDown, ChevronRight, ChevronUp, ExternalLink } from "lucide-react"
+import { TrackedLink } from "@/components/tracked-link"
 
 export function DiscussionsAndForums() {
   const pathname = usePathname();
@@ -31,9 +32,9 @@ export function DiscussionsAndForums() {
           <div key={index} className="mb-6">
             <div className="flex items-start justify-between">
               <div>
-                <Link href={item.url} className="text-blue-700 text-sm md:text-base font-medium hover:underline">
+                <TrackedLink componentName="DiscussionsForums" linkIndex={index} href={item.url} className="text-blue-700 text-sm md:text-base font-medium hover:underline">
                   {item.title}
-                </Link>
+                </TrackedLink>
                 <div className="flex items-center gap-2 text-sm text-gray-600 mt-1">
                   {getSourceIcon(item.source) && (
                     <img src={getSourceIcon(item.source) as string} alt={item.source} className="w-4 h-4" />

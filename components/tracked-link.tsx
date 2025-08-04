@@ -12,8 +12,8 @@ interface TrackedLinkProps {
   children: ReactNode
 }
 
-export function TrackedLink({ href, componentName, linkIndex, className, children }: TrackedLinkProps) {
-  const handleClick = () => {
+export function TrackedLink ({ href, componentName, linkIndex, className, children }: TrackedLinkProps) {
+  const handleClick = async () => {
     // Extract text content for tracking
     let linkText = ""
     if (typeof children === "string") {
@@ -31,11 +31,14 @@ export function TrackedLink({ href, componentName, linkIndex, className, childre
     }
 
     // Track the click
-    trackLinkClick(componentName, linkIndex, linkText, href)
+    const result = await trackLinkClick(componentName, linkIndex, linkText, href)
+    console.log("Tracking result:", result);
+    localStorage.removeItem('current_task_session');
+    
   }
 
   return (
-    <Link href={href} className={className} onClick={handleClick}>
+    <Link href={href} className={className} onClick={handleClick} target="_blank" rel="noopener noreferrer">
       {children}
     </Link>
   )

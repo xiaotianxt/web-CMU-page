@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { MoreVertical } from "lucide-react"
 import {usePathname} from "next/navigation"
+import { TrackedLink } from "@/components/tracked-link"
 
 export function VideosSection() {
    const pathname = usePathname();
@@ -50,7 +51,7 @@ export function VideosSection() {
 
             <div>
               <h3 className="text-xl text-blue-800 hover:underline">
-                <Link href={video.url}>{video.title}</Link> {/* 使用动态链接 */}
+                <TrackedLink componentName="Video" linkIndex={index} href={video.url}>{video.title}</TrackedLink> {/* 使用动态链接 */}
               </h3>
               <div className="text-sm text-gray-600 mt-1">{video.channel}</div>
               <div className="text-sm text-gray-600">{video.date}</div>

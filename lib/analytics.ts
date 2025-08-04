@@ -1,4 +1,5 @@
 // Analytics service for tracking link clicks and visit duration
+import { deleteAllTaskRecords, saveTaskRecordWithRetry } from "@/lib/database-service"
 
 // Types for our analytics data
 export interface LinkClickEvent {
@@ -17,6 +18,7 @@ export interface VisitDuration {
 
 // Types for research analytics data
 export interface ClickEvent {
+  taskId:string
   click_order: number
   page_title: string
   page_id: string
@@ -29,12 +31,14 @@ export interface ClickEvent {
 }
 
 export interface ShowMoreInteraction {
-  click_order: number,
-  if_click: boolean,
-  click_time?: String 
+  click_order: number
+  if_click: boolean
+  click_time?: string
 }
 
 export interface TaskSession {
+  taskId:string
+  id:number
   participant_id: string
   sid: string
   treatment_group: string // e.g., "Top_OV_AI", "No_OV", "Mid_OV", etc.
@@ -42,12 +46,9 @@ export interface TaskSession {
   task_type: "product" | "info"
   task_start_time: string // ISO string
   task_end_time: string | null // ISO string, null if task is ongoing
-  click_sequence: ClickEvent[],
-  show_more_interactions: boolean
+  click_sequence: ClickEvent[]
+  show_more_interactions: ShowMoreInteraction
 }
-
-
-
 
 // Generate a unique ID for each link click
 const generateLinkId = (event: LinkClickEvent): string => {
@@ -60,55 +61,32 @@ const generateParticipantId = (): string => {
   const existingId = localStorage.getItem("participant_id")
   if (existingId) return existingId
 
-  // Generate new participant ID using browser fingerprint
-  const canvas = document.createElement("canvas")
-  const ctx = canvas.getContext("2d")
-  ctx?.fillText("fingerprint", 10, 10)
-  const canvasFingerprint = canvas.toDataURL()
-
-  const fingerprint = [
-    navigator.userAgent,
-    navigator.language,
-    screen.width + "x" + screen.height,
-    new Date().getTimezoneOffset(),
-    canvasFingerprint.slice(-50), // Last 50 chars of canvas fingerprint
-  ].join("|")
-
-  // Create a simple hash
-  let hash = 0
-  for (let i = 0; i < fingerprint.length; i++) {
-    const char = fingerprint.charCodeAt(i)
-    hash = (hash << 5) - hash + char
-    hash = hash & hash // Convert to 32-bit integer
-  }
-
-  const participantId = `P${Math.abs(hash).toString().padStart(6, "0")}`
+  const participantId = "000001"
   localStorage.setItem("participant_id", participantId)
   return participantId
 }
 
 // Extract treatment group and topic from URL
 const extractUrlParams = () => {
-  if (typeof window === "undefined") return { topic: "", treatmentGroup: "", participantId: generateParticipantId(),sid:"00000"}
+  if (typeof window === "undefined") return { topic: "", treatmentGroup: "", participantId: "00001", sid: "00000" }
 
   const path = window.location.pathname
   const searchParams = new URLSearchParams(window.location.search)
   const segments = path.split("/").filter(Boolean)
   // Extract RID from query parameters, default to "00000" if not provided
-  const participant_id = searchParams.get("RID") || generateParticipantId()
+  const participant_id = searchParams.get("RID") || "00001"
   const sid = searchParams.get("SID") || "00000"
-  
   if (segments.length >= 3) {
     const topic = segments[0]
     const largeGroup = segments[1]
     const smallGroup = segments[2]
     const treatmentGroup = `${largeGroup}_${smallGroup}`
 
-    return { topic, treatmentGroup, participant_id, sid}
+    return { topic, treatmentGroup, participant_id, sid }
   }
 
   // Default values for current implementation
-  return { topic: "", treatmentGroup: "", participant_id, sid}
+  return { topic: "", treatmentGroup: "", participant_id, sid }
 }
 
 // Determine task type based on topic
@@ -117,8 +95,71 @@ const getTaskType = (topic: string): "product" | "info" => {
   return productTopics.includes(topic) ? "product" : "info"
 }
 
+// Save session to database with better error handling
+const saveSessionToDatabase = async (session: TaskSession): Promise<boolean> => {
+  
+  try {
+    console.log("Saving session to database:", session)
+    const success = await saveTaskRecordWithRetry(session)
+    if (success) {
+      console.log("Session successfully saved to database")
+      return true
+    } else {
+      console.error("Failed to save session to database after retries")
+      return false
+    }
+  } catch (error) {
+    console.error("Failed to save session to database:", error)
+    return false
+  }
+}
+
+function pad(num) {
+  return num.toString().padStart(2, "0")
+}
+
+const changeCurrentDateTime = () => {
+  const date = new Date()
+  const year = date.getFullYear()
+  const month = date.getMonth() + 1
+  const day = date.getDate()
+  const hour = date.getHours()
+  const minute = date.getMinutes()
+  const second = date.getSeconds()
+  return `${year}-${pad(month)}-${pad(day)} ${pad(hour)}:${pad(minute)}:${pad(second)}`
+}
+
+const createNewSession = async (): Promise<TaskSession> => {
+  const { topic, treatmentGroup, participant_id, sid } = extractUrlParams()
+  const taskType = getTaskType(topic)
+  // Create new session
+  const newSession: TaskSession = {
+    taskId:`${sid}_${participant_id || generateParticipantId()}_${topic}_${treatmentGroup}`,
+    id:0,
+    participant_id: participant_id || generateParticipantId(),
+    sid: sid,
+    treatment_group: treatmentGroup,
+    task_topic: topic,
+    task_type: taskType,
+    task_start_time: changeCurrentDateTime(),
+    task_end_time: null,
+    click_sequence: [],
+    show_more_interactions: { click_order: -1, if_click: false, click_time: "" },
+  }
+
+  console.log("Creating new session:", newSession)
+  localStorage.setItem("current_task_session", JSON.stringify(newSession))
+
+  // Save to database asynchronously
+  const result = await saveSessionToDatabase(newSession)
+  console.log('新增完成',result);
+  
+
+  return newSession
+}
+
 // Get current task session
-const getCurrentTaskSession = (): TaskSession => {
+const getCurrentTaskSession =  async(): Promise<TaskSession> => {
   const { topic, treatmentGroup, participantId, sid } = extractUrlParams()
   const taskType = getTaskType(topic)
 
@@ -126,35 +167,28 @@ const getCurrentTaskSession = (): TaskSession => {
   const existingSession = localStorage.getItem("current_task_session")
   if (existingSession) {
     const session: TaskSession = JSON.parse(existingSession)
-    // Update URL-dependent fields in case of navigation
-    session.treatment_group = treatmentGroup
-    session.task_topic = topic
-    session.task_type = taskType
-    session.participant_id = participantId || generateParticipantId()
-    session.sid=sid
+    console.log(session);
+    
+    if (session.treatment_group != treatmentGroup || session.task_topic != topic || session.task_type != taskType) {
+      console.log("Session parameters changed, ending current session and creating new one")
+      endTaskSession()
+      return await createNewSession()
+    }
     return session
+  } else {
+    console.log("No existing session found, creating new one")
+    return await createNewSession()
   }
-  // Create new session
-  const newSession: TaskSession = {
-    participant_id: participantId || generateParticipantId(),
-    sid: sid,
-    treatment_group: treatmentGroup,
-    task_topic: topic,
-    task_type: taskType,
-    task_start_time: new Date().toISOString(),
-    task_end_time: null,
-    click_sequence: [],
-    show_more_interactions: false
-  }
-
-  localStorage.setItem("current_task_session", JSON.stringify(newSession))
-  return newSession
 }
 
 // Store link click in localStorage
-export const trackLinkClick = (componentName: string, linkIndex: number, linkText: string, linkUrl: string): string => {
-  const session = getCurrentTaskSession()
-  const clickTime = new Date().toISOString()
+export const trackLinkClick = async (componentName: string, linkIndex: number, linkText: string, linkUrl: string): Promise<string> => {
+  console.log("Tracking link click");
+  
+  const session = await getCurrentTaskSession()
+  console.log("session",session);
+  
+  const clickTime = changeCurrentDateTime()
 
   // Determine page_id and other properties based on component
   let pageId = ""
@@ -174,7 +208,7 @@ export const trackLinkClick = (componentName: string, linkIndex: number, linkTex
       isAd = false
       break
     case "AiOverview":
-    case "AiOverview-References":
+    // case "AiOverview-References":
       pageId = `overview_ref_${linkIndex + 1}`
       isAd = false
       fromOverview = true
@@ -198,7 +232,11 @@ export const trackLinkClick = (componentName: string, linkIndex: number, linkTex
   }
 
   const clickEvent: ClickEvent = {
-    click_order: session.click_sequence.length + 1,
+    taskId:session.taskId,
+    click_order:
+      session.click_sequence.length > session.show_more_interactions.click_order
+        ? session.click_sequence.length + 1
+        : session.show_more_interactions.click_order + 1,
     page_title: linkText,
     page_id: pageId,
     is_ad: isAd,
@@ -211,33 +249,50 @@ export const trackLinkClick = (componentName: string, linkIndex: number, linkTex
 
   // Add click to session
   session.click_sequence.push(clickEvent)
+  console.log("当前session.click_sequence:",session);
+  
   localStorage.setItem("current_task_session", JSON.stringify(session))
+
+  console.log(`Tracked click: ${pageId} - "${linkText}", updating database...`)
+
+  // Save updated session to database
+  const result = await saveSessionToDatabase(session)
+  console.log('保存结果',result);
 
   // Store click info for dwell time calculation
   const clickId = `${session.sid}_${session.participant_id}_${session.task_topic}_${session.treatment_group}_${clickEvent.click_order}`
   localStorage.setItem("current_click_id", clickId)
   localStorage.setItem("click_start_time", Date.now().toString())
+  if (result) {
+    return clickId
+  }
 
-  console.log(`Tracked click: ${pageId} - "${linkText}"`)
   return clickId
 }
 
-export const trackButtonClick = (ifClick: boolean): void => {
-  const currSession = getCurrentTaskSession()
-  const clickTime = new Date().toISOString()
+export const trackButtonClick = async (ifClick: boolean): Promise<void> => {
+  const currSession = await getCurrentTaskSession()
+  const clickTime = changeCurrentDateTime()
+  console.log('trackButtonClick',currSession);
+  
 
   const showMoreInteraction: ShowMoreInteraction = {
     click_order: currSession.click_sequence.length + 1,
     click_time: clickTime,
-    if_click: ifClick
+    if_click: ifClick || currSession.show_more_interactions.if_click,
   }
 
-// Add button interaction to session
-localStorage.setItem("current_task_session", JSON.stringify(showMoreInteraction))
+  currSession.show_more_interactions = showMoreInteraction
+
+  // Add button interaction to session
+  localStorage.setItem("current_task_session", JSON.stringify(currSession))
+
+  console.log("Tracked button click, updating database...")
+  saveSessionToDatabase(currSession)
 }
 
 // Track when user returns from a link
-export const trackReturnFromLink = (): void => {
+export const trackReturnFromLink = async (): Promise<void> => {
   const clickId = localStorage.getItem("current_click_id")
   const startTime = localStorage.getItem("click_start_time")
 
@@ -246,44 +301,47 @@ export const trackReturnFromLink = (): void => {
     const dwellTimeSec = Math.round((dwellTimeMs / 1000) * 10) / 10 // Round to 1 decimal
 
     // Update the click event with dwell time
-    const session = getCurrentTaskSession()
+    const session = await getCurrentTaskSession()
     const [sid, participantId, taskTopic, largeGroup, smallGroup, clickOrder] = clickId.split("_")
 
-    if (session.sid.toString()+session.participant_id.toString()+session.task_topic.toString()+ session.treatment_group.toString()=== sid+participantId+taskTopic+largeGroup+"_"+smallGroup) {
+    if (
+      
+        session.participant_id.toString() +
+        session.task_topic.toString() +
+        session.treatment_group.toString() ===
+       participantId + taskTopic + largeGroup + "_" + smallGroup
+    ) {
       const clickIndex = Number.parseInt(clickOrder) - 1
       if (session.click_sequence[clickIndex]) {
         session.click_sequence[clickIndex].dwell_time_sec = dwellTimeSec
         localStorage.setItem("current_task_session", JSON.stringify(session))
+
+        console.log(`Dwell time recorded: ${dwellTimeSec}s, updating database...`)
+        // Save updated session to database
+        saveSessionToDatabase(session)
       }
     }
 
     // Clear tracking data
     localStorage.removeItem("current_click_id")
     localStorage.removeItem("click_start_time")
-
-    console.log(`Dwell time recorded: ${dwellTimeSec}s`)
   }
 }
 
-// End current task session
 export const endTaskSession = (): void => {
-  const session = getCurrentTaskSession()
-  session.task_end_time = new Date().toISOString()
+  const sessionRaw = localStorage.getItem("current_task_session")
+  if (!sessionRaw) return
 
-  // Save completed session to history
-  const allSessions = getAllTaskSessions()
-  const existingIndex = allSessions.findIndex((s) => s.sid + s.participant_id+ s.task_topic+s.treatment_group=== session.sid+session.participant_id+session.task_topic+ session.treatment_group)
+  const session: TaskSession = JSON.parse(sessionRaw)
+  session.task_end_time = changeCurrentDateTime()
+  saveSessionToDatabase(session)
 
-  if (existingIndex >= 0) {
-    allSessions[existingIndex] = session
-  } else {
-    allSessions.push(session)
-  }
-
-  localStorage.setItem("task_sessions", JSON.stringify(allSessions))
   localStorage.removeItem("current_task_session")
 
-  console.log(`Task ${session.sid+session.participant_id+session.task_topic+ session.treatment_group} ended`)
+  console.log(
+    `Task ${session.sid + session.participant_id + session.task_topic + session.treatment_group} ended, saving final state to database...`,
+  )
+ 
 }
 
 // Get all task sessions
@@ -301,21 +359,11 @@ export const getCurrentSession = (): TaskSession | null => {
 // Initialize session tracking
 export const initializeSession = (): void => {
   // This will create a new session if none exists
+  console.log("Initializing session...");
+  
   getCurrentTaskSession()
-
-  // Set up beforeunload event to end session when user leaves
-  if (typeof window !== "undefined") {
-    window.addEventListener("beforeunload", () => {
-      endTaskSession()
-    })
-
-    // Also track page visibility changes
-    document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "visible") {
-        trackReturnFromLink()
-      }
-    })
-  }
+  console.log("Init end!!!-----Current session:");
+  
 }
 
 // Clear all analytics data
@@ -325,6 +373,7 @@ export const clearAllAnalyticsData = (): void => {
   localStorage.removeItem("current_click_id")
   localStorage.removeItem("click_start_time")
   localStorage.removeItem("participant_id")
+  deleteAllTaskRecords()
 }
 
 // Export data for research

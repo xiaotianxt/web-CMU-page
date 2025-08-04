@@ -6,6 +6,8 @@ import { trackReturnFromLink, initializeSession } from "@/lib/analytics"
 export function AnalyticsTracker() {
   useEffect(() => {
     // Initialize session tracking
+    console.log('init');
+    
     initializeSession()
 
     // Check if we're returning from a tracked link
