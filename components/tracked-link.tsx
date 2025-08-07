@@ -38,7 +38,7 @@ export function TrackedLink ({ href, componentName, linkIndex, className, childr
   }
 
   return (
-    <Link href={href} className={className} onClick={handleClick} target="_blank" rel="noopener noreferrer">
+    <Link href={href} className={className} onClick={handleClick} rel="noopener noreferrer">
       {children}
     </Link>
   )
