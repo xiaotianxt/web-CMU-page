@@ -18,7 +18,7 @@ export interface VisitDuration {
 
 // Types for research analytics data
 export interface ClickEvent {
-  taskId:string
+  taskId: string
   click_order: number
   page_title: string
   page_id: string
@@ -36,9 +36,15 @@ export interface ShowMoreInteraction {
   click_time?: string
 }
 
+export interface ShowAllInteraction {
+  click_order: number
+  if_click: boolean
+  click_time?: string
+}
+
 export interface TaskSession {
-  taskId:string
-  id:number
+  taskId: string
+  id: number
   participant_id: string
   sid: string
   treatment_group: string // e.g., "Top_OV_AI", "No_OV", "Mid_OV", etc.
@@ -48,6 +54,7 @@ export interface TaskSession {
   task_end_time: string | null // ISO string, null if task is ongoing
   click_sequence: ClickEvent[]
   show_more_interactions: ShowMoreInteraction
+  show_all_interactions: ShowAllInteraction
 }
 
 // Generate a unique ID for each link click
@@ -97,7 +104,7 @@ const getTaskType = (topic: string): "product" | "info" => {
 
 // Save session to database with better error handling
 const saveSessionToDatabase = async (session: TaskSession): Promise<boolean> => {
-  
+
   try {
     console.log("Saving session to database:", session)
     const success = await saveTaskRecordWithRetry(session)
@@ -134,8 +141,8 @@ const createNewSession = async (): Promise<TaskSession> => {
   const taskType = getTaskType(topic)
   // Create new session
   const newSession: TaskSession = {
-    taskId:`${sid}_${participant_id || generateParticipantId()}_${topic}_${treatmentGroup}`,
-    id:0,
+    taskId: `${sid}_${participant_id || generateParticipantId()}_${topic}_${treatmentGroup}`,
+    id: 0,
     participant_id: participant_id || generateParticipantId(),
     sid: sid,
     treatment_group: treatmentGroup,
@@ -152,14 +159,14 @@ const createNewSession = async (): Promise<TaskSession> => {
 
   // Save to database asynchronously
   const result = await saveSessionToDatabase(newSession)
-  console.log('新增完成',result);
-  
+  console.log('新增完成', result);
+
 
   return newSession
 }
 
 // Get current task session
-const getCurrentTaskSession =  async(): Promise<TaskSession> => {
+const getCurrentTaskSession = async (): Promise<TaskSession> => {
   const { topic, treatmentGroup, participantId, sid } = extractUrlParams()
   const taskType = getTaskType(topic)
 
@@ -168,7 +175,7 @@ const getCurrentTaskSession =  async(): Promise<TaskSession> => {
   if (existingSession) {
     const session: TaskSession = JSON.parse(existingSession)
     console.log(session);
-    
+
     if (session.treatment_group != treatmentGroup || session.task_topic != topic || session.task_type != taskType) {
       console.log("Session parameters changed, ending current session and creating new one")
       endTaskSession()
@@ -184,16 +191,16 @@ const getCurrentTaskSession =  async(): Promise<TaskSession> => {
 // Store link click in localStorage
 export const trackLinkClick = async (componentName: string, linkIndex: number, linkText: string, linkUrl: string): Promise<string> => {
   console.log("Tracking link click");
-  
+
   const session = await getCurrentTaskSession()
-  console.log("session",session);
-  
+  console.log("session", session);
+
   const clickTime = changeCurrentDateTime()
 
   // Determine page_id and other properties based on component
   let pageId = ""
   let isAd = false
-  const positionInSerp = componentName+"_"+linkIndex
+  const positionInSerp = componentName + "_" + linkIndex
   let fromOverview = false
   let fromAiMode = false
 
@@ -208,7 +215,7 @@ export const trackLinkClick = async (componentName: string, linkIndex: number, l
       isAd = false
       break
     case "AiOverview":
-    // case "AiOverview-References":
+      // case "AiOverview-References":
       pageId = `overview_ref_${linkIndex + 1}`
       isAd = false
       fromOverview = true
@@ -232,7 +239,7 @@ export const trackLinkClick = async (componentName: string, linkIndex: number, l
   }
 
   const clickEvent: ClickEvent = {
-    taskId:session.taskId,
+    taskId: session.taskId,
     click_order:
       session.click_sequence.length > session.show_more_interactions.click_order
         ? session.click_sequence.length + 1
@@ -249,15 +256,15 @@ export const trackLinkClick = async (componentName: string, linkIndex: number, l
 
   // Add click to session
   session.click_sequence.push(clickEvent)
-  console.log("当前session.click_sequence:",session);
-  
+  console.log("当前session.click_sequence:", session);
+
   localStorage.setItem("current_task_session", JSON.stringify(session))
 
   console.log(`Tracked click: ${pageId} - "${linkText}", updating database...`)
 
   // Save updated session to database
   const result = await saveSessionToDatabase(session)
-  console.log('保存结果',result);
+  console.log('保存结果', result);
 
   // Store click info for dwell time calculation
   const clickId = `${session.sid}_${session.participant_id}_${session.task_topic}_${session.treatment_group}_${clickEvent.click_order}`
@@ -270,11 +277,11 @@ export const trackLinkClick = async (componentName: string, linkIndex: number, l
   return clickId
 }
 
-export const trackButtonClick = async (ifClick: boolean): Promise<void> => {
+export const trackShowMoreClick = async (ifClick: boolean): Promise<void> => {
   const currSession = await getCurrentTaskSession()
   const clickTime = changeCurrentDateTime()
-  console.log('trackButtonClick',currSession);
-  
+  console.log('trackButtonClick', currSession);
+
 
   const showMoreInteraction: ShowMoreInteraction = {
     click_order: currSession.click_sequence.length + 1,
@@ -283,6 +290,27 @@ export const trackButtonClick = async (ifClick: boolean): Promise<void> => {
   }
 
   currSession.show_more_interactions = showMoreInteraction
+
+  // Add button interaction to session
+  localStorage.setItem("current_task_session", JSON.stringify(currSession))
+
+  console.log("Tracked button click, updating database...")
+  saveSessionToDatabase(currSession)
+}
+
+export const trackShowAllClick = async (ifClick: boolean): Promise<void> => {
+  const currSession = await getCurrentTaskSession()
+  const clickTime = changeCurrentDateTime()
+  console.log('trackButtonClick', currSession);
+
+
+  const showAllInteraction: ShowAllInteraction = {
+    click_order: currSession.click_sequence.length + 1,
+    click_time: clickTime,
+    if_click: ifClick || currSession.show_all_interactions.if_click,
+  }
+
+  currSession.show_all_interactions = showAllInteraction
 
   // Add button interaction to session
   localStorage.setItem("current_task_session", JSON.stringify(currSession))
@@ -305,11 +333,11 @@ export const trackReturnFromLink = async (): Promise<void> => {
     const [sid, participantId, taskTopic, largeGroup, smallGroup, clickOrder] = clickId.split("_")
 
     if (
-      
-        session.participant_id.toString() +
-        session.task_topic.toString() +
-        session.treatment_group.toString() ===
-       participantId + taskTopic + largeGroup + "_" + smallGroup
+
+      session.participant_id.toString() +
+      session.task_topic.toString() +
+      session.treatment_group.toString() ===
+      participantId + taskTopic + largeGroup + "_" + smallGroup
     ) {
       const clickIndex = Number.parseInt(clickOrder) - 1
       if (session.click_sequence[clickIndex]) {
@@ -341,7 +369,7 @@ export const endTaskSession = (): void => {
   console.log(
     `Task ${session.sid + session.participant_id + session.task_topic + session.treatment_group} ended, saving final state to database...`,
   )
- 
+
 }
 
 // Get all task sessions
@@ -360,10 +388,10 @@ export const getCurrentSession = (): TaskSession | null => {
 export const initializeSession = (): void => {
   // This will create a new session if none exists
   console.log("Initializing session...");
-  
+
   getCurrentTaskSession()
   console.log("Init end!!!-----Current session:");
-  
+
 }
 
 // Clear all analytics data

@@ -1,6 +1,6 @@
 // Database service for saving analytics data to the backend API
 
-import type { TaskSession, ClickEvent, ShowMoreInteraction } from "@/lib/analytics"
+import type { TaskSession, ClickEvent, ShowMoreInteraction, ShowAllInteraction } from "@/lib/analytics"
 
 const API_BASE_URL = "https://cmu-web-service-demo-7d7309b0820c.herokuapp.com/api/task-records"
 // const API_BASE_URL= "http://localhost:8080/api/task-records"
@@ -18,6 +18,7 @@ export interface TaskRecord {
   taskEndTime?: string
   clickSequence: ClickEvent[]
   showMoreInteractions: ShowMoreInteraction
+  showAllInteractions: ShowAllInteraction
 }
 
 // Convert our TaskSession to TaskRecord format
@@ -33,6 +34,7 @@ const convertSessionToRecord = (session: TaskSession): TaskRecord => {
     taskEndTime: session.task_end_time || undefined,
     clickSequence: session.click_sequence,
     showMoreInteractions: session.show_more_interactions,
+    showAllInteractions: session.show_all_interactions
   }
 }
 

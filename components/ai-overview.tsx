@@ -7,7 +7,7 @@ import Link from "next/link"
 import { WebsiteFavicon } from "@/components/website-favicon"
 import { getWebsiteName } from "@/lib/favicon-service"
 import { usePathname } from "next/navigation"
-import { trackButtonClick } from "@/lib/analytics"
+import { trackShowMoreClick, trackShowAllClick } from "@/lib/analytics"
 import { TrackedLink } from "@/components/tracked-link"
 
 interface TextBlock {
@@ -102,7 +102,7 @@ export function AiOverview() {
   const handleShowMore = () => {
     setShowMore(true)
     // Track the "Show more" button click
-    trackButtonClick(true)
+    trackShowMoreClick(true)
   }
 
   const renderReferenceLink = (referenceIndexes?: number[]) => {
@@ -498,7 +498,10 @@ export function AiOverview() {
                   {/* "Show all" button */}
                   <div className="pt-2">
                     <button
-                      onClick={() => setShowAllReferences(true)}
+                      onClick={() => {
+                        setShowAllReferences(true); 
+                        trackShowAllClick(true);
+                      }}
                       className="flex items-center justify-center w-full bg-blue-100 text-blue-700 py-3 rounded-full hover:bg-blue-200"
                     >
                       <span>Show all</span>
