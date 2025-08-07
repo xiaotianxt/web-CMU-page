@@ -176,7 +176,7 @@ export function AiOverview() {
               </p>
             )}
 
-        
+
             {/* Show bullet points */}
             {data.text_blocks[1]?.list && (
               <div className="mb-4">
@@ -261,7 +261,7 @@ export function AiOverview() {
 
             {!showMore ? (
               <button
-              onClick={handleShowMore}
+                onClick={handleShowMore}
                 className="flex items-center justify-center w-full bg-gray-100 text-gray-800 py-3 rounded-full hover:bg-gray-200 mt-4 border border-gray-300"
               >
                 <span>Show more</span>
@@ -408,11 +408,11 @@ export function AiOverview() {
                         <div className="flex">
                           <div className="flex-1 p-2">
                             <h3 className="text-blue-700 hover:underline text-lg font-medium">
-                             <TrackedLink
-                            href={ref.link}
-                            componentName="AiOverview-References"
-                            linkIndex={index}
-                          >{ref.title}</TrackedLink>
+                              <TrackedLink
+                                href={ref.link}
+                                componentName="AiOverview-References"
+                                linkIndex={index}
+                              >{ref.title}</TrackedLink>
                             </h3>
                             <p className="text-sm text-gray-700 mt-1 line-clamp-2">{ref.snippet}</p>
                             <div className="flex items-center mt-1">
@@ -446,8 +446,67 @@ export function AiOverview() {
                     className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-gray-100 to-transparent pointer-events-none"
                   ></div>
                 </div>
-              ) : (
-                /* After "Show more" - Scrollable container with height matching text content */
+              ) : showMore && !showAllReferences ? (
+                // Show exactly 5 references, not scrollable
+                <div className="space-y-4">
+                  {displayedReferences.slice(0, 5).map((ref, index) => (
+                    <div
+                      key={index}
+                      className="bg-white border border-gray-200 rounded-md overflow-hidden shadow-sm"
+                    >
+                      <div className="flex">
+                        <div className="flex-1 p-2">
+                          <h3 className="text-blue-700 hover:underline text-base font-medium">
+                            <TrackedLink
+                              href={ref.link}
+                              componentName="AiOverview-References"
+                              linkIndex={index}
+                            >
+                              {ref.title}
+                            </TrackedLink>
+                          </h3>
+                          <p className="text-xs text-gray-700 mt-1 line-clamp-2">
+                            {ref.snippet}
+                          </p>
+                          <div className="flex items-center mt-1">
+                            <WebsiteFavicon
+                              url={ref.link}
+                              size={16}
+                              fallbackText={getWebsiteName(ref.link).charAt(0)}
+                            />
+                            <span className="ml-2 text-xs text-gray-600">
+                              {getWebsiteName(ref.link)}
+                            </span>
+                            <button className="ml-auto">
+                              <MoreVertical className="h-4 w-4 text-gray-500" />
+                            </button>
+                          </div>
+                        </div>
+                        <div className="w-24 h-16">
+                          <Image
+                            src={getImageForReference(ref.index)}
+                            alt="Article thumbnail"
+                            width={96}
+                            height={64}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+
+                  {/* "Show all" button */}
+                  <div className="pt-2">
+                    <button
+                      onClick={() => setShowAllReferences(true)}
+                      className="flex items-center justify-center w-full bg-blue-100 text-blue-700 py-3 rounded-full hover:bg-blue-200"
+                    >
+                      <span>Show all</span>
+                    </button>
+                  </div>
+                </div>
+              ) : showMore && showAllReferences ? (
+                // Scrollable all references (current implementation)
                 <div
                   className="relative"
                   style={{
@@ -455,80 +514,66 @@ export function AiOverview() {
                     minHeight: "400px",
                   }}
                 >
-                  {/* Close button for expanded view */}
-                  {showAllReferences && (
-                    <button
-                      onClick={() => setShowAllReferences(false)}
-                      className="absolute top-2 right-2 z-10 p-1 rounded-full hover:bg-gray-100 bg-white shadow-sm"
-                    >
-                      <X className="h-5 w-5 text-gray-500" />
-                    </button>
-                  )}
+                  <button
+                    onClick={() => setShowAllReferences(false)}
+                    className="absolute top-2 right-2 z-10 p-1 rounded-full hover:bg-gray-100 bg-white shadow-sm"
+                  >
+                    <X className="h-5 w-5 text-gray-500" />
+                  </button>
 
-                  {/* Scrollable content container */}
                   <div className="h-full overflow-y-auto pr-2">
                     <div className="space-y-4">
-                      {(showAllReferences || filteredReferenceIndexes ? displayedReferences : displayedReferences).map(
-                        (ref, index) => (
-                          <div
-                            key={index}
-                            className="bg-white border border-gray-200 rounded-md overflow-hidden shadow-sm"
-                          >
-                            <div className="flex">
-                              <div className="flex-1 p-2">
-                                <h3 className="text-blue-700 hover:underline text-base font-medium">
-                                  <TrackedLink
+                      {displayedReferences.map((ref, index) => (
+                        <div
+                          key={index}
+                          className="bg-white border border-gray-200 rounded-md overflow-hidden shadow-sm"
+                        >
+                          <div className="flex">
+                            <div className="flex-1 p-2">
+                              <h3 className="text-blue-700 hover:underline text-base font-medium">
+                                <TrackedLink
                                   href={ref.link}
                                   componentName="AiOverview-References"
                                   linkIndex={index}
-                                >{ref.title}</TrackedLink>
-                      
-                                </h3>
-                                <p className="text-xs text-gray-700 mt-1 line-clamp-2">{ref.snippet}</p>
-                                <div className="flex items-center mt-1">
-                                  <WebsiteFavicon
-                                    url={ref.link}
-                                    size={16}
-                                    fallbackText={getWebsiteName(ref.link).charAt(0)}
-                                  />
-                                  <span className="ml-2 text-xs text-gray-600">{getWebsiteName(ref.link)}</span>
-                                  <button className="ml-auto">
-                                    <MoreVertical className="h-4 w-4 text-gray-500" />
-                                  </button>
-                                </div>
-                              </div>
-                              <div className="w-24 h-16">
-                                <Image
-                                  src={getImageForReference(ref.index)}
-                                  alt="Article thumbnail"
-                                  width={96}
-                                  height={64}
-                                  className="w-full h-full object-cover"
+                                >
+                                  {ref.title}
+                                </TrackedLink>
+                              </h3>
+                              <p className="text-xs text-gray-700 mt-1 line-clamp-2">
+                                {ref.snippet}
+                              </p>
+                              <div className="flex items-center mt-1">
+                                <WebsiteFavicon
+                                  url={ref.link}
+                                  size={16}
+                                  fallbackText={getWebsiteName(ref.link).charAt(0)}
                                 />
+                                <span className="ml-2 text-xs text-gray-600">
+                                  {getWebsiteName(ref.link)}
+                                </span>
+                                <button className="ml-auto">
+                                  <MoreVertical className="h-4 w-4 text-gray-500" />
+                                </button>
                               </div>
                             </div>
+                            <div className="w-24 h-16">
+                              <Image
+                                src={getImageForReference(ref.index)}
+                                alt="Article thumbnail"
+                                width={96}
+                                height={64}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
                           </div>
-                        ),
-                      )}
+                        </div>
+                      ))}
 
-                      {/* Spacer to ensure button doesn't overlap content when scrolling */}
                       <div className="h-16"></div>
                     </div>
                   </div>
 
-                  {/* Show all button - positioned at bottom */}
-                  {!showAllReferences && !filteredReferenceIndexes && (
-                    <div className="absolute bottom-0 left-0 right-0 bg-gray-50 pt-2">
-                      <button
-                        onClick={() => setShowAllReferences(true)}
-                        className="flex items-center justify-center w-full bg-blue-100 text-blue-700 py-3 rounded-full hover:bg-blue-200"
-                      >
-                        <span>Show all</span>
-                      </button>
-                    </div>
-                  )}
-
-                  {/* Show all references button when filtered */}
+                  {/* Optional "Show all references" when filtered */}
                   {filteredReferenceIndexes && (
                     <div className="absolute bottom-0 left-0 right-0 bg-gray-50 pt-2">
                       <button
@@ -539,6 +584,63 @@ export function AiOverview() {
                       </button>
                     </div>
                   )}
+                </div>
+              ) : (
+                // Initial 3 references (your existing block)
+                <div className="relative">
+                  <div
+                    className={`space-y-4 overflow-hidden relative`}
+                    style={{
+                      maxHeight: "300px",
+                    }}
+                  >
+                    {displayedReferences.slice(0, 3).map((ref, index) => (
+                      <div
+                        key={index}
+                        className="bg-white border border-gray-200 rounded-md overflow-hidden shadow-sm"
+                      >
+                        <div className="flex">
+                          <div className="flex-1 p-2">
+                            <h3 className="text-blue-700 hover:underline text-lg font-medium">
+                              <TrackedLink
+                                href={ref.link}
+                                componentName="AiOverview-References"
+                                linkIndex={index}
+                              >
+                                {ref.title}
+                              </TrackedLink>
+                            </h3>
+                            <p className="text-sm text-gray-700 mt-1 line-clamp-2">
+                              {ref.snippet}
+                            </p>
+                            <div className="flex items-center mt-1">
+                              <WebsiteFavicon
+                                url={ref.link}
+                                size={16}
+                                fallbackText={getWebsiteName(ref.link).charAt(0)}
+                              />
+                              <span className="ml-2 text-sm text-gray-600">
+                                {getWebsiteName(ref.link)}
+                              </span>
+                              <button className="ml-auto">
+                                <MoreVertical className="h-5 w-5 text-gray-500" />
+                              </button>
+                            </div>
+                          </div>
+                          <div className="w-24 h-16">
+                            <Image
+                              src={getImageForReference(ref.index)}
+                              alt="Article thumbnail"
+                              width={96}
+                              height={64}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-gray-100 to-transparent pointer-events-none"></div>
                 </div>
               )}
             </div>
