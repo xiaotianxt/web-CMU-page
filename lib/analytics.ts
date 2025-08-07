@@ -23,7 +23,7 @@ export interface ClickEvent {
   page_title: string
   page_id: string
   is_ad: boolean
-  position_in_serp: number
+  position_in_serp: string,
   click_time: string // ISO string
   dwell_time_sec: number | null
   from_overview: boolean
@@ -193,7 +193,7 @@ export const trackLinkClick = async (componentName: string, linkIndex: number, l
   // Determine page_id and other properties based on component
   let pageId = ""
   let isAd = false
-  const positionInSerp = linkIndex + 1
+  const positionInSerp = componentName+"_"+linkIndex
   let fromOverview = false
   let fromAiMode = false
 

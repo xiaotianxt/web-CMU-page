@@ -477,7 +477,12 @@ export function AiOverview() {
                             <div className="flex">
                               <div className="flex-1 p-2">
                                 <h3 className="text-blue-700 hover:underline text-base font-medium">
-                                  <Link href={ref.link}>{ref.title}</Link>
+                                  <TrackedLink
+                                  href={ref.link}
+                                  componentName="AiOverview-References"
+                                  linkIndex={index}
+                                >{ref.title}</TrackedLink>
+                      
                                 </h3>
                                 <p className="text-xs text-gray-700 mt-1 line-clamp-2">{ref.snippet}</p>
                                 <div className="flex items-center mt-1">
