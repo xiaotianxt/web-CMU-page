@@ -34,22 +34,47 @@ interface SearchResultsProps {
   results: SearchResult[]
 }
 
+// 从 displayed_link 提取域名；没有就退回到 link
+function hostFromDisplayed(displayed?: string, fallbackUrl?: string): string {
+  if (displayed && displayed.length) {
+    const left = displayed.split("›")[0].trim();
+    return left
+      .replace(/^https?:\/\//, "")
+      .replace(/^www\./, "")
+      .replace(/\/.*/, "");
+  }
+  try {
+    return new URL(fallbackUrl || "").hostname.replace(/^www\./, "");
+  } catch {
+    return "";
+  }
+}
+
+
 export function SearchResults({ results }: SearchResultsProps) {
   return (
     <div className="space-y-8 mb-10">
-      {results.map((result) => (
+      {results.map((result) => {
+        const host = hostFromDisplayed(result.displayed_link, result.link)
+        return(
+        
+        
         <div key={result.position} className="max-w-2xl">
           <div className="flex items-start">
             <div className="w-6 h-6 mr-3 mt-1 flex-shrink-0">
               <WebsiteFavicon
-                url={result.link}
+                // url={result.link}
+                // size={24}
+                // fallbackText={result.source?.charAt(0) || getWebsiteName(result.link).charAt(0)}
+                url={`https://${host}`}
                 size={24}
-                fallbackText={result.source?.charAt(0) || getWebsiteName(result.link).charAt(0)}
+                fallbackText={result.source?.charAt(0) || getWebsiteName(`https://${host}`).charAt(0)}
               />
             </div>
             <div className="flex-1">
               <div className="flex items-center text-sm text-gray-600 mb-1">
-                <span className="mr-2">{getWebsiteName(result.link)}</span>
+                {/* <span className="mr-2">{getWebsiteName(result.link)}</span> */}
+                <span className="mr-2">{getWebsiteName(`https://${host}`)}</span>
                 <span className="text-gray-400">›</span>
                 <span className="ml-2 text-gray-500">{result.displayed_link}</span>
                 <button className="ml-2">
@@ -109,7 +134,7 @@ result.snippet.split(
             </div>
           </div>
         </div>
-      ))}
+      )})}
     </div>
   )
 }
