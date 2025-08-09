@@ -57,8 +57,6 @@ export function SearchResults({ results }: SearchResultsProps) {
       {results.map((result) => {
         const host = hostFromDisplayed(result.displayed_link, result.link)
         return(
-        
-        
         <div key={result.position} className="max-w-2xl">
           <div className="flex items-start">
             <div className="w-6 h-6 mr-3 mt-1 flex-shrink-0">
@@ -66,9 +64,10 @@ export function SearchResults({ results }: SearchResultsProps) {
                 // url={result.link}
                 // size={24}
                 // fallbackText={result.source?.charAt(0) || getWebsiteName(result.link).charAt(0)}
-                url={`https://${host}`}
+                // url={`https://${host}`}
+                url={result.favicon || ''}
                 size={24}
-                fallbackText={result.source?.charAt(0) || getWebsiteName(`https://${host}`).charAt(0)}
+                fallbackText={result.source?.charAt(0) || getWebsiteName(result.displayed_link || result.link).charAt(0)}
               />
             </div>
             <div className="flex-1">
