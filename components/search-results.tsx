@@ -64,10 +64,9 @@ export function SearchResults({ results }: SearchResultsProps) {
                 // url={result.link}
                 // size={24}
                 // fallbackText={result.source?.charAt(0) || getWebsiteName(result.link).charAt(0)}
-                // url={`https://${host}`}
-                url={result.favicon || ''}
+                url={`https://${host}`}
                 size={24}
-                fallbackText={result.source?.charAt(0) || getWebsiteName(result.displayed_link || result.link).charAt(0)}
+                fallbackText={result.source?.charAt(0) || getWebsiteName(`https://${host}`).charAt(0)}
               />
             </div>
             <div className="flex-1">
