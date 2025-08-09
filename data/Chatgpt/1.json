@@ -2,8 +2,8 @@
     {
         "position": 1,
         "title": "Introducing ChatGPT",
-        "link": "https://openai.com/index/chatgpt/",
-        "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://openai.com/index/chatgpt/&ved=2ahUKEwjz-LCApJyNAxWU2TgGHQG4I8oQFnoECBoQAQ",
+        "link": "https://web-cmu-page.vercel.app/CmuWebPageshmtl/info/Chatgpt/P1/introducing-chatgpt-openai.html",
+        "redirect_link": "https://web-cmu-page.vercel.app/CmuWebPageshmtl/info/Chatgpt/P1/introducing-chatgpt-openai.html",
         "displayed_link": "https://openai.com \u203a index \u203a chatgpt",
         "thumbnail": "https://serpapi.com/searches/68210be8d45a38aa209c37d5/images/1c3f3a6cf03b7c67e6d763c7fc4a0bc4211334898e53e256a80952e911876aaa.png",
         "favicon": "https://serpapi.com/searches/68210be8d45a38aa209c37d5/images/1c3f3a6cf03b7c67e6d763c7fc4a0bc442956804b7c707e1885f1086e9a641bb.png",
@@ -37,8 +37,8 @@
     {
         "position": 2,
         "title": "What Is ChatGPT? Everything You Need to Know",
-        "link": "https://www.techtarget.com/whatis/definition/ChatGPT",
-        "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.techtarget.com/whatis/definition/ChatGPT&ved=2ahUKEwjz-LCApJyNAxWU2TgGHQG4I8oQFnoECF8QAQ",
+        "link": "https://web-cmu-page.vercel.app/CmuWebPageshmtl/info/Chatgpt/P1/what-is-chatgpt-everything-you-need-to-know-techtarget.html",
+        "redirect_link": "https://web-cmu-page.vercel.app/CmuWebPageshmtl/info/Chatgpt/P1/what-is-chatgpt-everything-you-need-to-know-techtarget.html",
         "displayed_link": "https://www.techtarget.com \u203a whatis \u203a definition \u203a Chat...",
         "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmlenlc0pFQGKZR9fNpAtiIF8zGy_BaYYH2UipTaF9y-QI8JSflvKndH8&usqp=CAE&s",
         "favicon": "https://serpapi.com/searches/68210be8d45a38aa209c37d5/images/1c3f3a6cf03b7c67e6d763c7fc4a0bc4ed9d6e1bfc89838cdbaef82a5f4aea1d.png",
@@ -68,38 +68,12 @@
         },
         "source": "TechTarget"
     },
+    
     {
         "position": 3,
-        "title": "ChatGPT - Apps on Google Play",
-        "link": "https://play.google.com/store/apps/details?id=com.openai.chatgpt&hl=en_US",
-        "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://play.google.com/store/apps/details%3Fid%3Dcom.openai.chatgpt%26hl%3Den_US&ved=2ahUKEwjz-LCApJyNAxWU2TgGHQG4I8oQFnoECFwQAQ",
-        "displayed_link": "https://play.google.com \u203a store \u203a apps \u203a details \u203a id=com...",
-        "favicon": "https://serpapi.com/searches/68210be8d45a38aa209c37d5/images/1c3f3a6cf03b7c67e6d763c7fc4a0bc46c415c6bcc6769822f1d133f1c613f13.png",
-        "snippet": "This official app is free, syncs your history across devices, and brings you the latest from OpenAI, including the new image generator. With ChatGPT in your ...",
-        "snippet_highlighted_words": [
-            "syncs your history across devices"
-        ],
-        "rich_snippet": {
-            "top": {
-                "detected_extensions": {
-                    "rating": 4.8,
-                    "reviews": 15992681
-                },
-                "extensions": [
-                    "4.8(15,992,681)",
-                    "Free",
-                    "Android",
-                    "Business/Productivity"
-                ]
-            }
-        },
-        "source": "Google Play"
-    },
-    {
-        "position": 4,
         "title": "ChatGPT on the App Store - Apple",
-        "link": "https://apps.apple.com/us/app/chatgpt/id6448311069",
-        "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://apps.apple.com/us/app/chatgpt/id6448311069&ved=2ahUKEwjz-LCApJyNAxWU2TgGHQG4I8oQFnoECFoQAQ",
+        "link": "https://web-cmu-page.vercel.app/CmuWebPageshmtl/info/Chatgpt/P1/chatgpt-on-the-app-store.html",
+        "redirect_link": "https://web-cmu-page.vercel.app/CmuWebPageshmtl/info/Chatgpt/P1/chatgpt-on-the-app-store.html",
         "displayed_link": "https://apps.apple.com \u203a app \u203a chatgpt",
         "favicon": "https://serpapi.com/searches/68210be8d45a38aa209c37d5/images/1c3f3a6cf03b7c67e6d763c7fc4a0bc404107a10e60301eb4df192cfa9e9e364.png",
         "snippet": "This official app is free, syncs your history across devices, and brings you the latest from OpenAI, including the new image generator. With ChatGPT in your ...",
@@ -123,10 +97,10 @@
         "source": "Apple"
     },
     {
-        "position": 5,
+        "position": 4,
         "title": "What is ChatGPT?",
-        "link": "https://help.openai.com/en/articles/6783457-what-is-chatgpt",
-        "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://help.openai.com/en/articles/6783457-what-is-chatgpt&ved=2ahUKEwjz-LCApJyNAxWU2TgGHQG4I8oQFnoECFkQAQ",
+        "link": "https://web-cmu-page.vercel.app/CmuWebPageshmtl/info/Chatgpt/P1/what-is-chatgpt-openai-help-center.html",
+        "redirect_link": "https://web-cmu-page.vercel.app/CmuWebPageshmtl/info/Chatgpt/P1/what-is-chatgpt-openai-help-center.html",
         "displayed_link": "https://help.openai.com \u203a 6783457-what-is-chatgpt",
         "favicon": "https://serpapi.com/searches/68210be8d45a38aa209c37d5/images/1c3f3a6cf03b7c67e6d763c7fc4a0bc481e4063d4f57ccbff9fa8d40e88e54a7.png",
         "snippet": "ChatGPT is fine-tuned from GPT-3.5, a language model trained to produce text. ChatGPT was optimized for dialogue by using Reinforcement Learning with Human ...",
@@ -136,10 +110,10 @@
         "source": "OpenAI Help Center"
     },
     {
-        "position": 6,
+        "position": 5,
         "title": "ChatGPT",
-        "link": "https://en.wikipedia.org/wiki/ChatGPT",
-        "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://en.wikipedia.org/wiki/ChatGPT&ved=2ahUKEwjz-LCApJyNAxWU2TgGHQG4I8oQFnoECFgQAQ",
+        "link": "https://web-cmu-page.vercel.app/CmuWebPageshmtl/info/Chatgpt/P1/chatgpt-wikipedia.html",
+        "redirect_link": "https://web-cmu-page.vercel.app/CmuWebPageshmtl/info/Chatgpt/P1/chatgpt-wikipedia.html",
         "displayed_link": "https://en.wikipedia.org \u203a wiki \u203a ChatGPT",
         "favicon": "https://serpapi.com/searches/68210be8d45a38aa209c37d5/images/1c3f3a6cf03b7c67e6d763c7fc4a0bc434221308ea9b29d75d369f1119a63c07.png",
         "snippet": "ChatGPT is a generative artificial intelligence chatbot developed by the American company OpenAI and launched in 2022. It is based on large language models ...",
@@ -149,10 +123,10 @@
         "source": "Wikipedia"
     },
     {
-        "position": 7,
+        "position": 6,
         "title": "What Is ChatGPT? Meaning, Uses, Features, and More",
-        "link": "https://www.coursera.org/articles/chatgpt",
-        "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.coursera.org/articles/chatgpt&ved=2ahUKEwjz-LCApJyNAxWU2TgGHQG4I8oQFnoECF0QAQ",
+        "link": "https://web-cmu-page.vercel.app/CmuWebPageshmtl/info/Chatgpt/P1/what-is-chatgpt-meaning-uses-features-and-more-coursera.html",
+        "redirect_link": "https://web-cmu-page.vercel.app/CmuWebPageshmtl/info/Chatgpt/P1/what-is-chatgpt-meaning-uses-features-and-more-coursera.html",
         "displayed_link": "https://www.coursera.org \u203a ... \u203a Data \u203a Data Science",
         "favicon": "https://serpapi.com/searches/68210be8d45a38aa209c37d5/images/1c3f3a6cf03b7c67e6d763c7fc4a0bc44adc715e210480c2dcb0576a054caee2.png",
         "date": "Dec 20, 2024",
@@ -163,10 +137,10 @@
         "source": "Coursera"
     },
     {
-        "position": 8,
+        "position": 7,
         "title": "What Is ChatGPT Doing \u2026 and Why Does It Work?",
-        "link": "https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/",
-        "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/&ved=2ahUKEwjz-LCApJyNAxWU2TgGHQG4I8oQFnoECFsQAQ",
+        "link": "https://web-cmu-page.vercel.app/CmuWebPageshmtl/info/Chatgpt/P1/what-is-chatgpt-doing-and-why-does-it-workstephen-wolfram-writings.html",
+        "redirect_link": "https://web-cmu-page.vercel.app/CmuWebPageshmtl/info/Chatgpt/P1/what-is-chatgpt-doing-and-why-does-it-workstephen-wolfram-writings.html",
         "displayed_link": "https://writings.stephenwolfram.com \u203a 2023/02 \u203a what-i...",
         "favicon": "https://serpapi.com/searches/68210be8d45a38aa209c37d5/images/1c3f3a6cf03b7c67e6d763c7fc4a0bc447ae40e5ded6d93b3887cdc5537c7251.png",
         "date": "Feb 14, 2023",
