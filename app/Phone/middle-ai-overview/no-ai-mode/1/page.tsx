@@ -31,9 +31,9 @@ export default function Home() {
       <div className="container mx-auto px-15 py-4">
         <div className="max-w-2xl">
 
-          <SearchResults results={beforePeopleAlsoAsk} />
+          <SearchResults results={beforePeopleAlsoAsk} page={1}/>
 
-          <SearchResults results={beforeVideos} />
+          <SearchResults results={beforeVideos} page={1}/>
 
           {/* Videos Section */}
           <VideosSection />
@@ -46,11 +46,11 @@ export default function Home() {
       </div>
       <div className="container mx-auto px-15 py-4">
         <div className="max-w-2xl">
-          <SearchResults results={beforePeopleAlsoSearchFor} />
+          <SearchResults results={beforePeopleAlsoSearchFor} page={1} />
 
           <DiscussionsAndForums />
 
-          <SearchResults results={bottomResults} />
+          <SearchResults results={bottomResults} page={1}/>
 
           {/* Pagination */}
           <Pagination />

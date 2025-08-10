@@ -8,11 +8,12 @@ interface TrackedLinkProps {
   href: string
   componentName: string
   linkIndex: number
+  linkPage?: number
   className?: string
   children: ReactNode
 }
 
-export function TrackedLink ({ href, componentName, linkIndex, className, children }: TrackedLinkProps) {
+export function TrackedLink ({ href, componentName, linkIndex, linkPage, className, children }: TrackedLinkProps) {
   const handleClick = async () => {
     // Extract text content for tracking
     let linkText = ""
@@ -30,7 +31,6 @@ export function TrackedLink ({ href, componentName, linkIndex, className, childr
       linkText = "[Complex content]"
     }
 
-    // Track the click
     const result = await trackLinkClick(componentName, linkIndex, linkText, href)
     console.log("Tracking result:", result);
     localStorage.removeItem('current_task_session');

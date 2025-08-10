@@ -2,8 +2,8 @@
 
 import type { TaskSession, ClickEvent, ShowMoreInteraction, ShowAllInteraction } from "@/lib/analytics"
 
-const API_BASE_URL = "https://cmu-web-service-demo-7d7309b0820c.herokuapp.com/api/task-records"
-// const API_BASE_URL= "http://localhost:8080/api/task-records"
+// const API_BASE_URL = "https://cmu-web-service-demo-7d7309b0820c.herokuapp.com/api/task-records"
+const API_BASE_URL= "http://localhost:8080/api/task-records"
 
 // Interface matching the backend TaskRecord model
 export interface TaskRecord {

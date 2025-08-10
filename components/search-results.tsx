@@ -35,6 +35,7 @@ interface SearchResultsProps {
   page: number
 }
 
+<<<<<<< Updated upstream
 // 从 displayed_link 提取域名；没有就退回到 link
 function hostFromDisplayed(displayed?: string, fallbackUrl?: string): string {
   if (displayed && displayed.length) {
@@ -52,6 +53,8 @@ function hostFromDisplayed(displayed?: string, fallbackUrl?: string): string {
 }
 
 
+=======
+>>>>>>> Stashed changes
 export function SearchResults({ results, page }: SearchResultsProps) {
   return (
     <div className="space-y-8 mb-10">

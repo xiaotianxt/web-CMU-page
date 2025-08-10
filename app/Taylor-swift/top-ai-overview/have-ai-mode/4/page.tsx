@@ -23,8 +23,7 @@ export default function Home() {
       <main className="container mx-auto px-15 py-4">
         <div className="max-w-2xl">
 
-          <SearchResults results={searchData.slice(0)}/>
-
+          <SearchResults results={searchData.slice(0)} page={4}/>
           <Pagination />
         </div>
       </main>
