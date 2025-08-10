@@ -29,8 +29,7 @@
                         1,
                         3,
                         5,
-                        6,
-                        7
+                        6
                     ]
                 }
             ]
@@ -73,25 +72,18 @@
             "index": 4
         },
         {
-            "title": "March Madness: What to know about the annual college basketball ...",
-            "link": "https://www.dallasnews.com/news/2025/03/20/march-madness-for-friends-family-of-college-basketball-sports-fans/#:~:text=Why%20is%20it%20called%20March,of%20course%2C%20the%20Final%20Four.",
-            "snippet": "Feb 27, 2025 \u2014 Why is it called March Madness? The term \"March Madness\" w...",
-            "source": "Dallas News",
-            "index": 5
-        },
-        {
             "title": "Everything You Need to KNow to Win Your March Madness Bracket",
             "link": "https://sports.yahoo.com/article/everything-know-win-march-madness-070000289.html",
             "snippet": "Mar 20, 2025 \u2014 How does March Madness (NCAA men's basketball tournament)...",
             "source": "Yahoo Sprots",
-            "index": 6
+            "index": 5
         },
         {
             "title": "March Madness 2026: Dates | Tickets | Price | Bracket |",
             "link": "https://www.basket-mag.com/march-madness-2026-dates-tickets-price-bracket-teams/#:~:text=First%20&%20Second%20Rounds%20First%20Round%20(64,take%20down%20higher%20seeds%2C%20creating%20Cinderella%20stories.",
             "snippet": "First & Second Rounds First Round (64 teams): March 19-20, 2026 Second Rou... ",
             "source": "basket le mag",
-            "index": 7
+            "index": 6
         }
     ]
 }
