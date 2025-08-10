@@ -85,8 +85,14 @@ const extractUrlParams = () => {
   const searchParams = new URLSearchParams(window.location.search)
   const segments = path.split("/").filter(Boolean)
   // Extract RID from query parameters, default to "00000" if not provided
-  const participant_id = searchParams.get("RID") || "00001"
-  const sid = searchParams.get("SID") || "00000"
+  const participant_id = searchParams.get("RID") || localStorage.getItem("RID") || "0"
+  const sid = searchParams.get("SID") || localStorage.getItem("SID") || "0"
+  if (participant_id!="0"){
+    localStorage.setItem("RID", participant_id)
+  }
+  if(sid!="0"){
+    localStorage.setItem("SID", sid)
+  }
   if (segments.length >= 3) {
     const topic = segments[0]
     const largeGroup = segments[1]
