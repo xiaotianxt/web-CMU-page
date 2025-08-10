@@ -1,193 +1,204 @@
 {
-    "text_blocks": [
+  "text_blocks": [
+    {
+      "type": "paragraph",
+      "snippet": "For most users, the MacBook Air M4 is a popular recommendation. It's praised for its overall performance, portability, and long battery life. Other popular choices include the Asus Zenbook S14 for its ultra-portability and Dell Inspiron 14 Plus for its good value. The Dell XPS 13 is also often recommended for its excellent battery life.",
+      "snippet_highlighted_words": [
+        "MacBook Air M4"
+      ],
+      "reference_indexes": [
+        0,
+        1,
+        3,
+        4,
+        5,
+        2,
+        6
+      ]
+    },
+    {
+      "type": "list",
+      "list": [
         {
-            "type": "paragraph",
-            "snippet": "For most users, the MacBook Air M4 is a popular recommendation. It's praised for its overall performance, portability, and long battery life. Other popular choices include the Asus Zenbook S14 for its ultra-portability and Dell Inspiron 14 Plus for its good value. The Dell XPS 13 is also often recommended for its excellent battery life.",
-            "snippet_highlighted_words": [
-                "MacBook Air M4"
-            ],
-            "reference_indexes": [
+          "title": "MacBook Air M4:",
+          "snippets": {
+            "Overall": "Highly regarded for its performance, portability, and battery life. ",
+            "Target Audience": "General users, students, and creatives who value a good balance of power and portability."
+          },
+          "reference_indexes": [
+            0,
+            1,
+            7,
+            8,
+            9,
+            10
+          ]
+        },
+        {
+          "title": "Asus Zenbook S14: ",
+          "snippets": {
+            "Ultra-portable": "Known for its lightweight and slim design. ",
+            "Target Audience": "Those who prioritize portability and a sleek design, often professionals or students who need to work on the go. "
+          },
+          "reference_indexes": [
+            0,
+            1,
+            11,
+            12
+          ]
+        },
+        {
+          "title": "Dell Inspiron 14 Plus: ",
+          "snippets": {
+            "Good Value": "Offers a solid balance of performance and features for its price. ",
+            "Target Audience": "Users who are looking for a reliable and versatile laptop without breaking the bank. "
+          },
+          "reference_indexes": [
+            1,
+            2
+          ]
+        },
+        {
+          "title": "Dell XPS 13: ",
+          "snippets": {
+            "Best Battery Life": "Often touted for its long-lasting battery. ",
+            "Target Audience": "Those who need a laptop that can run for extended periods without needing to be plugged in, such as commuters or students. "
+          },
+          "reference_indexes": [
+            0,
+            1
+          ]
+        },
+        {
+          "title": "Other Notable Recommendations:",
+          "type": "list",
+          "list": [
+            {
+              "snippet": {
+                "Asus Zenbook 14 OLED": "A great option for students, known for its vibrant OLED display. "
+              },
+              "reference_indexes": [
+                0
+              ]
+            },
+            {
+              "snippet": {
+                "Acer Swift Go 14": "A budget-friendly option that still offers good performance. "
+              },
+              "reference_indexes": [
+                0
+              ]
+            },
+            {
+              "snippet": {
+                "Lenovo Legion Pro 7i Gen 9": "For gamers, this laptop offers powerful performance. "
+              },
+              "reference_indexes": [
+                0
+              ]
+            },
+            {
+              "snippet": {
+                "HP Chromebook Plus 15.6": "A good choice for users who prefer Chrome OS and its simplicity. "
+              },
+              "reference_indexes": [
                 0,
-                1,
-                3,
-                4,
-                5,
-                2,
-                6
-            ]
-        },
-        {
-            "type": "list",
-            "list": [
-                {
-                    "title": "MacBook Air M4:",
-                    "snippets": {
-                        "Overall": "Highly regarded for its performance, portability, and battery life. ",
-                        "Target Audience": "General users, students, and creatives who value a good balance of power and portability."
-                    },
-                    "reference_indexes": [
-                        0,
-                        1,
-                        7,
-                        8,
-                        9,
-                        10
-                    ]
-                },
-                {
-                    "title": "Asus Zenbook S14: ",
-                    "snippets": {
-                        "Ultra-portable": "Known for its lightweight and slim design. ",
-                        "Target Audience": "Those who prioritize portability and a sleek design, often professionals or students who need to work on the go. "
-                    },
-                    "reference_indexes": [
-                        0,
-                        1,
-                        11,
-                        12
-                    ]
-                },
-                {
-                    "title": "Dell Inspiron 14 Plus: ",
-                    "snippets": {
-                        "Good Value": "Offers a solid balance of performance and features for its price. ",
-                        "Target Audience": "Users who are looking for a reliable and versatile laptop without breaking the bank. "
-                    },
-                    "reference_indexes": [
-                        1,
-                        2
-                    ]
-                },
-                {
-                    "title": "Dell XPS 13: ",
-                    "snippets": {
-                        "Best Battery Life": "Often touted for its long-lasting battery. ",
-                        "Target Audience": "Those who need a laptop that can run for extended periods without needing to be plugged in, such as commuters or students. "
-                    },
-                    "reference_indexes": [
-                        0,
-                        1
-                    ]
-                },
-                {
-                    "title": "Other Notable Recommendations:",
-                    "type": "list",
-                    "list": [
-                        {
-                            "snippet": {
-                                "Asus Zenbook 14 OLED": "A great option for students, known for its vibrant OLED display. "
-                            },
-                            "reference_indexes": [
-                                0
-                            ]
-                        },
-                        {
-                            "snippet": {
-                                "Acer Swift Go 14": "A budget-friendly option that still offers good performance. "
-                            },
-                            "reference_indexes": [
-                                0
-                            ]
-                        },
-                        {
-                            "snippet": {
-                                "Lenovo Legion Pro 7i Gen 9": "For gamers, this laptop offers powerful performance. "
-                            },
-                            "reference_indexes": [
-                                0
-                            ]
-                        },
-                        {
-                            "snippet": {
-                                "HP Chromebook Plus 15.6": "A good choice for users who prefer Chrome OS and its simplicity. "
-                            },
-                            "reference_indexes": [
-                                0,
-                                2
-                            ]
-                        }
-                    ]
-                }
-            ]
+                2
+              ]
+            }
+          ]
         }
-    ],
-    "references": [
-        {
-            "title": "Best laptops in 2025: My top 10 based on testing and reviews",
-            "link": "https://www.laptopmag.com/reviews/best-laptops-1#:~:text=Mag/Sean%20Riley)-,1.,Why%20trust%20Laptop%20Mag%20%E2%86%B4",
-            "snippet": "7 days ago \u2014 1. Best laptop 2025: MacBook Air M4 \u21b4 2. Best budget laptop: Acer Swift Go 14 \u21b4 3. Best student laptop: Asus Zenbook 14 ...",
-            "source": "Laptop Mag",
-            "index": 0
-        },
-        {
-            "title": "The best laptops 2025 tested, reviewed and rated | TechRadar",
-            "link": "https://www.techradar.com/news/mobile-computing/laptops/best-laptops-1304361",
-            "snippet": "2 May 2025 \u2014 The quick list * Best overall, Apple MacBook Air 13-inch (M4) View at...",
-            "source": "TechRadar",
-            "index": 1
-        },
-        {
-            "title": "The best laptops for everyday use, tried and tested - The Telegraph",
-            "link": "https://www.telegraph.co.uk/recommended/tech/best-laptops-everyday-use/",
-            "snippet": "14 Apr 2025 \u2014 The best everyday laptops of 2025: At a glance * Best Buy everyday laptop:...",
-            "source": "The Teleraph",
-            "index": 2
-        },
-        {
-            "title": "The BestUltraportable Laptops for 2025",
-            "link": "https://www.pcmag.com/picks/the-best-ultraportable-laptops?test_uuid=02LlF0iWKsilxYTJVF8uH5y&test_variant=A#:~:text=Who%20It's%20For%20Apple's%2013%2Dinch%20MacBook%20Air,all%20day%20or%20easily%20carry%20it%20around.",
-            "snippet": "Who It's For Apple's 13-inch MacBook Air with M4 is the company's most affordabl...",
-            "source": "PCMag",
-            "index": 3
-        },
-        {
-            "title": "Best MacBook for 2025",
-            "link": "https://www.cnet.com/tech/computing/best-macbook/#:~:text=The%20M4%20refresh%20adds%20up%20to%20a,such%20a%20popular%20laptop%20for%20campus%20life.",
-            "snippet": "16 May 2025 \u2014 The M4 refresh adds up to a good. if minor, update to an already...",
-            "source": "CNET",
-            "index": 4
-        },
-        {
-            "title": "Best laptops: Our experts pick the top 12 models - PCWorld",
-            "link": "https://www.pcworld.com/article/436674/best-pc-laptops.html",
-            "snippet": "4 days ago \u2014 Dell inspiron 14 Plus (2024) - Best laptop overall. ...Lenovo Legion 5...",
-            "source": "PCWorld",
-            "index": 5
-        },
-        {
-            "title": "Best laptops of 2025, tried and tested",
-            "link": "https://amp.cnn.com/amp/cnn-underscored/reviews/best-laptops",
-            "snippet": "Apple MacBook Air M3 With a super-portable design, a great keyboard and...",
-            "source": "CNN",
-            "index": 6
-        },
-        {
-            "title": "The Best Laptop for Working from Home in 2025",
-            "link": "https://growrk.com/blog/the-best-laptop-for-working-from-home#:~:text=Dell%20XPS%2013:%20Best%20Overall%20Laptop%20Specifications:,make%20it%20a%20standout%20in%20the%20market.",
-            "snippet": "8 Oct 2024 \u2014 Dell XPS 13: Best Overall Laptop Specifications: Pros: COns Widel...",
-            "source": "GroWrk",
-            "index": 7
-        },
-        {
-            "title": "Our Picks for the Top Business Laptops of 2025",
-            "link": "https://www.revnet.ca/blog/our-picks-for-the-best-business-laptops/#:~:text=Its%20(%20Dell%20XPS%2013%20)%20real,XPS%2013%20)%20is%20a%20top%20contender.",
-            "snippet": "10 Jan 2025 \u2014 Its (Dell XPS 13) real standout, though, os the exceptional batte...",
-            "source": "Revolution Networks",
-            "index": 8
-        },
-        {
-            "title": "The Best Laptops for Auhors in 2025",
-            "link": "https://getfreewrite.com/blogs/articles/best-laptop-for-authors#:~:text=This%20device%20elivers%20seamless%20multitasking%20and%20efficient,writers%20seeking%20a%20portable%20and%20efficient%20device.",
-            "snippet": "22 Apr 2025 \u2014 This device elivers seamless multitasking and efficient...",
-            "source": "Freewrite",
-            "index": 9
-        },
-        {
-            "title": "5 best Dell laptops to buy in 2024",
-            "link": "http://www.croma.com/unboxed/best-dell-laptops",
-            "snippet": "18 Aug 2024 \u2014 The 512GB SSD provides ample storage space, while the 13.4-inch...",
-            "source": "Croma",
-            "index": 10
-        }
-    ]
+      ]
+    }
+  ],
+  "references": [
+    {
+      "title": "Best laptops in 2025: My top 10 based on testing and reviews",
+      "link": "https://www.laptopmag.com/reviews/best-laptops-1#:~:text=Mag/Sean%20Riley)-,1.,Why%20trust%20Laptop%20Mag%20%E2%86%B4",
+      "snippet": "7 days ago — 1. Best laptop 2025: MacBook Air M4 ↴ 2. Best budget laptop: Acer Swift Go 14 ↴ 3. Best student laptop: Asus Zenbook 14 ...",
+      "source": "Laptop Mag",
+      "index": 0,
+      "host": "laptopmag.com"
+    },
+    {
+      "title": "The best laptops 2025 tested, reviewed and rated | TechRadar",
+      "link": "https://www.techradar.com/news/mobile-computing/laptops/best-laptops-1304361",
+      "snippet": "2 May 2025 — The quick list * Best overall, Apple MacBook Air 13-inch (M4) View at...",
+      "source": "TechRadar",
+      "index": 1,
+      "host": "techradar.com"
+    },
+    {
+      "title": "The best laptops for everyday use, tried and tested - The Telegraph",
+      "link": "https://www.telegraph.co.uk/recommended/tech/best-laptops-everyday-use/",
+      "snippet": "14 Apr 2025 — The best everyday laptops of 2025: At a glance * Best Buy everyday laptop:...",
+      "source": "The Teleraph",
+      "index": 2,
+      "host": "telegraph.co.uk"
+    },
+    {
+      "title": "The BestUltraportable Laptops for 2025",
+      "link": "https://www.pcmag.com/picks/the-best-ultraportable-laptops?test_uuid=02LlF0iWKsilxYTJVF8uH5y&test_variant=A#:~:text=Who%20It's%20For%20Apple's%2013%2Dinch%20MacBook%20Air,all%20day%20or%20easily%20carry%20it%20around.",
+      "snippet": "Who It's For Apple's 13-inch MacBook Air with M4 is the company's most affordabl...",
+      "source": "PCMag",
+      "index": 3,
+      "host": "pcmag.com"
+    },
+    {
+      "title": "Best MacBook for 2025",
+      "link": "https://www.cnet.com/tech/computing/best-macbook/#:~:text=The%20M4%20refresh%20adds%20up%20to%20a,such%20a%20popular%20laptop%20for%20campus%20life.",
+      "snippet": "16 May 2025 — The M4 refresh adds up to a good. if minor, update to an already...",
+      "source": "CNET",
+      "index": 4,
+      "host": "cnet.com"
+    },
+    {
+      "title": "Best laptops: Our experts pick the top 12 models - PCWorld",
+      "link": "https://www.pcworld.com/article/436674/best-pc-laptops.html",
+      "snippet": "4 days ago — Dell inspiron 14 Plus (2024) - Best laptop overall. ...Lenovo Legion 5...",
+      "source": "PCWorld",
+      "index": 5,
+      "host": "pcworld.com"
+    },
+    {
+      "title": "Best laptops of 2025, tried and tested",
+      "link": "https://amp.cnn.com/amp/cnn-underscored/reviews/best-laptops",
+      "snippet": "Apple MacBook Air M3 With a super-portable design, a great keyboard and...",
+      "source": "CNN",
+      "index": 6,
+      "host": "amp.cnn.com"
+    },
+    {
+      "title": "The Best Laptop for Working from Home in 2025",
+      "link": "https://growrk.com/blog/the-best-laptop-for-working-from-home#:~:text=Dell%20XPS%2013:%20Best%20Overall%20Laptop%20Specifications:,make%20it%20a%20standout%20in%20the%20market.",
+      "snippet": "8 Oct 2024 — Dell XPS 13: Best Overall Laptop Specifications: Pros: COns Widel...",
+      "source": "GroWrk",
+      "index": 7,
+      "host": "growrk.com"
+    },
+    {
+      "title": "Our Picks for the Top Business Laptops of 2025",
+      "link": "https://www.revnet.ca/blog/our-picks-for-the-best-business-laptops/#:~:text=Its%20(%20Dell%20XPS%2013%20)%20real,XPS%2013%20)%20is%20a%20top%20contender.",
+      "snippet": "10 Jan 2025 — Its (Dell XPS 13) real standout, though, os the exceptional batte...",
+      "source": "Revolution Networks",
+      "index": 8,
+      "host": "revnet.ca"
+    },
+    {
+      "title": "The Best Laptops for Auhors in 2025",
+      "link": "https://getfreewrite.com/blogs/articles/best-laptop-for-authors#:~:text=This%20device%20elivers%20seamless%20multitasking%20and%20efficient,writers%20seeking%20a%20portable%20and%20efficient%20device.",
+      "snippet": "22 Apr 2025 — This device elivers seamless multitasking and efficient...",
+      "source": "Freewrite",
+      "index": 9,
+      "host": "getfreewrite.com"
+    },
+    {
+      "title": "5 best Dell laptops to buy in 2024",
+      "link": "http://www.croma.com/unboxed/best-dell-laptops",
+      "snippet": "18 Aug 2024 — The 512GB SSD provides ample storage space, while the 13.4-inch...",
+      "source": "Croma",
+      "index": 10,
+      "host": "croma.com"
+    }
+  ]
 }
