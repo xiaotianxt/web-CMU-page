@@ -2,8 +2,8 @@
 
 import type { TaskSession, ClickEvent, ShowMoreInteraction, ShowAllInteraction } from "@/lib/analytics"
 
-// const API_BASE_URL = "https://cmu-web-service-demo-7d7309b0820c.herokuapp.com/api/task-records"
-const API_BASE_URL= "http://localhost:8080/api/task-records"
+const API_BASE_URL = "https://cmu-web-service-demo-7d7309b0820c.herokuapp.com/api/task-records"
+// const API_BASE_URL= "http://localhost:8080/api/task-records"
 
 // Interface matching the backend TaskRecord model
 export interface TaskRecord {
@@ -19,6 +19,10 @@ export interface TaskRecord {
   clickSequence: ClickEvent[]
   showMoreInteractions: ShowMoreInteraction
   showAllInteractions: ShowAllInteraction
+  pageClickStatics_1: number
+  pageClickStatics_2: number
+  pageClickStatics_3: number
+  pageClickStatics_4: number
 }
 
 // Convert our TaskSession to TaskRecord format
@@ -34,7 +38,11 @@ const convertSessionToRecord = (session: TaskSession): TaskRecord => {
     taskEndTime: session.task_end_time || undefined,
     clickSequence: session.click_sequence,
     showMoreInteractions: session.show_more_interactions,
-    showAllInteractions: session.show_all_interactions
+    showAllInteractions: session.show_all_interactions,
+    pageClickStatics_1: session.page_click_statics_1,
+    pageClickStatics_2: session.page_click_statics_2,
+    pageClickStatics_3: session.page_click_statics_3,
+    pageClickStatics_4: session.page_click_statics_4,
   }
 }
 

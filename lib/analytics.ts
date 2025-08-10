@@ -55,6 +55,10 @@ export interface TaskSession {
   click_sequence: ClickEvent[]
   show_more_interactions: ShowMoreInteraction
   show_all_interactions: ShowAllInteraction
+  page_click_statics_1: number
+  page_click_statics_2: number
+  page_click_statics_3: number
+  page_click_statics_4: number
 }
 
 // Generate a unique ID for each link click
@@ -152,6 +156,11 @@ const createNewSession = async (): Promise<TaskSession> => {
     task_end_time: null,
     click_sequence: [],
     show_more_interactions: { click_order: -1, if_click: false, click_time: "" },
+    show_all_interactions: { click_order: -1, if_click: false, click_time: "" },
+    page_click_statics_1: 0,
+    page_click_statics_2: 0,
+    page_click_statics_3: 0,
+    page_click_statics_4: 0
   }
 
   console.log("Creating new session:", newSession)
@@ -256,6 +265,15 @@ export const trackLinkClick = async (componentName: string, linkIndex: number, l
 
   // Add click to session
   session.click_sequence.push(clickEvent)
+
+  if(componentName.includes("SearchResults")){
+    getPageNumber(componentName) === 1 ? session.page_click_statics_1++ :
+    getPageNumber(componentName) === 2 ? session.page_click_statics_2++:
+    getPageNumber(componentName) === 3 ? session.page_click_statics_3++:
+    session.page_click_statics_4++
+
+  }
+
   console.log("当前session.click_sequence:", session);
 
   localStorage.setItem("current_task_session", JSON.stringify(session))
@@ -275,6 +293,11 @@ export const trackLinkClick = async (componentName: string, linkIndex: number, l
   }
 
   return clickId
+}
+
+const getPageNumber = (input: string): number | null => {
+  const match = input.match(/SearchResults(?:-Sitelinks)?_(\d+)/);
+  return match ? Number(match[1]) : null;
 }
 
 export const trackShowMoreClick = async (ifClick: boolean): Promise<void> => {

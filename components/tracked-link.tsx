@@ -33,7 +33,6 @@ export function TrackedLink ({ href, componentName, linkIndex, linkPage, classNa
 
     const result = await trackLinkClick(componentName, linkIndex, linkText, href)
     console.log("Tracking result:", result);
-    localStorage.removeItem('current_task_session');
     
   }
 
