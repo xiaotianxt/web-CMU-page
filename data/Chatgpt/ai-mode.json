@@ -1,0 +1,107 @@
+{
+  "text_blocks": [
+    {
+      "type": "paragraph",
+      "snippet": "ChatGPT is a generative artificial intelligence chatbot developed by OpenAI and launched in November 2022. It's credited with accelerating the ongoing AI boom and has become one of the fastest-growing consumer software applications ever, gaining over 100 million users in two months.",
+      "reference_indexes": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "type": "list",
+      "list": [
+        {
+          "title": "Key capabilities ",
+          "snippets": {
+            "Conversational AI": "ChatGPT engages in human-like dialogue, answering follow-up questions, correcting mistakes, and challenging incorrect premises.",
+            "Content Generation": "It can produce various forms of content, including articles, social media posts, emails, essays, and code, tailored to user prompts. ",
+            "Code Understanding and Generation": "ChatGPT can write and debug computer programs across multiple languages, acting as a valuable tool for developers and beginners alike.",
+            "Translation": "It supports over 80 languages and can translate text and even spoken language in real-time, bridging communication gaps.",
+            "Information Retrieval and Summarization": " ChatGPT can search the web for real-time information, summarize lengthy articles or reports, and explain complex topics simply.",
+           "Image and Video Generation":"With recent updates, ChatGPT can now generate images using GPT-4o and access OpenAI's Sora model for video creation, expanding its multimodal capabilities.",
+           "Custom GPTs and AI Agents": "Paid users can create custom versions of ChatGPT tailored for specific tasks and personalities. OpenAI has also launched AI agent features like Operator and ChatGPT agent, allowing the AI to autonomously perform tasks using virtual tools like a web browser and terminal."
+          },
+          "reference_indexes": [
+            0,
+            4,
+            1,
+            3,
+            5,
+            6,
+            7
+          ]
+        }
+      ]
+    }
+  ],
+  "references": [
+    {
+      "title": "ChatGPT - Wikiedia...",
+      "link": "https://en.wikipedia.org/wiki/ChatGPT#:~:text=ChatGPT%20is%20a%20conversational%20chatbot,like%20tic%2Dtac%2Dtoe.",
+      "snippet": "ChatGPT is a conversational chatbot and artificiual intelligence asisntant based on ...",
+      "source": "Wikipedia, the free encycolpedia",
+      "index": 0,
+      "host": "en.wikipedia.org"
+    },
+    {
+      "title": "Introducing ChatGPT - OpenAI",
+      "link": "https://openai.com/index/chatgpt/",
+      "snippet": "Introducing ChatGPT. ... We've trained a model called ChatGPT which ...",
+      "source": "OpenAI",
+      "index": 2,
+      "host": "OpenAI.com"
+    },
+    {
+      "title": "Introducing ChatGPT agent: bridging research and action - OpenAI",
+      "link": "https://openai.com/index/introducing-chatgpt-agent/",
+      "snippet": "At the core of this new capability is a unified agentic system. It brings...",
+      "source": "OpenAI",
+      "index": 2,
+      "host": "OpenAI.com"
+    },
+    {
+      "title": "What is ChatGPT? Everything You Need to Know About the AI Chatbot",
+      "link": "https://www.cnet.com/tech/services-and-software/what-is-chatgpt-everything-you-need-to-know-about-the-ai-chatbot",
+      "snippet": " ChatGPT is the artificial intelligence chatbot that started the whole...",
+      "source": "CNET",
+      "index": 3,
+      "host": "CNET.com"
+    },
+    {
+      "title": "What are the Possible Applications of ChatGPT? - Botpress...",
+      "link": "https://botpress.com/blog/what-are-the-possible-applications-of-chatgpt",
+      "snippet": "What are thePossible Applications of ChatGPT? ChatGPT has endless...",
+      "source": "Botpress",
+      "index": 4,
+      "host": "Botpress.com"
+    },
+    {
+      "title": "ChatGPT explained in a minute - TechTarget",
+      "link": "https://www.techtarget.com/searchenterpriseai/video/ChatGPT-explained-in-a-minute",
+      "snippet": "ChatGPT explained in a minute. ... ChatGPT is OpenAI's AI-powered...",
+      "source": "TechTarget",
+      "index": 5,
+      "host": "TechTarget.com"
+    },
+    {
+      "title": "What is ChatGPT: Real Life APplications, LImitations, and ...",
+      "link": "https://www.jasper.ai/blog/what-is-chatgpt-real-life-applications",
+      "snippet": "What is ChatGPT: Real Life Applications, Limitations and ...",
+      "source": "Jasper.ai",
+      "index": 6,
+      "host": "Jasper.ai"
+    },
+    {
+      "title": "Technology shock of ChatGPT, social attention and firm value: Evidence...",
+      "link": "https://www.sciencedirect.com/science/article/pii/S0160791X2400304X#:~:text=ChatGPT%20represents%20a%20breakthrough%20in%20the%20realm,models%20undergo%20training%20on%20massive%20text%20datasets.",
+      "snippet": " ChatGPT represents a breakthrough in the realm of Large Language Models (LLMS)... ",
+      "source": "ScienceDirect.com",
+      "index": 7,
+      "host": "sciencedirect.com"
+    }
+  ]
+}
