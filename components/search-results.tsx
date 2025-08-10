@@ -31,7 +31,8 @@ interface SearchResult {
 }
 
 interface SearchResultsProps {
-  results: SearchResult[]
+  results: SearchResult[],
+  page: number
 }
 
 // 从 displayed_link 提取域名；没有就退回到 link
@@ -51,7 +52,7 @@ function hostFromDisplayed(displayed?: string, fallbackUrl?: string): string {
 }
 
 
-export function SearchResults({ results }: SearchResultsProps) {
+export function SearchResults({ results, page }: SearchResultsProps) {
   return (
     <div className="space-y-8 mb-10">
       {results.map((result) => {
@@ -82,7 +83,7 @@ export function SearchResults({ results }: SearchResultsProps) {
               <h3 className="text-xl mb-1">
                 <TrackedLink
                   href={result.link}
-                  componentName="SearchResults"
+                  componentName={"SearchResults_"+ page}
                   linkIndex={result.position}
                   className="text-blue-800 hover:underline"
                 >
@@ -113,7 +114,7 @@ result.snippet.split(
                     <TrackedLink
                       key={index}
                       href={sitelink.link}
-                      componentName="SearchResults-Sitelinks"
+                      componentName={"SearchResults-Sitelinks_"+page}
                       linkIndex={index}
                       className="text-blue-800 text-sm hover:underline"
                     >
