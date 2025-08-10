@@ -8,11 +8,19 @@ import { SearchTabs } from "@/components/search-tabs-no-ai-mode"
 import searchData from "@/app/Laptop/data/1.json"
 import HeadSection from "@/components/head-section"
 
+import { useEffect } from "react"
+import { initializeSession } from "@/lib/analytics"
+
 export default function Home() {
   const beforePeopleAlsoAsk = searchData.slice(0, 1)
   const beforeVideos = searchData.slice(1, 2)
   const beforePeopleAlsoSearchFor = searchData.slice(2, 3)
   const bottomResults = searchData.slice(3)
+
+    useEffect(() => {
+    // Trigger session creation + backend logging on page load
+    initializeSession();
+  }, []);
 
   return (
     <div className="min-h-screen bg-white text-gray-800">

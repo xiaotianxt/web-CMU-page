@@ -7,8 +7,15 @@ import { SearchTabs } from "@/components/search-tabs"
 import searchData from "@/data/Laptop/3.json"
 import HeadSection from "@/components/head-section"
 
+import { useEffect } from "react"
+import { initializeSession } from "@/lib/analytics";
+
 export default function Home() {
 
+    useEffect(() => {
+    // Trigger session creation + backend logging on page load
+    initializeSession();
+  }, []);
   return (
     <div className="min-h-screen bg-white text-gray-800">
       {/* Header with search bar */}

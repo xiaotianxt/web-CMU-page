@@ -6,10 +6,17 @@ import { SearchTabs } from "@/components/search-tabs-no-ai-mode"
 import HeadSection from "@/components/head-section"
 import { usePathname } from "next/navigation"
 
+import { useEffect } from "react"
+import { initializeSession } from "@/lib/analytics";
+
 export default function Home() {
   const pathname = usePathname();
   const pageName = pathname.split("/").slice(1, 2).join("-");
   const searchData = require(`@/data/${pageName}/2.json`);
+      useEffect(() => {
+      // Trigger session creation + backend logging on page load
+      initializeSession();
+    }, []);
   return (
     <div className="min-h-screen bg-white text-gray-800">
        {/* Header with search bar */}

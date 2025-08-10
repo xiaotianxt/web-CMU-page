@@ -7,7 +7,15 @@ import { SearchTabs } from "@/components/search-tabs-no-ai-mode"
 import searchData from "@/data/Laptop/2.json"
 import HeadSection from "@/components/head-section"
 
+import { useEffect } from "react"
+import { initializeSession } from "@/lib/analytics";
+
 export default function Home() {
+
+    useEffect(() => {
+    // Trigger session creation + backend logging on page load
+    initializeSession();
+  }, []);
 
   return (
     <div className="min-h-screen bg-white text-gray-800">
