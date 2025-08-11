@@ -13,9 +13,7 @@
             "Celebrity Cruises": "Ranked highly for both couples and families, offering a balance of luxury and affordability."
           },
           "reference_indexes": [
-            0,
-            4,
-            1
+            0,1,2,3,4,5
           ]
         }
       ]
@@ -32,10 +30,7 @@
             "Onboard Experience": "onsider the size of the ship, entertainment options, dining preferences, and desired level of formality when making your selection."
           },
           "reference_indexes": [
-            2,
-            4,
-            11,
-            12
+            2,5,6,7
           ]
         }
         ]
