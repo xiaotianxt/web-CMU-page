@@ -1,0 +1,115 @@
+{
+  "text_blocks": [
+    {
+      "type": "paragraph",
+      "snippet": "An NFL game is a professional American football game played under the rules and regulations of the National Football League (NFL). The NFL is the highest level of professional football in the United States and consists of 32 teams.",
+      "reference_indexes": [
+        1,
+        0,
+        2,
+        3
+      ]
+    },
+    {
+      "type": "list",
+      "list": [
+        {
+          "title": "Here's a breakdown of what constitutes an NFL game:",
+          "snippets": {
+            "Teams": "Two teams compete, each with 11 players on the field at a time, though rosters are much larger to account for specialized offensive, defensive, and special teams units. ",
+            "Objective": "The goal is to score more points than the opposing team within the allotted time. Points are scored by advancing the ball into the opponent's end zone for a touchdown (6 points), or by kicking it through the uprights for a field goal (3 points).",
+            "Advancing the Ball": "The team with possession (offense) has four chances, called downs, to advance the ball at least 10 yards. This can be done by running or passing the ball. If successful, they earn a new set of downs. If they fail, possession is turned over to the opposing team.",
+            "Time": "An NFL game consists of four 15-minute quarters, separated by a 12-minute halftime break. While the official game clock is 60 minutes, the average NFL game lasts around three hours due to various stoppages such as timeouts, penalties, and replay reviews.",
+            "Entertainment": "NFL games are a major form of entertainment, with a large and passionate fan base. ",
+            "Competition": "The NFL is highly competitive, with 32 teams vying for a chance to reach the Super Bowl. "
+          },
+          "reference_indexes": [
+            6,
+            3,
+            0,
+            4,
+            5,
+            1,
+            2,
+            7
+          ]
+        }
+      ]
+    },
+     {
+      "type": "paragraph",
+      "snippet": "In essence, an NFL game is a structured competition governed by specific rules, with teams battling to control the ball, gain yardage, and score points through a combination of strategic plays and physical execution. ",
+      "reference_indexes": [
+        6,
+        7
+      ]
+    }
+  ],
+  "references": [
+    {
+      "title": "National Football League - Wikipedia",
+      "link": "https://web-cmu-page.vercel.app/AI-overviewHtml/info/NFL-game/National_Football_League_Wikipedia.html#:~:text=The%20National%20Football%20League%20(NFL,National%20Football%20Conference%20(NFC).",
+      "snippet": "The National Football League (NFL) is a professional American football league i...",
+      "source": "Wikipedia, the free encyclopedia",
+      "index": 0,
+      "host": "en.wikipedia.org"
+    },
+    {
+      "title": "NFL Game Definition | Law Insider ...",
+      "link": "https://www.lawinsider.com/dictionary/nfl-game#:~:text=NFL%20Game%20means%20a%20NFL,game%20or%20Super%20Bowl%20game.",
+      "snippet": "NFL Game definition * NFL Game means any pre-season, regular-season, or post-season game playe...",
+      "source": "Law Insider",
+      "index": 1,
+      "host": "lawinsider.com"
+    },
+    {
+      "title": "NFL game - Idiom",
+      "link": "https://getidiom.com/dictionary/english/nfl-game#:~:text=noun,football%20game%2C%20professional%20football%20game",
+      "snippet": "NFL game. ... * A professional American football game played as part of the National Football Leagu...",
+      "source": "Idiom App",
+      "index": 2,
+      "host": "getidiom.com"
+    },
+    {
+      "title": "What is the difference between a football game and an NFL game>",
+      "link": "https://www.quora.com/What-is-the-difference-between-a-football-game-and-an-NFL-game",
+      "snippet": "Nov 28, 2023 - A football game is a game played under the dules of American football, regardless...",
+      "source": "Quora",
+      "index": 3,
+      "host": "quora.com"
+    },
+    {
+      "title": "How do scoring points work in American football?",
+      "link": "https://www.quora.com/How-do-scoring-points-work-in-American-football",
+      "snippet": "Feb 3, 2020 - * TYouchdowns (6 points) * There are 100 yards on the playing field. At each end is...",
+      "source": "Quora",
+      "index": 4,
+      "host": "quora.com"
+    },
+    {
+      "title": "Could you explain the rules of American football...",
+      "link": "https://www.quora.com/Could-you-explain-the-rules-of-American-football-in-a-simplified-way",
+      "snippet": "There are 22 players on the field at once. 11 on offense and 11 on defense...",
+      "source": "Quora",
+      "index": 5,
+      "host": "quora.com"
+    },
+    {
+         "title": "Rules of American Football - Explained!",
+      "link": "https://www.youtube.com/watch?v=Ddwp1HyEFRE",
+      "snippet": "Mar 13, 2015 - nin explains the rules of American...",
+      "source": "YouTube · Ninh Ly",
+      "index": 6,
+      "host": "Youtube.com"
+    },
+    {
+"title": "How long does an NFL game last?",
+      "link": "https://www.quora.com/How-long-does-an-NFL-game-last#:~:text=In%20real%20life%2C%20due%20to,it%20averages%20about%20three%20hours.&text=The%20NFL's%20popularity%20is%20all,to%20a%20mere%2011%20minutes.&text=60%20minutes%E2%80%A6,give%20or%20take!&text=4%2015%20minute%20quarters.,%2C%20timeouts%2C%20penalties%2C%20etc!&text=How%20long%20is%20an%20NFL,receiver%20or%20defender%20catches%20it.",
+      "snippet": "They are usually pegged to last about three hours including halftime...",
+      "source": "Quora",
+      "index": 7,
+      "host": "quora.com"
+    }
+
+  ]
+}
