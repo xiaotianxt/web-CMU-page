@@ -1,0 +1,110 @@
+{
+  "text_blocks": [
+    {
+      "type": "list",
+      "list": [
+        {
+          "title": "Here are some popular and highly recommended cruise choices based on traveler preferences and awards:",
+          "snippets": {
+            "Royal Caribbean International": "Consistently awarded \"Best Cruise Line Overall\" by Travel Weekly readers and also a top choice for families due to its innovative and adventure-filled ships with features and amenities.",
+            "Viking Ocean Cruises": "Ranked as a top luxury and premium cruise line, Viking is known for smaller ships with verandas in every cabin and destination-focused itineraries that emphasize cultural enrichment.",
+            "Regent Seven Seas Cruises": "Another highly-rated luxury line, offering exquisite cuisine, all-inclusive rates, lavish suites, and a focus on immersive shore excursions.",
+            "Disney Cruise Line": "A popular choice for families, known for its family-friendly atmosphere, entertainment, and character interactions.",
+            "Celebrity Cruises": "Ranked highly for both couples and families, offering a balance of luxury and affordability."
+          },
+          "reference_indexes": [
+            0,
+            4,
+            1
+          ]
+        }
+      ]
+    },
+    {
+        "type": "list", 
+        "list": [
+        {
+          "title": "Considerations when choosing",
+          "snippets": {
+            "Target Audience": "Some cruise lines cater more to families (like Disney and Carnival), while others are geared towards adults and couples (like Viking Ocean Cruises).",
+            "Budget": "Cruise lines range from affordable options (like Carnival) to ultra-luxury experiences (like Regent Seven Seas).",
+            "Destination": "Some cruise lines specialize in specific destinations like the Caribbean or Europe.",
+            "Onboard Experience": "onsider the size of the ship, entertainment options, dining preferences, and desired level of formality when making your selection."
+          },
+          "reference_indexes": [
+            2,
+            4,
+            11,
+            12
+          ]
+        }
+        ]
+    }
+  ],
+  "references": [
+    {
+      "title": "Best Cruises 2025: See Photos, Reviews and Start Planning ",
+      "link": "https://web-cmu-page.vercel.app/AI-overviewHtml/product/Cruise/Best_Cruises_2025_See_Photos_Reviews_and_Start_Planning_U_S_News_Travel.html",
+      "snippet": "Best Cruise Lines for the Money * #1. Celebrity Cruises. * #2. Virgin Vogages. * #3. MSC...",
+      "source": "Travel US News",
+      "index": 0,
+      "host": "travel.usnews.com"
+    },
+    {
+      "title": "Carnival Cruise Lines",
+      "link": "https://www.google.com/viewer/place?mid=/g/11h0v3r7lq",
+      "snippet": "Cruise line company with offerings that include a casino...",
+      "source": "Google",
+      "index": 1,
+      "host": "Google.com"
+    },
+    {
+      "title": "7 Best Lucury Cruises | Cruise Critic",
+      "link": "https://www.cruisecritic.com/articles/the-7-best-luxury-cruises",
+      "snippet": "Kan 15, 2025 - On This Page * Seven Seas Splendor, Regent Seven Seas...",
+      "source": "Cruise Critic",
+      "index": 2,
+      "host": "cruisecritic.com"
+    },
+    {
+      "title": "10 Best Luxury Cruise Line According to AAA Experts - Trip Canvas",
+      "link": "https://www.aaa.com/tripcanvas/article/best-luxury-cruise-lines-CM795",
+      "snippet": "Regent Seven Seas Cruises * Best for Maximum luxury. * Popular ports...",
+      "source": "AAA",
+      "index": 3,
+      "host": "aaa.com"
+    },
+    {
+      "title": "2025 Member Choice Awards: Best Cruise Lines Overall",
+      "link": "https://cruiseline.com/advice/awards/members-choice/2025-member-choice-awards-best-cruise-lines-overall",
+      "snippet": "2025 Member Choice Awards: Best Cruise Lines Overall * ...",
+      "source": "Cruiseline.com",
+      "index": 4,
+      "host": "cruiseline.com"
+    },
+    {
+      "title": "Royal Carbeen wins 'Best Cruise Line Overall' for...",
+      "link": "https://www.royalcaribbeanpresscenter.com/press-release/1379/royalcaribbean-wins-best-cruise-line-overall-for-record-16th-year/#:~:text=About%20Royal%20Caribbean%20International&text=Royal%20Caribbean%20has%20been%20voted,Travel%20Weekly%20Readers'%20Choice%20Awards.",
+      "snippet": "All Ships * All Ships * Harmony of the Seas. ... About Royal...",
+      "source": "Royal Caribbean Press Center",
+      "index": 5,
+      "host": "royalcaribbeanpresscenter.com"
+    },
+    {
+      "title": "Disney Cruise Line San Diego",
+      "link": "https://www.google.com/viewer/place?mid=/g/11fzb1_06h",
+      "snippet": "Family-friendly cruise ship with Broadway-style shows and plenty of Disney-themed activities and...",
+      "source": "Google",
+      "index": 6,
+      "host": "google.com"
+    },
+    {
+      "title": "Best and Worst Cruise Lines Right now according to Cruisers ...",
+      "link": "https://www.tipsfortravellers.com/best-and-worst-cruise-lines-right-now-according-to-cruisers/#:~:text=The%20highest%20rated%20by%20cruisers,ships%20are%20driving%20higher%20scores.",
+      "snippet": "Best and Worst Resort Cruise Lines. The highest rated by... ",
+      "source": "Tips for Travellers",
+      "index": 7,
+      "host": "tipsfortravellers.com"
+    }
+  ]
+}

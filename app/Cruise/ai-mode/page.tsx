@@ -3,8 +3,8 @@ import Image from "next/image"
 import { SearchTabs } from "@/components/search-tabs"
 import { useState } from "react"
 import Link from "next/link"
-import { Mic, MoreVertical, Clock, Edit, X } from "lucide-react"
-import aiOverviewData from "@/data/Cruise/ai-overview.json"
+import { Mic, MoreVertical, Clock, Edit, X, LinkIcon } from "lucide-react"
+import aiOverviewData from "@/data/Cruise/ai-mode.json"
 import { TrackedLink } from "@/components/tracked-link"
 import { WebsiteFavicon } from "@/components/website-favicon"
 import { getWebsiteName } from "@/lib/favicon-service"
@@ -20,9 +20,7 @@ interface TextBlock {
     snippets?: {
       [key: string]: string
     }
-    snippet?: {
-      [key: string]: string
-    }
+    snippet?: string[]
     reference_indexes?: number[]
     type?: string
     list?: Array<{
@@ -63,7 +61,7 @@ export default function AiModePage() {
     return data.references
   })()
   const getImageForReference = (referenceIndex: number) => {
-    return `/Cruise/images/${referenceIndex + 1}.jpeg`
+    return `/Cruise/ai-mode-images/${referenceIndex}.jpeg`
   }
 
   const renderHighlightedText = (text: string, highlightedWords: string[] = []) => {
@@ -84,20 +82,51 @@ export default function AiModePage() {
     })
   }
 
+  const handleReferenceClick = (referenceIndexes?: number[]) => {
+    if (filteredReferenceIndexes && JSON.stringify(filteredReferenceIndexes) === JSON.stringify(referenceIndexes)) {
+      setFilteredReferenceIndexes(null)
+    } else if (referenceIndexes) {
+      setFilteredReferenceIndexes(referenceIndexes)
+      setShowAllReferences(false)
+    }
+  }
+
+
+  const renderReferenceLink = (referenceIndexes?: number[]) => {
+    if (!referenceIndexes) return null
+
+    return (
+      <button
+        onClick={() => handleReferenceClick(referenceIndexes)}
+        className="inline-flex items-center text-gray-500 ml-1 hover:text-gray-700"
+      >
+        <LinkIcon className="h-4 w-4" />
+      </button>
+    )
+  }
   const renderTextBlock = (block: TextBlock, index: number) => {
     switch (block.type) {
       case "paragraph":
         if (block.title) {
           return (
-            <h2 key={index} className="text-xl font-medium text-gray-900 mb-4">
-              {block.title}
-            </h2>
+            <div className="mb-6">
+              <h2 key={index} className="text-xl font-medium text-gray-900 mb-4">
+                {block.title}
+
+              </h2>
+              <p className="text-gray-700 whitespace-pre-wrap">
+                {block.snippet}
+                {renderReferenceLink(block.reference_indexes)}
+              </p>
+            </div>
+
           )
         }
         if (block.snippet) {
           return (
             <p key={index} className="text-gray-700 mb-6 text-base leading-relaxed">
               {renderHighlightedText(block.snippet, block.snippet_highlighted_words)}
+              {renderReferenceLink(block.reference_indexes)}
             </p>
           )
         }
@@ -105,18 +134,23 @@ export default function AiModePage() {
 
       case "list":
         if (block.list) {
+          // inside renderTextBlock -> case "list":
           return (
             <div key={index} className="mb-8">
               {block.list.map((item, itemIndex) => {
                 if (item.type === "list" && item.list) {
-                  // Handle nested list (Other Notable Recommendations)
                   return (
                     <div key={itemIndex} className="mb-6">
-                      <h3 className="text-lg font-medium text-gray-900 mb-4">{item.title}</h3>
+                      {/* move link inline with title */}
+                      <h3 className="text-lg font-medium text-gray-900 mb-4">
+                        {item.title}
+                        {renderReferenceLink(item.reference_indexes)}
+                      </h3>
+
                       <ul className="space-y-3 ml-4">
                         {item.list.map((subItem, subIndex) => (
                           <li key={subIndex} className="flex">
-                            <span className="w-2 h-2 bg-gray-900 rounded-full mt-2 mr-4 flex-shrink-0"></span>
+                            <span className="w-2 h-2 bg-gray-900 rounded-full mt-2 mr-4 flex-shrink-0" />
                             <div>
                               {Object.entries(subItem.snippet).map(([key, value]) => (
                                 <div key={key}>
@@ -128,23 +162,46 @@ export default function AiModePage() {
                           </li>
                         ))}
                       </ul>
+                      {/* removed extra renderReferenceLink(...) here */}
                     </div>
                   )
                 }
 
-                // Handle regular list items
+                // regular list item: put link next to title too
                 return (
                   <div key={itemIndex} className="mb-6">
-                    <h3 className="text-lg font-medium text-gray-900 mb-4">{item.title}</h3>
+                    <h3 className="text-lg font-medium text-gray-900 mb-4">
+                      {item.title}
+                    </h3>
+
                     {item.snippets && (
                       <ul className="space-y-3 ml-4">
-                        {Object.entries(item.snippets).map(([key, value]) => (
+                        {Object.entries(item.snippets).map(([key, value], idx, arr) => (
                           <li key={key} className="flex">
-                            <span className="w-2 h-2 bg-gray-900 rounded-full mt-2 mr-4 flex-shrink-0"></span>
+                            <span className="w-2 h-2 bg-gray-900 rounded-full mt-2 mr-4 flex-shrink-0" />
                             <div>
                               <span className="font-semibold">{key}:</span>
-                              <span className="ml-1">{value}</span>
+                              <span className="ml-1">
+                                {value}
+                                {idx === arr.length - 1 && (
+                                  <> {renderReferenceLink(item.reference_indexes)}</>
+                                )}
+                              </span>
                             </div>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+
+                    {Array.isArray(item.snippet) && (
+                      <ul className="space-y-3 ml-4">
+                        {item.snippet.map((line: string, idx: number, arr) => (
+                          <li key={idx} className="flex">
+                            <span className="w-2 h-2 bg-gray-900 rounded-full mt-2 mr-4 flex-shrink-0" />
+                            <span>
+                              {line}
+                              {idx === arr.length - 1 && renderReferenceLink(item.reference_indexes)}
+                            </span>
                           </li>
                         ))}
                       </ul>
@@ -167,9 +224,9 @@ export default function AiModePage() {
       {/* Header */}
       <header className="border-b border-gray-200">
         <div className="flex items-center px-6 py-4">
-          <TrackedLink href="/" componentName="AiMode-Header" linkIndex={0} className="mr-8">
+          <Link href="/" className="mr-8">
             <Image src="/google-logo.png" alt="Google" width={92} height={30} className="h-8 w-auto" />
-          </TrackedLink>
+          </Link>
           <div className="flex-1 max-w-2xl">{/* Search tabs only, no search bar on AI Mode page */}</div>
           <div className="ml-auto flex items-center gap-4">
             <button className="p-2 rounded-full hover:bg-gray-100">
@@ -239,7 +296,7 @@ export default function AiModePage() {
             {/* Scrollable content */}
             <div className="flex-1 overflow-y-auto pr-2 min-h-0">
               <h1 className="text-3xl font-normal text-gray-900 mb-6">
-              Is there any popular recommendation for cruise choice?
+                Is there any popular recommendation for cruise choice
               </h1>
               <div className="prose prose-lg max-w-none">
                 {data.text_blocks.map((block, index) => renderTextBlock(block, index))}
