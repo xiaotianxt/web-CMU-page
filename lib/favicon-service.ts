@@ -83,11 +83,12 @@ export const preloadFavicons = (urls: string[]): void => {
 
 // Get website name from domain for better display
 export const getWebsiteName = (url: string): string => {
-  const domain = extractDomain(url)
+  let domain = extractDomain(url)
   if (!domain) return "Unknown"
-
+  if (domain.endsWith(".wikipedia.org")) domain = "wikipedia.org"
   // Common website name mappings
   const nameMap: Record<string, string> = {
+    "wikipedia.org": "Wikipedia",
     "pcmag.com": "PCMag",
     "cnet.com": "CNET",
     "techradar.com": "TechRadar",
