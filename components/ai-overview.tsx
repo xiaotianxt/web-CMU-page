@@ -15,7 +15,7 @@ interface TextBlock {
   snippet?: string
   title?: string
   snippet_highlighted_words?: string[]
-  reference_indexes?: number[]
+  reference_indexes?: number[]   
   list?: Array<{
     title: string
     snippets?: {
@@ -41,6 +41,7 @@ interface Reference {
   snippet: string
   source: string
   index: number
+  host?: string 
 }
 
 interface AIOverviewData {
@@ -58,6 +59,7 @@ export function AiOverview() {
   const textContentRef = useRef<HTMLDivElement>(null)
   const [textContentHeight, setTextContentHeight] = useState<number>(0)
   const data = aiOverviewData as AIOverviewData
+  
 
   useEffect(() => {
     if (textContentRef.current) {
@@ -417,9 +419,9 @@ export function AiOverview() {
                             <p className="text-sm text-gray-700 mt-1 line-clamp-2">{ref.snippet}</p>
                             <div className="flex items-center mt-1">
                               <WebsiteFavicon
-                                url={ref.link}
-                                size={16}
-                                fallbackText={getWebsiteName(ref.link).charAt(0)}
+                                  url={ref.host ? `https://${ref.host}` : ref.link}
+                                  size={16}
+                                  fallbackText={getWebsiteName(ref.link).charAt(0)}
                               />
                               <span className="ml-2 text-sm text-gray-600">{getWebsiteName(ref.link)}</span>
                               <button className="ml-auto">
@@ -470,7 +472,7 @@ export function AiOverview() {
                           </p>
                           <div className="flex items-center mt-1">
                             <WebsiteFavicon
-                              url={ref.link}
+                              url={ref.host ? `https://${ref.host}` : ref.link}
                               size={16}
                               fallbackText={getWebsiteName(ref.link).charAt(0)}
                             />
@@ -547,7 +549,7 @@ export function AiOverview() {
                               </p>
                               <div className="flex items-center mt-1">
                                 <WebsiteFavicon
-                                  url={ref.link}
+                                  url={ref.host ? `https://${ref.host}` : ref.link}
                                   size={16}
                                   fallbackText={getWebsiteName(ref.link).charAt(0)}
                                 />
@@ -618,7 +620,7 @@ export function AiOverview() {
                             </p>
                             <div className="flex items-center mt-1">
                               <WebsiteFavicon
-                                url={ref.link}
+                                url={ref.host ? `https://${ref.host}` : ref.link}
                                 size={16}
                                 fallbackText={getWebsiteName(ref.link).charAt(0)}
                               />
