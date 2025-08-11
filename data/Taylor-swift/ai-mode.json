@@ -1,0 +1,141 @@
+{
+    "text_blocks": [
+        {
+            "type": "paragraph",
+            "snippet": "Taylor Swift is an American singer-songwriter and one of the most influential artists in contemporary music.",
+            "reference_indexes": [
+                0,
+                1
+            ]
+        },
+        {
+            "type": "list",
+            "list": [
+                {
+                    "title": "Early Life and Career",
+                    "snippet": [
+                        "TBorn Taylor Alison Swift on December 13, 1989, in West Reading, Pennsylvania, Swift began her music career at a young age, inspired by country artists like Shania Twain and Faith Hill.",
+                        "At 14, she signed with Sony/ATV as a songwriter and later with Big Machine Records in 2006.",
+                        "Her debut single, \"Tim McGraw,\" was released in 2006, followed by her self-titled debut album.",
+                        "Swift's early work was primarily in country music, with hits like \"Teardrops on My Guitar\" and \"Our Song\".",
+                        "She gained further recognition with her second album, \"Fearless\" (2008), which won a Grammy Award for Album of the Year and featured popular songs like \"Love Story\" and \"You Belong With Me\"."
+                    ],
+                    "reference_indexes": [
+                        0,
+                        4,
+                        1
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "list",
+            "list": [
+                {
+                    "title": "Transition to pop stardom and re-recordings",
+                    "snippet": [
+                        "With her album \"1989\" (2014), Swift officially transitioned into pop music, achieving global superstardom and chart-topping singles like \"Shake It Off\" and \"Blank Space\".",
+                        "She continued to evolve her sound with subsequent albums like \"Reputation\" (2017) and \"Lover\" (2019), incorporating electropop, R&B, and other influences."
+                        ],
+                    "reference_indexes": [
+                        0,
+                        4,
+                        1
+                    ]
+                }
+            ]
+        },
+         {
+            "type": "paragraph",
+            "snippet": "Taylor Swift's impact on popular culture is undeniable, and her music continues to resonate with millions around the world. ",
+            "reference_indexes": [
+                2,
+                3,
+                8
+            ]
+        }
+    ],
+    "references": [
+        {
+            "title": "Taylor Swift - Wikipedia",
+            "link": "https://web-cmu-page.vercel.app/AI-overviewHtml/info/Taylor-swift/Taylor_Swift_Wikipedia.html#:~:text=Taylor%20Alison%20Swift%20(born%20December,country%20and%20pop%20radio%20formats.",
+            "snippet": "Taylor Alison Swift (born December 13, 1989) is an AMerican singer-songwriter....",
+            "source": "Wikipedia, the free encyclopedia",
+            "index": 0,
+            "host": "en.wikipedia.org"
+        },
+        {
+            "title": "Taylor Swift | Songs Albums, Eras Tour, Travis Kelce, & Facts",
+            "link": "https://web-cmu-page.vercel.app/AI-overviewHtml/info/Taylor-swift/Taylor_Swift_Songs_Albums_Eras_Tour_Travis_Kelce_Facts_Britannica.html#:~:text=Taylor%20Swift%20(born%20December%2013,her%20experiences%20of%20tween%20alienation.",
+            "snippet": "Taylor Swift (born December 13, 1989, West Reading, Pennsylvania, U.S.) is a...",
+            "source": "Britannica",
+            "index": 1,
+            "host": "britannica.com"
+        },
+        {
+            "title":"Life and Career | Taylor Swift Museum",
+            "link": "https://www.theswiftmuseum.com/life-and-career",
+            "snippet": "Table_content: heade: | Taylor Swift | row: | Taylor Swift: Swift in 2023 | : |...",
+            "source": "theswiftmuseum.com",
+            "index": 2,
+            "host": "theswiftmuseum.com"
+        },
+        
+        {
+            "title": "Introducing Taylor Swift's Music to a Young Fan - Facebook",
+            "link": "https://www.facebook.com/groups/2254218764714763/posts/3433904100079551/",
+            "snippet": "Sborn on December 13, 1989, in Reading, Pennsylvania, Swift began...",
+            "source": "Facebook",
+            "index": 3,
+            "host": "facebook.com"
+        },
+        {
+            "title": "What are some of Taylor Swift's accomplishments? - Britannica",
+            "link": "https://www.britannica.com/question/What-are-some-of-Taylor-Swifts-accomplishments",
+            "snippet": "What are some of Taylor Swift's accomplishments? ... Encyclopaedia...",
+            "source": "Britannica",
+            "index": 4,
+            "host": "britannica.com"
+        },
+        {
+            "title": "Cultural impact of Taylor Swift - Wikipedia",
+            "link": "https://web-cmu-page.vercel.app/AI-overviewHtml/info/Taylor-swift/Cultural_impact_of_Taylor_Swift_Wikipedia.html#:~:text=She%20began%20in%20country%20music,styles%2C%20blurring%20music%20genre%20boundaries.",
+            "snippet": "She began in country music, ventured into pop, and explored alternative rock, indie...",
+            "source": "Wikipedia",
+            "index": 5,
+            "host": "en.wikipedia.org"
+        },
+        {
+            "title": "TaylorSwift",
+            "link": "https://home.adelphi.edu/~ar22067/awards.html",
+            "snippet": "TaylorSwift. ... Awards Taylor has won since the beginning of her career, ...",
+            "source": "Adelphi University",
+            "index": 6,
+            "host": "home.adelphi.edu"
+        },
+        {
+            "title": "Acheievements - Taylor Swift",
+            "link": "https://taylorswiftfanculture.weebly.com/achievements.html",
+            "snippet": "At age 18: * Taylor wins Artist/SongWriter of the year at...",
+            "source": "Weebly",
+            "index": 7,
+            "host": "taylorswiftfanculture.weebly.com"
+        },
+        {
+             "title": "Best Taylor Swift Songs: The Pop Superstar's 10 Biggest Hits",
+            "link": "https://www.seatunique.com/blog/taylor-swift-best-songs/",
+            "snippet": "Best Taylor Swift Songs: The Pop Superstar's 10 Biggest Hits*1. You...",
+            "source": "Seat Unique",
+            "index": 8,
+            "host": "seatunique.com"
+        },
+        {
+             "title": "Music expert expounds on Taylor Swfit's unmatched cultural ...",
+            "link": "https://news.vt.edu/articles/2023/12/Taylor_Swift_POTY_expert.html",
+            "snippet": "However within that context, the Eras Tour was a turning point. The...",
+            "source": "Virginia Tech News",
+            "index": 9,
+            "host": "news.vt.edu"
+        }
+    ]
+}
