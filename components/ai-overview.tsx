@@ -421,9 +421,11 @@ export function AiOverview() {
                               <WebsiteFavicon
                                   url={ref.host ? `https://${ref.host}` : ref.link}
                                   size={16}
-                                  fallbackText={getWebsiteName(ref.link).charAt(0)}
+                                  fallbackText={getWebsiteName(ref.host ? `https://${ref.host}` : ref.link).charAt(0)}
                               />
-                              <span className="ml-2 text-sm text-gray-600">{getWebsiteName(ref.link)}</span>
+                              <span className="ml-2 text-sm text-gray-600">
+                                {getWebsiteName(ref.host ? `https://${ref.host}` : ref.link)}
+                              </span>
                               <button className="ml-auto">
                                 <MoreVertical className="h-5 w-5 text-gray-500" />
                               </button>
@@ -474,10 +476,10 @@ export function AiOverview() {
                             <WebsiteFavicon
                               url={ref.host ? `https://${ref.host}` : ref.link}
                               size={16}
-                              fallbackText={getWebsiteName(ref.link).charAt(0)}
+                              fallbackText={getWebsiteName(ref.host ? `https://${ref.host}` : ref.link).charAt(0)}
                             />
                             <span className="ml-2 text-xs text-gray-600">
-                              {getWebsiteName(ref.link)}
+                              {getWebsiteName(ref.host ? `https://${ref.host}` : ref.link)}
                             </span>
                             <button className="ml-auto">
                               <MoreVertical className="h-4 w-4 text-gray-500" />
@@ -551,10 +553,10 @@ export function AiOverview() {
                                 <WebsiteFavicon
                                   url={ref.host ? `https://${ref.host}` : ref.link}
                                   size={16}
-                                  fallbackText={getWebsiteName(ref.link).charAt(0)}
+                                  fallbackText={getWebsiteName(ref.host ? `https://${ref.host}` : ref.link).charAt(0)}
                                 />
                                 <span className="ml-2 text-xs text-gray-600">
-                                  {getWebsiteName(ref.link)}
+                                  {getWebsiteName(ref.host ? `https://${ref.host}` : ref.link)}
                                 </span>
                                 <button className="ml-auto">
                                   <MoreVertical className="h-4 w-4 text-gray-500" />
@@ -622,10 +624,10 @@ export function AiOverview() {
                               <WebsiteFavicon
                                 url={ref.host ? `https://${ref.host}` : ref.link}
                                 size={16}
-                                fallbackText={getWebsiteName(ref.link).charAt(0)}
+                                fallbackText={getWebsiteName(ref.host ? `https://${ref.host}` : ref.link).charAt(0)}
                               />
                               <span className="ml-2 text-sm text-gray-600">
-                                {getWebsiteName(ref.link)}
+                                {getWebsiteName(ref.host ? `https://${ref.host}` : ref.link)}
                               </span>
                               <button className="ml-auto">
                                 <MoreVertical className="h-5 w-5 text-gray-500" />
