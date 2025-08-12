@@ -1,0 +1,107 @@
+{
+    "text_blocks": [
+        {
+            "type": "paragraph",
+            "snippet": "Popular phone choices and recommendations for 2025 are:",
+            "reference_indexes": [
+                0,
+                2,
+                3,
+                4,
+                5
+            ]
+        },
+        {
+            "type": "list",
+            "list": [
+                {
+                    "title": "Overall Best:",
+                    "snippets": {
+                        "Samsung Galaxy S25 Ultra": "It is praised for its immersive display, reliable battery, AI features, and exceptional camera system. It comes with a high price tag, but offers great value especially if you find carrier or trade-in deals.",
+                        "iPhone 16 Pro Max": "t is known for its sleek design, large display, innovative Camera Control key, and ever-improving Apple Intelligence features. However, it's also expensive and may not suit users outside the Apple ecosystem or those preferring smaller phones."
+                    },
+                    "reference_indexes": [
+                        1,3,5
+                    ]
+                },
+                {
+                    "title": "Best Value:",
+                    "snippets": {
+                        "Google Pixel 9a": "It delivers a similar experience to the Pixel 9 Pro at a lower cost, with a great camera, strong performance, and clean AI-enhanced software. It offers seven years of updates, mirroring Google's commitment to long-term support.",
+                        "Nothing Phone 3a Pro": "This is a strong contender in the budget category, featuring a novel design, decent display, and a dedicated telephoto camera."
+                    },
+                    "reference_indexes": [
+                        1,2,3
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "paragraph",
+            "snippet": "When choosing a phone, consider factors like budget, desired features (camera, battery life, performance, display), and ecosystem preference (Android or iOS). ",
+            "reference_indexes": [
+                0
+            ]
+        },
+        {
+            "type": "paragraph",
+            "snippet": "Remember to check reviews from trusted sources like ZDNET, PCMag, Tom's Guide, and The Telegraph to gather comprehensive information before making a decision. ",
+            "reference_indexes": [
+                0,
+                1,
+                2,
+                4
+            ]
+        }
+    ],
+  "references": [
+        {
+            "title": "The best smartphones of 2025, tried and tested - but are they worth ...",
+            "link": "https://www.telegraph.co.uk/recommended/tech/best-smartphones/",
+            "snippet": "May 21, 2025, 2025 — The best smartphones of 2025, tried and...",
+            "source": "The Telegraph",
+            "index": 0,
+            "host": "telegraph.co.uk"
+        },
+        {
+            "title": "The best phones to buy in 2025 - ZDNET",
+            "link": "https://www.zdnet.com/article/best-phone/",
+            "snippet": "Jul 26, 2025 — * Samsung Galaxy S25 Ultra | best phone overall...",
+            "source": "ZDNET",
+            "index": 1,
+            "host": "zdnet.com"
+        },
+        {
+            "title": "Best phones 2025 tested - Our top picks | Tom's Guide",
+            "link": "https://www.tomsguide.com/best-picks/best-phones",
+            "snippet": "Jul 18, 2025 — Best phones 2025 tested - Our top picks * Quick List. ...",
+            "source": "Tom's Guide",
+            "index": 2,
+            "host": "tomsguide.com"
+        },
+        {
+            "title": "The best phone 2025: top smartphones in the US right now",
+            "link": "https://www.techradar.com/news/best-phone",
+            "snippet": "Jul 25, 2025 - The best phone in 2025 * Apple iPhone 16 Pro Max. Th...",
+            "source": "TechRadar",
+            "index": 3,
+            "host": "techradar.com"
+        },
+        {
+            "title": "the Best Phones We've Tested for 2025 - PCMag",
+            "link": "https://www.pcmag.com/picks/the-best-phones",
+            "snippet": "The Best Phones for 2025 Compare Specs * ...",
+            "source": "PCMag",
+            "index": 4,
+            "host": "pcmag.com"
+        },
+        {
+            "title": "Google's Shopping Data",
+            "link": "https://blog.google/products/shopping/shopping-graph-explained/",
+            "snippet": "Product information aggregated from brands, stores, and other con...",
+            "source": "Google",
+            "index": 5,
+            "host": "google.com"
+        }
+    ]
+}
