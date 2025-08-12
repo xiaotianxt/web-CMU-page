@@ -1,0 +1,137 @@
+{
+  "text_blocks": [
+    {
+      "type": "paragraph",
+      "snippet": "Popular recommendations for commuter car choices often center around balancing practicality, affordability, and driver satisfaction.",
+      "reference_indexes": [
+        3
+      ]
+    },
+    {
+      "type": "list",
+      "list": [
+        {
+          "title": "Sedans",
+          "snippets": {
+            "THonda Civic": "Known for reliability and fuel economy, the 2025 Civic offers a modern look and features like a touchscreen, smartphone connectivity, and safety aids.",
+            "Toyota Corolla": "Another reliable and affordable option, the 2025 Corolla is fuel-efficient (especially the hybrid), has a roomy cabin, and comes with a suite of safety technologies and an 8-inch touchscreen.",
+            "Toyota Prius": "This hybrid excels in fuel efficiency and was redesigned for 2023 with improved performance.",
+            "Mazda3": "Available as a sedan or hatchback, the Mazda3 provides a sporty driving experience, good gas mileage, and a high-quality interior."
+          },
+          "reference_indexes": [
+            0,
+            1,
+            2,
+            4
+          ]
+        },
+        {
+          "title": "SUVs and crossovers",
+          "snippets": {
+            "Honda CR-V": " A popular choice for those needing more space, offering practicality, comfort, and advanced safety features. The 2024 model includes a turbocharged engine option.",
+            "Toyota Venza": "A midsize crossover with a hybrid powertrain, providing a balance of practicality, comfort, and good fuel efficiency.",
+            "Mazda CX-5": "Features standard all-wheel drive, sleek styling, and athletic handling, along with numerous standard features.",
+            "Kia Soul": "Stands out for its stylish design, affordability, and spacious interior."
+          },
+          "reference_indexes": [
+            0,
+            2,
+            5,
+            6
+          ]
+        },
+        {
+          "title": "Electric options",
+          "snippets": {
+            "Chevrolet Bolt EV": "An efficient all-electric car with a long range and a spacious interior.",
+            "Volkswagen ID.4": "This all-electric vehicle offers zero emmisions and a long range",
+            "Hyundai Ioniq 5": "An electric SUV with a futuristic design, sustainable materials, and a good range.",
+            "Volvo EX40": "OA luxury electric crossover with impressive fuel economy and range, packed with standard features. "
+          },
+          "reference_indexes": [
+            1,
+            2,
+            3,
+            5
+          ]
+        },
+        {
+          "title": "Luxury options",
+          "snippets": {
+            "BMW X1": "A compact luxury crossover that is maneuverable and stylish for city driving, featuring standard heated front seats and advanced infotainment.",
+            "Acura Integra": "This luxury small car offers a combination of punchy acceleration, sporty handling, and impressive fuel economy."
+          },
+          "reference_indexes": [
+            7
+          ]
+        }
+      ]
+    }
+  ],
+  "references": [
+       {
+      "title": "Best Commuter Cars in 2025 - U.S. News & World Report",
+      "link": "https://web-cmu-page.vercel.app/AI-overviewHtml/product/Car-vehicle/Best_Commuter_Cars_in_2025_U_S_News.html",
+      "snippet": "Best COmmuter Cars in 2025 * 2025 Toyata Prius. Price: $28,600 | U.S. News...",
+      "source": "U.S. News & World Report",
+      "index": 0,
+      "host": "cars.usnews.com"
+    },
+    {
+      "title": "Best Commuter Cars and SUVs for 2025 - Kelley Blue Book",
+      "link": "https://web-cmu-page.vercel.app/AI-overviewHtml/product/Car-vehicle/Best_Commuter_Cars_and_SUVs_for_2025_Kelley_Blue_Book.html#:~:text=Combined%20Fuel%20Economy:%2031%20mpg,%2C%20and%20lane%2Dkeeping%20assist.",
+      "snippet": "Apr 10, 2025 — Best Commuter Cars for Large Groups * 2025 Toyata SIenna. Bes...",
+      "source": "Kelley Blue Book",
+      "index": 1,
+      "host": "kbb.com"
+    },
+    {
+      "title": "Best Commuter Cars to Buy in 2025 - Indy Auto Man",
+      "link": "https://web-cmu-page.vercel.app/AI-overviewHtml/product/Car-vehicle/Best_Commuter_Cars_to_Buy_in_2025_Indy_Auto_Man_IN.html#:~:text=Volkswagen%20Golf%20GTE,drive%2C%20even%20outside%20of%20commuting",
+      "snippet": "Best COmmuter Cars in 2025. ... Table of COntents * Criteria for Choosing a Car f...",
+      "source": "Indy Auto Man",
+      "index": 2,
+      "host": "indyautoman.com"
+    },
+    {
+      "title": "Commuter Cars: Top Picks for Your Daily Drive",
+      "link": "https://yourcarbuyingadvocate.com/commuter-cars/#:~:text=Comfort%20Features%20for%20Daily%20Travel,how%20enjoyable%20the%20commute%20is.",
+      "snippet": "Jul 12, 2024 - Defining the Commuter Car. A commuter car is...",
+      "source": "Your Car Buying Advocate",
+      "index": 3,
+      "host": "yourcarbuyingadvocate.com"
+    },
+  {
+      "title": "10 Tips for Choosing the Best Commuter Car",
+      "link": "https://web-cmu-page.vercel.app/AI-overviewHtml/product/Car-vehicle/10_Tips_for_Choosing_the_Best_Commuter_Car_McCarthy_Honda_Blog.html#:~:text=The%20best%20commuter%20vehicles%20have,your%20vehicle%20won't%20start.",
+      "snippet": "May 25, 2022 — 2. How's the SOund System? Again, you're going to be on th...",
+      "source": "McCarthy Honda",
+      "index": 4,
+      "host": "blog.mccarthyhonda.com"
+    },
+    {
+      "title": "What is the Best Car for a Commuter?",
+      "link": "https://www.caranddriver.com/research/a32879414/best-car-for-a-commuter/",
+      "snippet": "Jun 23, 2020 - Here are some of our top commuter picks:  * 2019 Mazda 3...",
+      "source": "Car and Driver",
+      "index": 5,
+      "host": "caranddriver.com"
+    },
+    {
+      "title": "Best Vehicles for Commuting to work - Germain Cars",
+      "link": "https://www.germaincars.com/best-vehicles-for-commuting-to-work/#:~:text=Best%20Hybrid%20Commuter%20Car%20%E2%80%93%20Toyota,you%20choose%20the%20Toyota%20Prius.",
+      "snippet": "Best Hybrid Commuter Car - Toyota Prius. Arguably the most famous an...",
+      "source": "Germain Cars",
+      "index": 6,
+      "host": "germaincars.com"
+    },
+    {
+      "title": "What kind of car should I get if I'm commuting?",
+      "link": "https://www.wintrust.com/articles/2022/08/what-kind-of-car-should-i-get-if-i-am-commuting.html",
+      "snippet": "Narrow your choices * What is your budget? Do you have a nice chunk o...",
+      "source": "Wintrust",
+      "index": 7,
+      "host": "wintrust.com"
+    }
+  ]
+}
