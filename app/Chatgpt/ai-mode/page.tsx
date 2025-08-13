@@ -40,6 +40,7 @@ interface Reference {
   snippet: string
   source: string
   index: number
+  host?: string
 }
 
 interface AIOverviewData {
@@ -313,10 +314,10 @@ export default function AiModePage() {
                 {data.references.slice(0, 3).map((ref, index) => (
                   <WebsiteFavicon
                     key={index}
-                    url={ref.link}
+                    url={ref.host ? `https://${ref.host}` : ref.link}
                     size={24}
                     className="border-2 border-white"
-                    fallbackText={getWebsiteName(ref.link).charAt(0)}
+                     fallbackText={getWebsiteName(ref.host ? `https://${ref.host}` : ref.link).charAt(0)}
                   />
                 ))}
               </div>
@@ -360,11 +361,11 @@ export default function AiModePage() {
                                 <p className="text-xs text-gray-700 mt-1 line-clamp-2">{ref.snippet}</p>
                                 <div className="flex items-center mt-1">
                                   <WebsiteFavicon
-                                    url={ref.link}
+                                    url={ref.host ? `https://${ref.host}` : ref.link}
                                     size={16}
-                                    fallbackText={getWebsiteName(ref.link).charAt(0)}
+                                    fallbackText={getWebsiteName(ref.host ? `https://${ref.host}` : ref.link).charAt(0)}
                                   />
-                                  <span className="ml-2 text-xs text-gray-600">{getWebsiteName(ref.link)}</span>
+                                  <span className="ml-2 text-xs text-gray-600">{getWebsiteName(ref.host ? `https://${ref.host}` : ref.link)}</span>
                                   <button className="ml-auto">
                                     <MoreVertical className="h-4 w-4 text-gray-500" />
                                   </button>

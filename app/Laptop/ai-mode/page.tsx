@@ -38,6 +38,7 @@ interface Reference {
   snippet: string
   source: string
   index: number
+  host?: string
 }
 
 interface AIOverviewData {
@@ -296,7 +297,7 @@ export default function AiModePage() {
             {/* Scrollable content */}
             <div className="flex-1 overflow-y-auto pr-2 min-h-0">
               <h1 className="text-3xl font-normal text-gray-900 mb-6">
-                is there any popular recommendation to choose laptop/Is there any popular recommendation for laptop choice
+                Is there any popular recommendation for laptop choice
               </h1>
               <div className="prose prose-lg max-w-none">
                 {data.text_blocks.map((block, index) => renderTextBlock(block, index))}
@@ -324,10 +325,10 @@ export default function AiModePage() {
                 {data.references.slice(0, 3).map((ref, index) => (
                   <WebsiteFavicon
                     key={index}
-                    url={ref.link}
+                    url={ref.host ? `https://${ref.host}` : ref.link}
                     size={24}
                     className="border-2 border-white"
-                    fallbackText={getWebsiteName(ref.link).charAt(0)}
+                    fallbackText={getWebsiteName(ref.host ? `https://${ref.host}` : ref.link).charAt(0)}
                   />
                 ))}
               </div>
@@ -371,11 +372,11 @@ export default function AiModePage() {
                                 <p className="text-xs text-gray-700 mt-1 line-clamp-2">{ref.snippet}</p>
                                 <div className="flex items-center mt-1">
                                   <WebsiteFavicon
-                                    url={ref.link}
+                                    url={ref.host ? `https://${ref.host}` : ref.link}
                                     size={16}
-                                    fallbackText={getWebsiteName(ref.link).charAt(0)}
+                                    fallbackText={getWebsiteName(ref.host ? `https://${ref.host}` : ref.link).charAt(0)}
                                   />
-                                  <span className="ml-2 text-xs text-gray-600">{getWebsiteName(ref.link)}</span>
+                                  <span className="ml-2 text-xs text-gray-600">{getWebsiteName(ref.host ? `https://${ref.host}` : ref.link)}</span>
                                   <button className="ml-auto">
                                     <MoreVertical className="h-4 w-4 text-gray-500" />
                                   </button>
