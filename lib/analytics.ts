@@ -18,6 +18,7 @@ export interface VisitDuration {
 
 // Types for research analytics data
 export interface ClickEvent {
+  id:number
   taskId: string
   click_order: number
   page_title: string
@@ -171,6 +172,7 @@ const createNewSession = async (): Promise<TaskSession> => {
 
   console.log("Creating new session:", newSession)
   localStorage.setItem("current_task_session", JSON.stringify(newSession))
+  localStorage.setItem("click_event_id", "0")
 
   // Save to database asynchronously
   const result = await saveSessionToDatabase(newSession)
@@ -253,7 +255,11 @@ export const trackLinkClick = async (componentName: string, linkIndex: number, l
       isAd = false
   }
 
+  const currentId=Number(localStorage.getItem("click_event_id"))+1
+  localStorage.setItem("click_event_id", currentId.toString())
+
   const clickEvent: ClickEvent = {
+    id: currentId,
     taskId: session.taskId,
     click_order:
       session.click_sequence.length > session.show_more_interactions.click_order
@@ -269,8 +275,10 @@ export const trackLinkClick = async (componentName: string, linkIndex: number, l
     from_ai_mode: fromAiMode,
   }
 
-  // Add click to session
-  session.click_sequence.push(clickEvent)
+  // // Add click to session
+  // session.click_sequence.push(clickEvent)
+
+  localStorage.setItem("current_click_event", JSON.stringify(clickEvent));
 
   if(componentName.includes("SearchResults")){
     getPageNumber(componentName) === 1 ? session.page_click_statics_1++ :
@@ -287,16 +295,16 @@ export const trackLinkClick = async (componentName: string, linkIndex: number, l
   console.log(`Tracked click: ${pageId} - "${linkText}", updating database...`)
 
   // Save updated session to database
-  const result = await saveSessionToDatabase(session)
-  console.log('保存结果', result);
+  // const result = await saveSessionToDatabase(session)
+  // console.log('保存结果', result);
 
   // Store click info for dwell time calculation
   const clickId = `${session.sid}_${session.participant_id}_${session.task_topic}_${session.treatment_group}_${clickEvent.click_order}`
   localStorage.setItem("current_click_id", clickId)
   localStorage.setItem("click_start_time", Date.now().toString())
-  if (result) {
-    return clickId
-  }
+  // if (result) {
+  //   return clickId
+  // }
 
   return clickId
 }
@@ -348,42 +356,44 @@ export const trackShowAllClick = async (ifClick: boolean): Promise<void> => {
   saveSessionToDatabase(currSession)
 }
 
-// Track when user returns from a link
+let isTracking = false; // in-memory flag to prevent duplicate processing
+
 export const trackReturnFromLink = async (): Promise<void> => {
-  const clickId = localStorage.getItem("current_click_id")
-  const startTime = localStorage.getItem("click_start_time")
+  if (isTracking) return;
+  const clickEventRaw = localStorage.getItem("current_click_event");
+  if (!clickEventRaw) return;
 
-  if (clickId && startTime) {
-    const dwellTimeMs = Date.now() - Number.parseInt(startTime)
-    const dwellTimeSec = Math.round((dwellTimeMs / 1000) * 10) / 10 // Round to 1 decimal
+  isTracking = true; // lock
 
-    // Update the click event with dwell time
-    const session = await getCurrentTaskSession()
-    const [sid, participantId, taskTopic, largeGroup, smallGroup, clickOrder] = clickId.split("_")
+  try {
+    const clickEvent: ClickEvent = JSON.parse(clickEventRaw);
+    const startTime = localStorage.getItem("click_start_time");
 
-    if (
+    localStorage.removeItem("current_click_event");
+    localStorage.removeItem("click_start_time");
 
-      session.participant_id.toString() +
-      session.task_topic.toString() +
-      session.treatment_group.toString() ===
-      participantId + taskTopic + largeGroup + "_" + smallGroup
-    ) {
-      const clickIndex = Number.parseInt(clickOrder) - 1
-      if (session.click_sequence[clickIndex]) {
-        session.click_sequence[clickIndex].dwell_time_sec = dwellTimeSec
-        localStorage.setItem("current_task_session", JSON.stringify(session))
+    if (!clickEvent || !startTime) return;
 
-        console.log(`Dwell time recorded: ${dwellTimeSec}s, updating database...`)
-        // Save updated session to database
-        saveSessionToDatabase(session)
-      }
+    const dwellTimeMs = Date.now() - Number.parseInt(startTime);
+    const dwellTimeSec = Math.round((dwellTimeMs / 1000) * 10) / 10;
+    clickEvent.dwell_time_sec = dwellTimeSec;
+
+    const session = await getCurrentTaskSession();
+
+    const clickEventTime = new Date(clickEvent.click_time).getTime();
+    if (session.click_sequence.some(c => new Date(c.click_time).getTime() === clickEventTime)) {
+      return;
     }
 
-    // Clear tracking data
-    localStorage.removeItem("current_click_id")
-    localStorage.removeItem("click_start_time")
+    await session.click_sequence.push(clickEvent);
+    localStorage.setItem("current_task_session", JSON.stringify(session));
+
+    console.log(`Dwell time recorded: ${dwellTimeSec}s, updating database...`);
+    await saveSessionToDatabase(session);
+  } finally {
+    isTracking = false; // unlock
   }
-}
+};
 
 export const endTaskSession = (): void => {
   const sessionRaw = localStorage.getItem("current_task_session")
