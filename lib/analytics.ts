@@ -221,6 +221,14 @@ export const trackLinkClick = async (componentName: string, linkIndex: number, l
   let fromOverview = false
   let fromAiMode = false
 
+  if (componentName.includes("AiOverview-References")){
+    fromOverview=true
+  }
+
+  else if (componentName.includes("AIMode")){
+    fromAiMode=true
+  }
+
   // Map component names to page IDs and properties
   switch (componentName) {
     case "SearchResults":
