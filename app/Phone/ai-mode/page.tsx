@@ -9,6 +9,8 @@ import { TrackedLink } from "@/components/tracked-link"
 import { WebsiteFavicon } from "@/components/website-favicon"
 import { getWebsiteName } from "@/lib/favicon-service"
 
+import { trackShowAllClick } from "@/lib/analytics"
+
 interface TextBlock {
   type: string
   snippet?: string
@@ -297,7 +299,7 @@ export default function AiModePage() {
             {/* Scrollable content */}
             <div className="flex-1 overflow-y-auto pr-2 min-h-0">
               <h1 className="text-3xl font-normal text-gray-900 mb-6">
-               Is there any popular recommendation for phone choice?
+                Is there any popular recommendation for phone choice?
               </h1>
               <div className="prose prose-lg max-w-none">
                 {data.text_blocks.map((block, index) => renderTextBlock(block, index))}
@@ -405,7 +407,10 @@ export default function AiModePage() {
                   {!showAllReferences && !filteredReferenceIndexes && (
                     <div className="absolute bottom-0 left-0 right-0 bg-gray-50 pt-2">
                       <button
-                        onClick={() => setShowAllReferences(true)}
+                        onClick={() => {
+                          setShowAllReferences(true);
+                          trackShowAllClick("AiMode");
+                        }}
                         className="flex items-center justify-center w-full bg-blue-100 text-blue-700 py-3 rounded-full hover:bg-blue-200"
                       >
                         <span>Show all</span>

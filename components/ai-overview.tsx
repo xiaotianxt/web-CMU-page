@@ -104,7 +104,7 @@ export function AiOverview() {
   const handleShowMore = () => {
     setShowMore(true)
     // Track the "Show more" button click
-    trackShowMoreClick(true)
+    trackShowMoreClick("AiOverview")
   }
 
   const renderReferenceLink = (referenceIndexes?: number[]) => {
@@ -504,7 +504,7 @@ export function AiOverview() {
                     <button
                       onClick={() => {
                         setShowAllReferences(true); 
-                        trackShowAllClick(true);
+                        trackShowAllClick("AiOverview");
                       }}
                       className="flex items-center justify-center w-full bg-blue-100 text-blue-700 py-3 rounded-full hover:bg-blue-200"
                     >

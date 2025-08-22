@@ -32,14 +32,18 @@ export interface ClickEvent {
 }
 
 export interface ShowMoreInteraction {
+  id: string
+  taskId: string
   click_order: number
-  if_click: boolean
+  component_name: string
   click_time?: string
 }
 
 export interface ShowAllInteraction {
+  id: string
+  taskId: string
   click_order: number
-  if_click: boolean
+  component_name: string
   click_time?: string
 }
 
@@ -54,8 +58,8 @@ export interface TaskSession {
   task_start_time: string // ISO string
   task_end_time: string | null // ISO string, null if task is ongoing
   click_sequence: ClickEvent[]
-  show_more_interactions: ShowMoreInteraction
-  show_all_interactions: ShowAllInteraction
+  show_more_interactions: ShowMoreInteraction []
+  show_all_interactions: ShowAllInteraction[]
   page_click_statics_1: number
   page_click_statics_2: number
   page_click_statics_3: number
@@ -78,22 +82,27 @@ const generateParticipantId = (): string => {
   return participantId
 }
 
-// Extract treatment group and topic from URL
 const extractUrlParams = () => {
-  if (typeof window === "undefined") return { topic: "", treatmentGroup: "", participantId: "00001", sid: "00000" }
+  if (typeof window === "undefined") {
+    return { topic: "", treatmentGroup: "", participant_id: "00001", sid: "00000" }
+  }
 
-  const path = window.location.pathname
   const searchParams = new URLSearchParams(window.location.search)
-  const segments = path.split("/").filter(Boolean)
-  // Extract RID from query parameters, default to "00000" if not provided
+  const from = searchParams.get("from")
+  const basePath = from || window.location.pathname
+  const segments = basePath.split("/").filter(Boolean)
+
+  // Extract RID and SID from query parameters or localStorage
   const participant_id = searchParams.get("RID") || localStorage.getItem("RID") || "0"
   const sid = searchParams.get("SID") || localStorage.getItem("SID") || "0"
-  if (participant_id!="0"){
+
+  if (participant_id !== "0") {
     localStorage.setItem("RID", participant_id)
   }
-  if(sid!="0"){
+  if (sid !== "0") {
     localStorage.setItem("SID", sid)
   }
+
   if (segments.length >= 3) {
     const topic = segments[0]
     const largeGroup = segments[1]
@@ -103,7 +112,6 @@ const extractUrlParams = () => {
     return { topic, treatmentGroup, participant_id, sid }
   }
 
-  // Default values for current implementation
   return { topic: "", treatmentGroup: "", participant_id, sid }
 }
 
@@ -162,8 +170,8 @@ const createNewSession = async (): Promise<TaskSession> => {
     task_start_time: changeCurrentDateTime(),
     task_end_time: null,
     click_sequence: [],
-    show_more_interactions: { click_order: -1, if_click: false, click_time: "" },
-    show_all_interactions: { click_order: -1, if_click: false, click_time: "" },
+    show_more_interactions: [],
+    show_all_interactions: [],
     page_click_statics_1: 0,
     page_click_statics_2: 0,
     page_click_statics_3: 0,
@@ -269,10 +277,7 @@ export const trackLinkClick = async (componentName: string, linkIndex: number, l
   const clickEvent: ClickEvent = {
     id: currentId,
     taskId: session.taskId,
-    click_order:
-      session.click_sequence.length > session.show_more_interactions.click_order
-        ? session.click_sequence.length + 1
-        : session.show_more_interactions.click_order + 1,
+    click_order: Math.max( session.click_sequence.length, session.show_more_interactions?.[session.show_more_interactions.length - 1]?.click_order || 0, session.show_all_interactions?.[session.show_all_interactions.length - 1]?.click_order || 0)+1, 
     page_title: linkText,
     page_id: pageId,
     is_ad: isAd,
@@ -322,19 +327,21 @@ const getPageNumber = (input: string): number | null => {
   return match ? Number(match[1]) : null;
 }
 
-export const trackShowMoreClick = async (ifClick: boolean): Promise<void> => {
+export const trackShowMoreClick = async (componentName: string): Promise<void> => {
   const currSession = await getCurrentTaskSession()
   const clickTime = changeCurrentDateTime()
+  const nextOrder= Math.max( currSession.click_sequence.length, currSession.show_more_interactions?.[currSession.show_more_interactions.length - 1]?.click_order || 0, currSession.show_all_interactions?.[currSession.show_all_interactions.length - 1]?.click_order || 0)+1;
   console.log('trackButtonClick', currSession);
 
-
   const showMoreInteraction: ShowMoreInteraction = {
-    click_order: currSession.click_sequence.length + 1,
+    taskId:currSession.taskId,
+    click_order: nextOrder,
     click_time: clickTime,
-    if_click: ifClick || currSession.show_more_interactions.if_click,
+    component_name: componentName,
+    id: currSession.taskId+"_"+nextOrder,
   }
 
-  currSession.show_more_interactions = showMoreInteraction
+  currSession.show_more_interactions.push(showMoreInteraction)
 
   // Add button interaction to session
   localStorage.setItem("current_task_session", JSON.stringify(currSession))
@@ -343,19 +350,22 @@ export const trackShowMoreClick = async (ifClick: boolean): Promise<void> => {
   saveSessionToDatabase(currSession)
 }
 
-export const trackShowAllClick = async (ifClick: boolean): Promise<void> => {
+export const trackShowAllClick = async (componentName: string): Promise<void> => {
   const currSession = await getCurrentTaskSession()
   const clickTime = changeCurrentDateTime()
+  const nextOrder= Math.max( currSession.click_sequence.length, currSession.show_more_interactions?.[currSession.show_more_interactions.length - 1]?.click_order || 0, currSession.show_all_interactions?.[currSession.show_all_interactions.length - 1]?.click_order || 0)+1;
   console.log('trackButtonClick', currSession);
 
 
   const showAllInteraction: ShowAllInteraction = {
-    click_order: currSession.click_sequence.length + 1,
+    taskId: currSession.taskId,
+    click_order: nextOrder, 
     click_time: clickTime,
-    if_click: ifClick || currSession.show_all_interactions.if_click,
+    component_name: componentName,
+    id: currSession.taskId+ "_"+ nextOrder,
   }
 
-  currSession.show_all_interactions = showAllInteraction
+  currSession.show_all_interactions.push (showAllInteraction)
 
   // Add button interaction to session
   localStorage.setItem("current_task_session", JSON.stringify(currSession))

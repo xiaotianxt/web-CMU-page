@@ -2,6 +2,7 @@
 
 import type { TaskSession, ClickEvent, ShowMoreInteraction, ShowAllInteraction } from "@/lib/analytics"
 
+// TODO: Change back to API_BASE_URL when deploy
 const API_BASE_URL = "https://cmu-web-service-demo-7d7309b0820c.herokuapp.com/api/task-records"
 // const API_BASE_URL= "http://localhost:8080/api/task-records"
 
@@ -17,8 +18,8 @@ export interface TaskRecord {
   taskStartTime: string
   taskEndTime?: string
   clickSequence: ClickEvent[]
-  showMoreInteractions: ShowMoreInteraction
-  showAllInteractions: ShowAllInteraction
+  showMoreInteractions: ShowMoreInteraction[]
+  showAllInteractions: ShowAllInteraction[]
   pageClickStatics_1: number
   pageClickStatics_2: number
   pageClickStatics_3: number

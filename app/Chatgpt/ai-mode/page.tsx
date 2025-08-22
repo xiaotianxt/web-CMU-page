@@ -9,6 +9,8 @@ import { TrackedLink } from "@/components/tracked-link"
 import { WebsiteFavicon } from "@/components/website-favicon"
 import { getWebsiteName } from "@/lib/favicon-service"
 
+import { trackShowAllClick } from "@/lib/analytics"
+
 interface TextBlock {
   type: string
   snippet?: string
@@ -317,7 +319,7 @@ export default function AiModePage() {
                     url={ref.host ? `https://${ref.host}` : ref.link}
                     size={24}
                     className="border-2 border-white"
-                     fallbackText={getWebsiteName(ref.host ? `https://${ref.host}` : ref.link).charAt(0)}
+                    fallbackText={getWebsiteName(ref.host ? `https://${ref.host}` : ref.link).charAt(0)}
                   />
                 ))}
               </div>
@@ -394,7 +396,11 @@ export default function AiModePage() {
                   {!showAllReferences && !filteredReferenceIndexes && (
                     <div className="absolute bottom-0 left-0 right-0 bg-gray-50 pt-2">
                       <button
-                        onClick={() => setShowAllReferences(true)}
+                        onClick={() => {
+                          setShowAllReferences(true);
+                          trackShowAllClick("AiMode");
+                        }}
+
                         className="flex items-center justify-center w-full bg-blue-100 text-blue-700 py-3 rounded-full hover:bg-blue-200"
                       >
                         <span>Show all</span>
