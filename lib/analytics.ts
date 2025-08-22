@@ -277,7 +277,7 @@ export const trackLinkClick = async (componentName: string, linkIndex: number, l
   const clickEvent: ClickEvent = {
     id: currentId,
     taskId: session.taskId,
-    click_order: Math.max( session.click_sequence.length, session.show_more_interactions?.[session.show_more_interactions.length - 1]?.click_order || 0, session.show_all_interactions?.[session.show_all_interactions.length - 1]?.click_order || 0)+1, 
+    click_order: Math.max( session.click_sequence[session.click_sequence.length-1]?.click_order || 0, session.show_more_interactions?.[session.show_more_interactions.length - 1]?.click_order || 0, session.show_all_interactions?.[session.show_all_interactions.length - 1]?.click_order || 0)+1, 
     page_title: linkText,
     page_id: pageId,
     is_ad: isAd,
@@ -330,7 +330,7 @@ const getPageNumber = (input: string): number | null => {
 export const trackShowMoreClick = async (componentName: string): Promise<void> => {
   const currSession = await getCurrentTaskSession()
   const clickTime = changeCurrentDateTime()
-  const nextOrder= Math.max( currSession.click_sequence.length, currSession.show_more_interactions?.[currSession.show_more_interactions.length - 1]?.click_order || 0, currSession.show_all_interactions?.[currSession.show_all_interactions.length - 1]?.click_order || 0)+1;
+  const nextOrder= Math.max( currSession.click_sequence[currSession.click_sequence.length-1]?.click_order || 0, currSession.show_more_interactions?.[currSession.show_more_interactions.length - 1]?.click_order || 0, currSession.show_all_interactions?.[currSession.show_all_interactions.length - 1]?.click_order || 0)+1;
   console.log('trackButtonClick', currSession);
 
   const showMoreInteraction: ShowMoreInteraction = {
@@ -353,7 +353,7 @@ export const trackShowMoreClick = async (componentName: string): Promise<void> =
 export const trackShowAllClick = async (componentName: string): Promise<void> => {
   const currSession = await getCurrentTaskSession()
   const clickTime = changeCurrentDateTime()
-  const nextOrder= Math.max( currSession.click_sequence.length, currSession.show_more_interactions?.[currSession.show_more_interactions.length - 1]?.click_order || 0, currSession.show_all_interactions?.[currSession.show_all_interactions.length - 1]?.click_order || 0)+1;
+  const nextOrder= Math.max( currSession.click_sequence[currSession.click_sequence.length-1]?.click_order||0, currSession.show_more_interactions?.[currSession.show_more_interactions.length - 1]?.click_order || 0, currSession.show_all_interactions?.[currSession.show_all_interactions.length - 1]?.click_order || 0)+1;
   console.log('trackButtonClick', currSession);
 
 
